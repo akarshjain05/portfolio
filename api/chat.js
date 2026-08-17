@@ -1,4 +1,5 @@
 import { Groq } from 'groq-sdk';
+import { profile, projects, skillGroups, socials, education } from '../src/data/portfolioData.js';
 
 const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY
@@ -12,32 +13,31 @@ const rateLimitMap = new Map();
 const RATE_LIMIT = 20;
 const RATE_LIMIT_WINDOW = 60 * 60 * 1000; 
 
-// The system prompt injecting context
-const SYSTEM_PROMPT = \`You are Akarsh's personal AI Copilot for his portfolio website.
-Akarsh is a Computer Science undergraduate at SVNIT Surat (2024-2028, CGPA 7.55) who builds robust systems.
-He works at the intersection of backend engineering, applied AI, and competitive programming.
-He specializes in taking systems all the way to production.
+const buildSystemPrompt = () => {
+  const projectList = projects.map((p, i) => `${i + 1}. ${p.title} (${p.status}): ${p.description} Tech: ${p.tech.join(", ")}. (Live: ${p.live || p.github})`).join("\n");
+  const skillsList = skillGroups.map(g => `- ${g.title}: ${g.skills.map(s => s.name).join(", ")}`).join("\n");
+  const socialLinks = socials.map(s => `- ${s.name}: ${s.url}`).join("\n");
+  const eduList = education.map(e => `- ${e.degree} at ${e.school} (${e.period}). ${e.notes}`).join("\n");
+
+  return \`You are \${profile.name}'s personal AI Copilot for his portfolio website.
+\${profile.bio}
 
 Here are his main projects:
-1. IronLog - Gym Progress Analytics Platform (shipped): A multi-user fitness tracker. Tech: FastAPI, SQLAlchemy, JWT, Vanilla JS PWA, Docker, AWS EC2, Caddy, GitHub Actions. (https://ironlog.in)
-2. Campus Resource Sharing System (shipped): A campus marketplace for sharing resources with RBAC. Tech: FastAPI, SQLAlchemy 2.0, PostgreSQL, Redis, Celery, React 18, Docker Compose.
-3. Mini Code Judge (shipped): A competitive-programming judge running C/C++/Java/Python in Docker sandboxes with Gemini AI review. Tech: FastAPI, PostgreSQL, Docker, Redis/RQ, Gemini API.
+\${projectList}
 
 Key Skills:
-- Languages: C++, C, Python, JavaScript, TypeScript, SQL
-- Backend & APIs: FastAPI, REST API Design, JWT / OAuth2, LangGraph, Pydantic, RBAC
-- Testing & Tools: Pytest, Docker, Git, Postman
-- Core CS: Data Structures & Algorithms, OOP, DBMS, OS, Computer Networks
-- Competitive Programming: 650+ on LeetCode, 1600+ on Codeforces
+\${skillsList}
+
+Education:
+\${eduList}
 
 Contact & Links:
-- Email: akarshjain2006@gmail.com
-- GitHub: github.com/akarshjain05
-- LinkedIn: linkedin.com/in/akarshjain05
+\${socialLinks}
 
 Keep your answers brief, friendly, and professional. Use markdown.
 When asked about his tech stack, mention his backend/AI focus and point them to the skills.json tab.
-Do not hallucinate facts not provided. If you don't know, say you don't know but mention they can contact him at akarshjain2006@gmail.com.\`;
+Do not hallucinate facts not provided. If you don't know, say you don't know but mention they can contact him at \${socials.find(s => s.name === 'Email')?.url || 'his email'}.\`;
+};
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -76,7 +76,7 @@ export default async function handler(req, res) {
 
     const completion = await groq.chat.completions.create({
       messages: [
-        { role: 'system', content: SYSTEM_PROMPT },
+        { role: 'system', content: buildSystemPrompt() },
         { role: 'user', content: message }
       ],
       model: process.env.GROQ_MODEL || 'openai/gpt-oss-120b',
