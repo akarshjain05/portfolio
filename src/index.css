@@ -1,4 +1,6 @@
 /* ───────────────────────────── design tokens ───────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@800&display=swap');
+
 :root {
   --bg: #08080a;
   --bg-chrome: #0c0c0f;
@@ -674,35 +676,40 @@ img, svg { display: block; }
 .page { max-width: 1040px; margin: 0 auto; animation: fadein 0.25s ease; }
 @keyframes fadein { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-.comment { color: var(--comment); font-size: 14.5px; display: block; margin-bottom: 18px; }
+.comment { color: var(--green); font-size: 20px; font-weight: 500; display: block; margin-bottom: 24px; }
 .comment--block { margin-bottom: 28px; }
 
 .page-title {
   font-size: clamp(32px, 6vw, 52px);
+  font-family: 'Syne', sans-serif;
   font-weight: 800;
   letter-spacing: -0.01em;
   margin-bottom: 6px;
 }
 
 .hero__name {
-  font-size: clamp(48px, 11vw, 108px);
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(64px, 14vw, 130px);
   font-weight: 800;
-  line-height: 1;
-  letter-spacing: -0.02em;
-  background: linear-gradient(120deg, #ffffff 0%, var(--cyan) 90%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  margin-bottom: 4px;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  margin-bottom: 12px;
   word-break: break-word;
+  text-transform: capitalize;
+}
+.hero__firstname {
+  color: #ffffff;
+}
+.hero__lastname {
+  color: #f472b6;
 }
 .hero__underline {
   height: 3px;
   width: 120px;
   max-width: 40%;
-  background: linear-gradient(90deg, var(--pink), var(--purple));
+  background: var(--border-soft);
   border-radius: 2px;
-  margin: 18px 0 24px;
+  margin: 24px 0 32px;
 }
 
 .badge-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 26px; }
@@ -724,7 +731,7 @@ img, svg { display: block; }
   background: rgba(244, 114, 182, 0.08);
 }
 
-.lede { font-size: 17px; line-height: 1.75; color: var(--text-secondary); max-width: 680px; margin-bottom: 34px; }
+.lede { font-size: 20px; line-height: 1.8; color: var(--text-secondary); max-width: 800px; margin-bottom: 42px; }
 .lede strong { color: var(--cyan); font-weight: 600; }
 .lede .hl-pink { color: var(--pink); font-weight: 600; }
 

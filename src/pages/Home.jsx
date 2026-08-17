@@ -11,15 +11,19 @@ export default function Home() {
 
   return (
     <div className="page">
-      <span className="comment">// hello world !! welcome to my portfolio</span>
+      <span className="comment">// hello world !! Welcome to my portfolio</span>
 
-      <h1 className="hero__name">{profile.name}</h1>
+      <h1 className="hero__name">
+        <span className="hero__firstname">{profile.name.split(' ')[0]}</span>
+        <br />
+        <span className="hero__lastname">{profile.name.split(' ').slice(1).join(' ')}</span>
+      </h1>
       <div className="hero__underline" />
 
       <div className="badge-row">
         {profile.roles.map((role) => (
           <span className="badge" key={role}>
-            <span className="badge__dot" style={{ background: "#5eead4" }} />
+            <span className="badge__dot" style={{ background: "#f472b6" }} />
             {role}
           </span>
         ))}
