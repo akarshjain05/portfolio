@@ -55,4 +55,3 @@ I am always building, learning, and grinding Codeforces. If you want to talk abo
 - **Email:** akarshjain2006@gmail.com
 - **LinkedIn:** [linkedin.com/in/akarshjain05](https://linkedin.com/in/akarshjain05)
 - **GitHub:** [github.com/akarshjain05](https://github.com/akarshjain05)
-- **Codeforces:** [codeforces.com/profile/akarshjain05](https://codeforces.com/profile/akarshjain05)
