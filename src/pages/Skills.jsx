@@ -2,13 +2,14 @@ import { useEffect } from "react";
 import { skillGroups } from "../data/portfolioData";
 import SkillBar from "../components/SkillBar";
 
-const GROUP_COLORS = [
-  "#5eead4", // Languages — cyan
-  "#b794f6", // AI & Agentic Systems — purple
-  "#60a5fa", // Backend & APIs — blue
-  "#f87171", // Security — red
-  "#fb923c", // DevOps & Tools — orange
-  "#4ade80", // Competitive Programming — green
+const BAR_COLORS = [
+  "#f472b6", // pink
+  "#fb923c", // orange
+  "#fbbf24", // yellow
+  "#5eead4", // cyan
+  "#b794f6", // purple
+  "#60a5fa", // blue
+  "#4ade80", // green
 ];
 
 export default function Skills() {
@@ -30,15 +31,15 @@ export default function Skills() {
       </p>
 
       <div className="skill-grid">
-        {skillGroups.map((group, i) => (
+        {skillGroups.map((group) => (
           <div key={group.title}>
             <h2 className="skill-group__title">{group.title.toUpperCase()}</h2>
-            {group.skills.map((skill) => (
+            {group.skills.map((skill, j) => (
               <SkillBar
                 key={skill.name}
                 name={skill.name}
                 level={skill.level}
-                color={GROUP_COLORS[i % GROUP_COLORS.length]}
+                color={BAR_COLORS[j % BAR_COLORS.length]}
               />
             ))}
           </div>
