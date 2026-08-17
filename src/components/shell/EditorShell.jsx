@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import TitleBar from "./TitleBar";
 import MenuBar from "./MenuBar";
@@ -9,9 +8,11 @@ import TabBar from "./TabBar";
 import Breadcrumb from "./Breadcrumb";
 import StatusBar from "./StatusBar";
 import ScrollToTop from "../ScrollToTop";
+import { useIDE } from "../../contexts/IDEContext";
+import TerminalPanel from "./TerminalPanel";
 
 export default function EditorShell() {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { sidebarOpen, toggleSidebar } = useIDE();
 
   return (
     <div className="ide">
@@ -21,9 +22,9 @@ export default function EditorShell() {
       <div className="ide__body">
         <ActivityBar
           sidebarOpen={sidebarOpen}
-          onToggleSidebar={() => setSidebarOpen((v) => !v)}
+          onToggleSidebar={toggleSidebar}
         />
-        <Sidebar open={sidebarOpen} onNavigate={() => setSidebarOpen(false)} />
+        <Sidebar open={sidebarOpen} onNavigate={toggleSidebar} />
         <div className="ide__main">
           <TabBar />
           <Breadcrumb />
@@ -31,6 +32,7 @@ export default function EditorShell() {
             <ScrollToTop />
             <Outlet />
           </main>
+          <TerminalPanel />
         </div>
       </div>
       <StatusBar />

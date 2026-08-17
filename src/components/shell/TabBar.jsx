@@ -2,11 +2,16 @@ import { NavLink } from "react-router-dom";
 import { X } from "lucide-react";
 import { files } from "../../data/portfolioData";
 import { FileTypeIcon } from "../icons";
+import { useIDE } from "../../contexts/IDEContext";
 
 export default function TabBar() {
+  const { openTabs, closeTab } = useIDE();
+  
+  const activeFiles = files.filter(f => openTabs.includes(f.path));
+
   return (
     <div className="tabbar">
-      {files.map((file) => (
+      {activeFiles.map((file) => (
         <NavLink
           key={file.id}
           to={file.path}
@@ -15,7 +20,9 @@ export default function TabBar() {
         >
           <FileTypeIcon type={file.icon} size={13} />
           {file.label}
-          <X size={12} className="tab__close" />
+          <div className="tab__close-btn" onClick={(e) => closeTab(file.path, e)}>
+            <X size={12} className="tab__close" />
+          </div>
         </NavLink>
       ))}
     </div>
