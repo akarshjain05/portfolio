@@ -29,8 +29,9 @@ export default function Sidebar({ open, onNavigate }) {
           ))}
         </nav>
         <div className="sidebar__copilot" onClick={toggleCopilot} style={{cursor: 'pointer'}}>
-          <Sparkles size={14} color="#5eead4" />
+          <Sparkles size={14} color="#b794f6" />
           <span>Akarsh&rsquo;s Copilot</span>
+          <span className="sidebar__copilot-badge">AI</span>
         </div>
         <div className="sidebar__settings">
           <Settings size={14} />

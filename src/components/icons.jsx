@@ -1,24 +1,20 @@
 import {
-  Component,
-  FileCode2,
-  Braces,
-  FileJson,
-  Palette,
-  FileText,
   Mail,
   Phone,
+  FileText
 } from "lucide-react";
-import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa6";
-import { SiLeetcode, SiCodeforces, SiCodechef } from "react-icons/si";
+import { FaGithub, FaLinkedin, FaInstagram, FaReact, FaHtml5, FaCss3Alt, FaMarkdown } from "react-icons/fa6";
+import { SiLeetcode, SiCodeforces, SiCodechef, SiJavascript, SiTypescript } from "react-icons/si";
+import { VscJson } from "react-icons/vsc";
 
 // file-tree / tab / breadcrumb icons, keyed by portfolioData.js `icon`
 const FILE_ICONS = {
-  component: Component,
-  html: FileCode2,
-  js: Braces,
-  json: FileJson,
-  css: Palette,
-  markdown: FileText,
+  component: FaReact,
+  html: FaHtml5,
+  js: SiJavascript,
+  json: VscJson,
+  css: FaCss3Alt,
+  markdown: FaMarkdown,
 };
 
 const FILE_COLORS = {
@@ -27,12 +23,12 @@ const FILE_COLORS = {
   js: "#fbbf24",
   json: "#b794f6",
   css: "#60a5fa",
-  markdown: "#9a9aa6",
+  markdown: "#60a5fa", // Changed to match the blue markdown icon in image
 };
 
 export function FileTypeIcon({ type, size = 15 }) {
   const Icon = FILE_ICONS[type] || FileText;
-  return <Icon size={size} color={FILE_COLORS[type]} strokeWidth={2} />;
+  return <Icon size={size} color={FILE_COLORS[type]} />;
 }
 
 // social / brand icons, keyed by portfolioData.js `icon`
