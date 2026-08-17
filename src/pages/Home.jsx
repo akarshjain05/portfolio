@@ -22,7 +22,7 @@ export default function Home() {
 
       <div className="badge-row">
         {profile.roles.map((role, idx) => {
-          const dotColors = ["#5eead4", "#f472b6", "#60a5fa"];
+          const dotColors = ["#007acc", "#f472b6", "#60a5fa"];
           return (
             <span className="badge" key={role}>
               <span className="badge__dot" style={{ background: dotColors[idx % dotColors.length] }} />

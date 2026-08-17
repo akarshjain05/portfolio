@@ -18,7 +18,7 @@ const FILE_ICONS = {
 };
 
 const FILE_COLORS = {
-  component: "#5eead4",
+  component: "#007acc",
   html: "#fb923c",
   js: "#fbbf24",
   json: "#b794f6",

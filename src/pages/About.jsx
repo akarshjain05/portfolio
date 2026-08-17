@@ -36,7 +36,7 @@ export default function About() {
           <div className="edu-card" key={edu.school}>
             <div className="edu-card__top">
               <span className="edu-card__school">
-                <GraduationCap size={17} color="#5eead4" />
+                <GraduationCap size={17} color="#007acc" />
                 {edu.school}
               </span>
               <span className="edu-card__period">{edu.period}</span>

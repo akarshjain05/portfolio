@@ -6,7 +6,7 @@ const BAR_COLORS = [
   "#f472b6", // pink
   "#fb923c", // orange
   "#fbbf24", // yellow
-  "#5eead4", // cyan
+  "#007acc", // blue
   "#b794f6", // purple
   "#60a5fa", // blue
   "#4ade80", // green

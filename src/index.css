@@ -17,7 +17,7 @@
   --text-muted: #63636e;
   --comment: #6a9955;
 
-  --cyan: #5eead4;
+  --cyan: #007acc;
   --pink: #f472b6;
   --purple: #b794f6;
   --orange: #fb923c;
@@ -63,7 +63,7 @@ ul { list-style: none; margin: 0; padding: 0; }
 h1, h2, h3, h4, p { margin: 0; }
 img, svg { display: block; }
 
-::selection { background: var(--cyan); color: #08080a; }
+::selection { background: var(--cyan); color: #ffffff; }
 
 /* scrollbars */
 * { scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
@@ -178,8 +178,8 @@ img, svg { display: block; }
   font-size: 13px;
   color: var(--text-secondary);
 }
-.menu-option:hover { background: var(--cyan); color: #08080a; }
-.menu-option:hover .menu-shortcut { color: #08080a; opacity: 0.8; }
+.menu-option:hover { background: var(--blue); color: #ffffff; }
+.menu-option:hover .menu-shortcut { color: #ffffff; opacity: 0.8; }
 .menu-shortcut { color: var(--text-muted); font-size: 11px; }
 .menu-divider { height: 1px; background: var(--border-soft); margin: 6px 0; }
 
@@ -392,10 +392,10 @@ img, svg { display: block; }
 }
 .copilot-drawer__input:focus {
   outline: none;
-  border-color: var(--cyan);
+  border-color: var(--blue);
 }
 .copilot-drawer__send {
-  background: var(--cyan);
+  background: var(--blue);
   color: #08080a;
   border: none;
   padding: 8px 12px;
@@ -679,7 +679,7 @@ img, svg { display: block; }
   justify-content: space-between;
   padding: 0 12px;
   background: var(--cyan);
-  color: #08080a;
+  color: #ffffff;
   font-size: 11.5px;
   font-weight: 600;
   gap: 12px;
@@ -767,8 +767,8 @@ img, svg { display: block; }
   transition: transform 0.12s ease, border-color 0.12s ease, background 0.12s ease;
 }
 .btn:hover { transform: translateY(-1px); border-color: #34343e; background: var(--bg-elevated); }
-.btn--primary { background: var(--cyan); color: #08080a; border-color: var(--cyan); font-weight: 600; }
-.btn--primary:hover { background: #7ff2e2; }
+.btn--primary { background: var(--cyan); color: #ffffff; border-color: var(--cyan); font-weight: 600; }
+.btn--primary:hover { background: #005a9e; }
 
 .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border-soft); border: 1px solid var(--border-soft); border-radius: var(--radius-md); overflow: hidden; margin-bottom: 50px; }
 .stat-card { background: var(--bg-panel); padding: 26px 18px; text-align: center; }
