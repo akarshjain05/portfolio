@@ -1,0 +1,45 @@
+import { NavLink } from "react-router-dom";
+import { Sparkles, Settings } from "lucide-react";
+import { files, repoName } from "../../data/portfolioData";
+import { FileTypeIcon } from "../icons";
+
+export default function Sidebar({ open, onNavigate }) {
+  return (
+    <>
+      <aside className={`sidebar ${open ? "sidebar--open" : ""}`}>
+        <div className="sidebar__header">{repoName.toUpperCase()}</div>
+        <nav className="sidebar__list">
+          {files.map((file) => (
+            <NavLink
+              key={file.id}
+              to={file.path}
+              end={file.path === "/"}
+              onClick={onNavigate}
+              className={({ isActive }) =>
+                `sidebar__item ${isActive ? "sidebar__item--active" : ""}`
+              }
+            >
+              <span className="sidebar__icon">
+                <FileTypeIcon type={file.icon} />
+              </span>
+              {file.label}
+            </NavLink>
+          ))}
+        </nav>
+        <div className="sidebar__copilot">
+          <Sparkles size={14} color="#5eead4" />
+          <span>Akarsh&rsquo;s Copilot</span>
+        </div>
+        <div className="sidebar__settings">
+          <Settings size={14} />
+          <span>Settings</span>
+        </div>
+      </aside>
+      <div
+        className={`sidebar__overlay ${open ? "sidebar__overlay--visible" : ""}`}
+        onClick={onNavigate}
+        aria-hidden="true"
+      />
+    </>
+  );
+}
