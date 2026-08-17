@@ -1,84 +1,58 @@
-# Akarsh — Portfolio
+# Akarsh Jain — Developer Portfolio
 
-A code-editor-themed personal portfolio built with React, Vite, and React Router.
-The whole site is styled to look like a dark IDE — a sidebar file tree and tab bar
-double as the site navigation, and each "file" is a section of the portfolio
-(Home, About, Projects, Skills, Contact, README).
+[![Deploy to GitHub Pages](https://github.com/akarshjain05/portfolio/actions/workflows/deploy.yml/badge.svg)](https://akarshjain05.github.io/portfolio/)
 
-## Quick start
+Welcome to my personal developer portfolio! I am a Computer Science student at SVNIT, Surat, specializing in backend engineering, competitive programming, and robust full-stack systems.
 
-You'll need [Node.js](https://nodejs.org) 18+ installed.
+This repository contains the source code for my portfolio website, engineered to look and feel like a modern, dark-themed code editor (VS Code).
+
+👉 **Live Site:** [https://akarshjain05.github.io/portfolio/](https://akarshjain05.github.io/portfolio/)
+
+## 🚀 Featured Projects
+
+This portfolio highlights my core technical work, focusing on systems that prioritize correctness, edge cases, and performance:
+
+- **Gym Progress Analytics**: A comprehensive fitness tracking platform that allows users to log workouts, track their lifting metrics over time, and visualize their progress with dynamic charts (React, Node.js, PostgreSQL).
+- **College Resource Sharing System**: A centralized platform for college students to share, discover, and discuss academic resources and materials securely within their institution (React, Express, MongoDB).
+- **Mini Code Judge**: A competitive-programming judge hosted on Render. Features GitHub OAuth, JWT blacklisting via Redis, email verification, account lockout, rate limiting, and a hardened execution sandbox (Python, FastAPI, JavaScript, Redis).
+
+## 🛠️ Portfolio Architecture
+
+The site itself is a fully responsive Single Page Application (SPA) built with a focus on a unique, developer-centric UX:
+
+- **Frontend Framework:** React 19 + Vite
+- **Routing:** React Router (client-side routing mapped to IDE "tabs")
+- **Styling:** Pure Vanilla CSS with CSS Variables for IDE theming
+- **Icons:** `lucide-react` & `react-icons` for file-tree and UI glyphs
+- **Deployment:** Fully automated CI/CD via GitHub Actions to GitHub Pages
+
+The entire data layer (projects, skills, bio, links) is decoupled from the UI components and driven by a central configuration file (`src/data/portfolioData.js`), making it incredibly easy to update content without touching the React logic.
+
+## 💻 Running Locally
+
+To spin up this portfolio on your local machine:
 
 ```bash
+# 1. Clone the repository
+git clone https://github.com/akarshjain05/portfolio.git
+
+# 2. Navigate into the directory
+cd portfolio
+
+# 3. Install dependencies
 npm install
+
+# 4. Start the Vite development server
 npm run dev
 ```
 
-Open the URL it prints (usually `http://localhost:5173`). That's it — every
-page, the sidebar, the tabs, and the contact form all work out of the box.
+Visit `http://localhost:5173` to see the site running locally.
 
-Other commands:
+## 📫 Let's Connect
 
-```bash
-npm run build     # production build -> dist/
-npm run preview   # serve the production build locally
-npm run lint      # check for JS/React issues
-```
+I am always building, learning, and grinding Codeforces. If you want to talk about backend systems, security, or competitive programming, feel free to reach out:
 
-## Before you deploy — customize your content
-
-Everything personal (your bio, links, projects, skills, and education) lives
-in **one file**: `src/data/portfolioData.js`. Open it and update these
-placeholders:
-
-- [ ] `socials` — swap in your real GitHub, LinkedIn, LeetCode, Codeforces,
-      and email links
-- [ ] `projects[].github` / `projects[].live` — point at your real repos and
-      any live demo URLs
-- [ ] `education` — fill in your exact dates (currently set to "In progress")
-- [ ] `skillGroups` — the percentages are self-rated placeholders; adjust
-      them (or the categories) to match how you'd actually rate yourself
-- [ ] Add or remove projects/skills freely — every card and skill bar is
-      generated from this file, so the UI updates automatically
-
-The contact form (`src/pages/Contact.jsx`) works via a `mailto:` link out of
-the box — pressing send opens the visitor's email client with the message
-pre-filled, addressed to whatever email you set in `socials`. No backend or
-API key required. If you'd rather receive submissions directly in an inbox
-without the visitor needing a mail client, swap that handler for a service
-like [Formspree](https://formspree.io) or [EmailJS](https://www.emailjs.com/).
-
-## Adding a new page
-
-1. Add an entry to the `files` array in `src/data/portfolioData.js`
-   (this drives the sidebar, tab bar, breadcrumb, and status-bar language tag).
-2. Create the page component in `src/pages/`.
-3. Add a matching `<Route>` in `src/App.jsx`.
-
-## Deploying
-
-This is a client-side-routed single-page app, so your host needs to serve
-`index.html` for unknown paths (otherwise refreshing `/projects` 404s).
-That's already handled for you:
-
-- **Vercel** — `vercel.json` is included; just import the repo.
-- **Netlify** — `public/_redirects` is included; set the build command to
-  `npm run build` and the publish directory to `dist`.
-- **GitHub Pages** — needs extra config for client-side routing (either a
-  `404.html` redirect trick or switching to `HashRouter` in `src/main.jsx`).
-
-## Project structure
-
-```
-src/
-  data/portfolioData.js   # <- all your editable content lives here
-  components/
-    shell/                # the IDE chrome (title bar, sidebar, tabs, status bar)
-    icons.jsx             # icon lookup for file types & social links
-  pages/                  # Home, About, Projects, Skills, Contact, Readme, NotFound
-  hooks/useClock.js       # live status-bar clock
-```
-
-## Tech
-
-React 19 · Vite · React Router · lucide-react · react-icons
+- **Email:** akarshjain2006@gmail.com
+- **LinkedIn:** [linkedin.com/in/akarshjain05](https://linkedin.com/in/akarshjain05)
+- **GitHub:** [github.com/akarshjain05](https://github.com/akarshjain05)
+- **Codeforces:** [codeforces.com/profile/akarshjain05](https://codeforces.com/profile/akarshjain05)
