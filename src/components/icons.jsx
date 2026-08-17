@@ -6,9 +6,10 @@ import {
   Palette,
   FileText,
   Mail,
+  Phone,
 } from "lucide-react";
 import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa6";
-import { SiLeetcode, SiCodeforces } from "react-icons/si";
+import { SiLeetcode, SiCodeforces, SiCodechef } from "react-icons/si";
 
 // file-tree / tab / breadcrumb icons, keyed by portfolioData.js `icon`
 const FILE_ICONS = {
@@ -40,8 +41,10 @@ const SOCIAL_ICONS = {
   linkedin: FaLinkedin,
   leetcode: SiLeetcode,
   codeforces: SiCodeforces,
+  codechef: SiCodechef,
   instagram: FaInstagram,
   mail: Mail,
+  phone: Phone,
 };
 
 export function SocialIcon({ name, size = 17 }) {

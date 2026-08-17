@@ -17,15 +17,15 @@ export const profile = {
   heroLine: "Building backend & AI systems that hold up under pressure.",
   summary:
     "I work at the intersection of backend engineering, applied AI, and competitive programming. I care about the things demos usually skip past — correctness, edge cases, and performance — not just something that works once on stage.",
-  bio: "Hi! I'm Akarsh — a computer science student at SVNIT, building toward the 2026 job market one project at a time. My work spans full-stack development, AI engineering, and competitive programming, and I'd rather spend an extra evening hardening something than ship a version that only works in the happy path.",
+  bio: "Backend-focused Computer Science undergraduate at SVNIT Surat who builds systems all the way to production — REST APIs, authentication, and background job pipelines backed by automated tests and real CI/CD deployment. Comfortable across the stack from FastAPI/PostgreSQL to Docker and cloud infrastructure (AWS EC2).",
   location: "India",
 };
 
 export const stats = [
   { value: "2+", label: "YEARS" },
   { value: "4+", label: "PROJECTS" },
-  { value: "∞", label: "CURIOSITY" },
-  { value: "↑", label: "ALWAYS LEARNING" },
+  { value: "650+", label: "LEETCODE" },
+  { value: "1600+", label: "CODEFORCES" },
 ];
 
 // icon values map to lucide-react components in SocialLink.jsx
@@ -35,22 +35,16 @@ export const socials = [
   { name: "Instagram", url: "https://instagram.com/akarsh_jain05", icon: "instagram" },
   { name: "LeetCode", url: "https://leetcode.com/akarsh_jain05", icon: "leetcode" },
   { name: "Codeforces", url: "https://codeforces.com/profile/akarsh_jain05", icon: "codeforces" },
+  { name: "CodeChef", url: "https://codechef.com/users/akarshjain05", icon: "codechef" },
   { name: "Email", url: "mailto:akarshjain2006@gmail.com", icon: "mail" },
+  { name: "Phone", url: "tel:+917321019524", icon: "phone" },
 ];
 
 export const currentFocus = [
   {
     icon: "🛡️",
-    text: "Building SentinelReview — a 7-agent AI pipeline that reviews GitHub PRs for security issues",
-  },
-  {
-    icon: "⚖️",
-    text: "Hardening Mini Code Judge end to end — OAuth, JWT blacklisting, rate limiting, sandboxing",
-  },
-  {
-    icon: "🧠",
-    text: "Grinding Codeforces in C++ — number theory, tree algorithms, game theory",
-  },
+    text: "Building SentinelReview — a 7-agent AI pipeline that reviews GitHub PRs for security issues (0.900 precision, 1.000 recall on GHSA benchmark)",
+  }
 ];
 
 export const education = [
@@ -58,9 +52,9 @@ export const education = [
     school: "SVNIT — Sardar Vallabhbhai National Institute of Technology",
     location: "Surat, India",
     degree: "B.Tech, Computer Science",
-    period: "In progress",
+    period: "2024 - 2028",
     notes:
-      "Coursework spanning computer networks, microprocessors (8085/8086), and algorithms",
+      "Current CGPA: 7.55 / 10",
   },
 ];
 
@@ -70,9 +64,9 @@ export const projects = [
     icon: "📈",
     status: "shipped",
     tags: ["FULL STACK", "ANALYTICS"],
-    title: "Gym Progress Analytics",
-    description: "A comprehensive fitness tracking platform that allows users to log workouts, track their lifting metrics over time, and visualize their progress with dynamic charts.",
-    tech: ["React", "Node.js", "PostgreSQL", "Chart.js"],
+    title: "IronLog – Gym Progress Analytics Platform",
+    description: "A multi-user fitness tracker that computes Epley 1RM, Mifflin-St Jeor BMR/TDEE, and a true maintenance-calorie figure back-calculated from each user's own logged intake vs. real weight change, plus regression-based weight-trend and goal-ETA forecasting.",
+    tech: ["FastAPI", "SQLAlchemy", "JWT", "Vanilla JS PWA", "Chart.js", "Docker", "AWS EC2", "Caddy", "GitHub Actions"],
     github: "https://github.com/akarshjain05/gym-progress-analytics",
     live: "",
   },
@@ -81,9 +75,9 @@ export const projects = [
     icon: "📚",
     status: "shipped",
     tags: ["FULL STACK", "COMMUNITY"],
-    title: "College Resource Sharing System",
-    description: "A centralized platform for college students to share, discover, and discuss academic resources, notes, and materials securely within their institution.",
-    tech: ["React", "Express", "MongoDB"],
+    title: "Campus Resource Sharing System",
+    description: "A campus-only marketplace where students, faculty, and clubs list, borrow, and return shared resources; models the full borrow lifecycle across 4 RBAC roles. Shipped 17 REST routers on FastAPI/SQLAlchemy 2.0 with CSRF-hardened, Redis rate-limited auth, covered by 70+ Pytest cases.",
+    tech: ["FastAPI", "SQLAlchemy 2.0", "PostgreSQL", "Alembic", "Redis", "Celery", "JWT/RBAC", "React 18", "Tailwind CSS", "Docker Compose"],
     github: "https://github.com/akarshjain05/college-resource-sharing",
     live: "",
   },
@@ -93,8 +87,8 @@ export const projects = [
     status: "shipped",
     tags: ["FULL STACK", "SECURITY", "COMPETITIVE PROGRAMMING"],
     title: "Mini Code Judge",
-    description: "A competitive-programming judge hosted on Render. Features GitHub OAuth, JWT blacklisting via Redis, email verification, account lockout, rate limiting, and a hardened execution sandbox.",
-    tech: ["Python", "FastAPI", "JavaScript", "Redis", "OAuth"],
+    description: "A competitive-programming judge in the spirit of Codeforces/LeetCode that runs untrusted C/C++/Java/Python submissions in resource-capped, network-isolated Docker sandboxes with an automatic OS-level fallback, returning verdicts via Redis/RQ-queued, horizontally-scalable workers. Includes Gemini-powered AI code review.",
+    tech: ["FastAPI", "PostgreSQL", "Docker", "Redis/RQ", "JWT", "Gemini API", "OAuth"],
     github: "https://github.com/akarshjain05/mini-code-judge",
     live: "https://your-app.onrender.com",
   }
@@ -104,53 +98,53 @@ export const skillGroups = [
   {
     title: "Languages",
     skills: [
-      { name: "Python", level: 90 },
-      { name: "C++", level: 85 },
-      { name: "JavaScript", level: 78 },
-      { name: "HTML / CSS", level: 75 },
-    ],
-  },
-  {
-    title: "AI & Agentic Systems",
-    skills: [
-      { name: "LangGraph", level: 80 },
-      { name: "RAG Pipelines", level: 82 },
-      { name: "Multi-Agent Design", level: 78 },
-      { name: "Eval & Benchmarking", level: 75 },
+      { name: "C++", level: 90 },
+      { name: "C", level: 85 },
+      { name: "Python", level: 88 },
+      { name: "JavaScript", level: 80 },
+      { name: "TypeScript", level: 75 },
+      { name: "SQL", level: 85 },
     ],
   },
   {
     title: "Backend & APIs",
     skills: [
-      { name: "FastAPI", level: 88 },
+      { name: "FastAPI", level: 90 },
       { name: "REST API Design", level: 85 },
-      { name: "Auth & JWT", level: 82 },
-      { name: "Redis", level: 75 },
+      { name: "JWT / OAuth2", level: 88 },
+      { name: "LangGraph", level: 75 },
+      { name: "Pydantic", level: 85 },
+      { name: "RBAC", level: 82 },
     ],
   },
   {
-    title: "Security",
+    title: "Testing & Tools",
     skills: [
-      { name: "Static Analysis", level: 78 },
-      { name: "Web App Security", level: 75 },
-      { name: "Auth Hardening", level: 80 },
-    ],
-  },
-  {
-    title: "DevOps & Tools",
-    skills: [
-      { name: "Docker", level: 78 },
+      { name: "Pytest", level: 85 },
+      { name: "Unit & Integration Testing", level: 82 },
       { name: "Git", level: 88 },
-      { name: "Render / Deploys", level: 75 },
+      { name: "Docker", level: 85 },
+      { name: "Postman", level: 80 },
     ],
   },
   {
-    title: "Competitive Programming",
+    title: "Deployment & Infra",
     skills: [
-      { name: "Tree Algorithms", level: 82 },
-      { name: "Number Theory", level: 80 },
-      { name: "Game Theory", level: 78 },
-      { name: "Codeforces Problem Solving", level: 85 },
+      { name: "AWS EC2", level: 80 },
+      { name: "Docker Compose", level: 85 },
+      { name: "Render", level: 78 },
+      { name: "Caddy", level: 75 },
+      { name: "GitHub Actions", level: 82 },
+    ],
+  },
+  {
+    title: "Core CS",
+    skills: [
+      { name: "Data Structures & Algorithms", level: 92 },
+      { name: "Object Oriented Programming", level: 85 },
+      { name: "DBMS", level: 85 },
+      { name: "Operating Systems", level: 80 },
+      { name: "Computer Networks", level: 80 },
     ],
   },
 ];

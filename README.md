@@ -12,9 +12,9 @@ This repository contains the source code for my portfolio website, engineered to
 
 This portfolio highlights my core technical work, focusing on systems that prioritize correctness, edge cases, and performance:
 
-- **Gym Progress Analytics**: A comprehensive fitness tracking platform that allows users to log workouts, track their lifting metrics over time, and visualize their progress with dynamic charts (React, Node.js, PostgreSQL).
-- **College Resource Sharing System**: A centralized platform for college students to share, discover, and discuss academic resources and materials securely within their institution (React, Express, MongoDB).
-- **Mini Code Judge**: A competitive-programming judge hosted on Render. Features GitHub OAuth, JWT blacklisting via Redis, email verification, account lockout, rate limiting, and a hardened execution sandbox (Python, FastAPI, JavaScript, Redis).
+- **IronLog – Gym Progress Analytics Platform**: A multi-user fitness tracker that computes Epley 1RM, Mifflin-St Jeor BMR/TDEE, and a true maintenance-calorie figure back-calculated from each user's own logged intake vs. real weight change, plus regression-based weight-trend and goal-ETA forecasting (FastAPI, SQLAlchemy, JWT, Vanilla JS PWA, AWS EC2).
+- **Campus Resource Sharing System**: A campus-only marketplace where students, faculty, and clubs list, borrow, and return shared resources; models the full borrow lifecycle across 4 RBAC roles. Shipped 17 REST routers with CSRF-hardened, Redis rate-limited auth (FastAPI, Redis, Celery, React).
+- **Mini Code Judge**: A competitive-programming judge in the spirit of Codeforces/LeetCode that runs untrusted C/C++/Java/Python submissions in resource-capped, network-isolated Docker sandboxes with an automatic OS-level fallback, returning verdicts via Redis/RQ-queued, horizontally-scalable workers. Includes Gemini-powered AI code review (FastAPI, PostgreSQL, Redis, Docker).
 
 ## 🛠️ Portfolio Architecture
 
