@@ -175,4 +175,4 @@ export const files = [
   { id: "readme", label: "README.md", path: "/readme", lang: "Markdown", icon: "markdown" },
 ];
 
-export const repoName = "akarsh-portfolio";
+export const repoName = "akarsh jain";

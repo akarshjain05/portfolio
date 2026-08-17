@@ -13,7 +13,7 @@ export default function TitleBar() {
       </div>
       <div className="titlebar__search-container" onClick={toggleCommandPalette}>
         <Search size={13} />
-        <span>{repoName} : portfolio</span>
+        <span>{repoName} :portfolio</span>
         <span className="titlebar__kbd">
           <kbd>Ctrl</kbd>
           <kbd>P</kbd>
