@@ -1,9 +1,9 @@
 import { Files, Search, GitBranch, Sparkles, Settings } from "lucide-react";
 
-// Only "Explorer" is wired to something real (it toggles the sidebar,
-// which matters on small screens). The rest mirror a real editor's
-// activity bar for the theme, same as the menu bar above.
+import { useIDE } from "../../contexts/IDEContext";
+
 export default function ActivityBar({ sidebarOpen, onToggleSidebar }) {
+  const { toggleCommandPalette, copilotOpen, toggleCopilot } = useIDE();
   return (
     <div className="activitybar">
       <button
@@ -15,13 +15,25 @@ export default function ActivityBar({ sidebarOpen, onToggleSidebar }) {
       >
         <Files size={19} />
       </button>
-      <button type="button" className="activitybar__btn" aria-label="Search" tabIndex={-1}>
+      <button 
+        type="button" 
+        className="activitybar__btn" 
+        onClick={toggleCommandPalette}
+        aria-label="Search" 
+        tabIndex={-1}
+      >
         <Search size={19} />
       </button>
       <button type="button" className="activitybar__btn" aria-label="Source control" tabIndex={-1}>
         <GitBranch size={19} />
       </button>
-      <button type="button" className="activitybar__btn" aria-label="Copilot" tabIndex={-1}>
+      <button 
+        type="button" 
+        className={`activitybar__btn ${copilotOpen ? "activitybar__btn--active" : ""}`}
+        onClick={toggleCopilot}
+        aria-label="Copilot" 
+        tabIndex={-1}
+      >
         <Sparkles size={19} />
       </button>
       <div className="activitybar__spacer" />
