@@ -693,7 +693,7 @@ img, svg { display: block; }
 .page { max-width: 1040px; margin: 0 auto; animation: fadein 0.25s ease; }
 @keyframes fadein { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-.comment { color: var(--green); font-family: var(--font-mono); font-size: 15px; font-weight: 500; display: block; margin-bottom: 20px; }
+.comment { color: var(--comment); font-family: var(--font-mono); font-size: 15px; font-weight: 500; font-style: italic; display: block; margin-bottom: 20px; }
 .comment--block { margin-bottom: 28px; }
 
 .page-title {
