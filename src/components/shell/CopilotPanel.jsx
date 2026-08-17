@@ -17,11 +17,9 @@ export default function CopilotPanel() {
     }
   }, [messages, copilotOpen]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!input.trim() || isLoading || messagesLeft <= 0) return;
+  const sendMessage = async (userMsg) => {
+    if (!userMsg.trim() || isLoading || messagesLeft <= 0) return;
 
-    const userMsg = input;
     setInput("");
     setMessages(prev => [...prev, { role: "user", content: userMsg }]);
     setIsLoading(true);
@@ -45,6 +43,11 @@ export default function CopilotPanel() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    sendMessage(input);
   };
 
   return (
@@ -76,7 +79,7 @@ export default function CopilotPanel() {
                 "How can I contact Akarsh?",
                 "How can I support Akarsh?"
               ].map(text => (
-                <button key={text} className="copilot-suggestion" onClick={() => setInput(text)}>
+                <button key={text} className="copilot-suggestion" onClick={() => sendMessage(text)}>
                   <Sparkles size={12} color="#b794f6" style={{ flex: '0 0 auto', marginTop: 2 }} />
                   <span>{text}</span>
                 </button>

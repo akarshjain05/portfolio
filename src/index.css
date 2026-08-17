@@ -543,6 +543,7 @@ img, svg { display: block; }
   display: flex;
   min-height: 0;
   position: relative;
+  overflow: hidden;
 }
 
 .activitybar {
