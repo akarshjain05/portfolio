@@ -24,7 +24,9 @@ export default function Sidebar({ open, onNavigate }) {
               <span className="sidebar__icon">
                 <FileTypeIcon type={file.icon} />
               </span>
-              {file.label}
+              <span className="sidebar__label">
+                {file.label}
+              </span>
             </NavLink>
           ))}
         </nav>
