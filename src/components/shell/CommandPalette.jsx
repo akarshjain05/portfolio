@@ -50,7 +50,10 @@ export default function CommandPalette() {
 
         <div className="palette-content">
           <div className="palette-section-title">COMMANDS</div>
-          <div className="palette-item palette-item--highlight" onClick={toggleCommandPalette}>
+          <div className="palette-item palette-item--highlight" onClick={() => {
+            toggleCopilot();
+            toggleCommandPalette();
+          }}>
             <Sparkles size={14} color="#b794f6" />
             <span>Open Akarsh&apos;s Copilot</span>
             <span className="palette-shortcut">Ctrl+Shift+C</span>

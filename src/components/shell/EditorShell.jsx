@@ -10,6 +10,7 @@ import ScrollToTop from "../ScrollToTop";
 import { useIDE } from "../../contexts/IDEContext";
 import TerminalPanel from "./TerminalPanel";
 import CommandPalette from "./CommandPalette";
+import CopilotPanel from "./CopilotPanel";
 
 export default function EditorShell() {
   const { sidebarOpen, toggleSidebar } = useIDE();
@@ -32,6 +33,7 @@ export default function EditorShell() {
             <Outlet />
           </main>
           <TerminalPanel />
+          <CopilotPanel />
         </div>
       </div>
       <StatusBar />

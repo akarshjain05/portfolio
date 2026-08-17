@@ -2,8 +2,10 @@ import { NavLink } from "react-router-dom";
 import { Sparkles, Settings } from "lucide-react";
 import { files, repoName } from "../../data/portfolioData";
 import { FileTypeIcon } from "../icons";
+import { useIDE } from "../../contexts/IDEContext";
 
 export default function Sidebar({ open, onNavigate }) {
+  const { toggleCopilot } = useIDE();
   return (
     <>
       <aside className={`sidebar ${open ? "sidebar--open" : ""}`}>
@@ -26,7 +28,7 @@ export default function Sidebar({ open, onNavigate }) {
             </NavLink>
           ))}
         </nav>
-        <div className="sidebar__copilot">
+        <div className="sidebar__copilot" onClick={toggleCopilot} style={{cursor: 'pointer'}}>
           <Sparkles size={14} color="#5eead4" />
           <span>Akarsh&rsquo;s Copilot</span>
         </div>

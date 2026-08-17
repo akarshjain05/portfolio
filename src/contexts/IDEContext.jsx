@@ -11,6 +11,7 @@ export function IDEProvider({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [terminalOpen, setTerminalOpen] = useState(false);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
+  const [copilotOpen, setCopilotOpen] = useState(false);
   
   const location = useLocation();
   const navigate = useNavigate();
@@ -80,12 +81,21 @@ export function IDEProvider({ children }) {
     setCommandPaletteOpen(v => !v);
   }, []);
 
+  const toggleCopilot = useCallback(() => {
+    setCopilotOpen(v => !v);
+  }, []);
+
   useEffect(() => {
     const handleGlobalKeyDown = (e) => {
       // Ctrl+P or Cmd+P
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'p') {
         e.preventDefault();
         toggleCommandPalette();
+      }
+      // Ctrl+Shift+C for Copilot
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'c') {
+        e.preventDefault();
+        toggleCopilot();
       }
       // Esc to close palette
       if (e.key === 'Escape') {
@@ -112,7 +122,10 @@ export function IDEProvider({ children }) {
         toggleTerminal,
         commandPaletteOpen,
         setCommandPaletteOpen,
-        toggleCommandPalette
+        toggleCommandPalette,
+        copilotOpen,
+        setCopilotOpen,
+        toggleCopilot
       }}
     >
       {children}
