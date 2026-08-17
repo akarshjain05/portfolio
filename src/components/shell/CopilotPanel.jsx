@@ -13,7 +13,9 @@ export default function CopilotPanel() {
   const bottomRef = useRef(null);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (copilotOpen) {
+      bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
   }, [messages, copilotOpen]);
 
   const handleSubmit = async (e) => {
