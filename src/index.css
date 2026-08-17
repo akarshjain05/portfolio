@@ -292,7 +292,7 @@ img, svg { display: block; }
   display: flex;
   flex-direction: column;
   transform: translateX(100%);
-  transition: transform 0.2s ease;
+  transition: transform 0.3s ease-in-out;
   z-index: 50;
   box-shadow: -4px 0 12px rgba(0,0,0,0.3);
 }
