@@ -71,6 +71,13 @@ export default async function handler(req, res) {
     res.status(200).json({ reply });
   } catch (error) {
     console.error("Groq API Error:", error);
-    res.status(500).json({ reply: "Oops! Something went wrong on the server." });
+    
+    // Check if it's an authentication/API key error
+    if (error.status === 401) {
+      return res.status(401).json({ reply: "My API key is invalid! Please check the GROQ_API_KEY in the Vercel dashboard." });
+    }
+    
+    // Otherwise return the general error message
+    res.status(500).json({ reply: `Server Error: ${error.message}` });
   }
 }
