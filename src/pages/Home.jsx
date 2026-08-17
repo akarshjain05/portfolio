@@ -21,13 +21,19 @@ export default function Home() {
       <div className="hero__underline" />
 
       <div className="badge-row">
-        {profile.roles.map((role) => (
-          <span className="badge" key={role}>
-            <span className="badge__dot" style={{ background: "#f472b6" }} />
-            {role}
-          </span>
-        ))}
-        <span className="badge badge--accent">{profile.affiliationBadge}</span>
+        {profile.roles.map((role, idx) => {
+          const dotColors = ["#5eead4", "#f472b6", "#60a5fa"];
+          return (
+            <span className="badge" key={role}>
+              <span className="badge__dot" style={{ background: dotColors[idx % dotColors.length] }} />
+              {role}
+            </span>
+          );
+        })}
+        <span className="badge badge--accent">
+          <span className="badge__dot" style={{ background: "#f472b6" }} />
+          {profile.affiliationBadge}
+        </span>
       </div>
 
       <p className="lede">{profile.summary}</p>
