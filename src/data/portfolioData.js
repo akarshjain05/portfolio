@@ -30,11 +30,11 @@ export const stats = [
 
 // icon values map to lucide-react components in SocialLink.jsx
 export const socials = [
-  { name: "GitHub", url: "https://github.com/your-username", icon: "github" },
-  { name: "LinkedIn", url: "https://linkedin.com/in/your-username", icon: "linkedin" },
-  { name: "LeetCode", url: "https://leetcode.com/your-username", icon: "leetcode" },
-  { name: "Codeforces", url: "https://codeforces.com/profile/your-username", icon: "codeforces" },
-  { name: "Email", url: "mailto:your.email@example.com", icon: "mail" },
+  { name: "GitHub", url: "https://github.com/akarshjain05", icon: "github" },
+  { name: "LinkedIn", url: "https://linkedin.com/in/akarshjain05", icon: "linkedin" },
+  { name: "LeetCode", url: "https://leetcode.com/akarshjain05", icon: "leetcode" },
+  { name: "Codeforces", url: "https://codeforces.com/profile/akarshjain05", icon: "codeforces" },
+  { name: "Email", url: "mailto:akarshjain2006@gmail.com", icon: "mail" },
 ];
 
 export const currentFocus = [
@@ -69,15 +69,25 @@ export const education = [
 
 export const projects = [
   {
-    id: "sentinelreview",
-    icon: "🛡️",
+    id: "gym-progress",
+    icon: "📈",
     status: "shipped",
-    tags: ["AGENTIC AI", "SECURITY", "FULL STACK"],
-    title: "SentinelReview",
-    description:
-      "An agentic AI system that reviews GitHub pull requests for security issues. Seven LangGraph agents work each PR together, backed by RAG over CWE, OWASP, and GHSA data, plus static analysis from Bandit and Semgrep. Ships with a real benchmark harness reporting precision, recall, and F1 — not just a demo.",
-    tech: ["LangGraph", "RAG", "Bandit", "Semgrep", "React", "Docker Compose"],
-    github: "https://github.com/your-username/sentinelreview",
+    tags: ["FULL STACK", "ANALYTICS"],
+    title: "Gym Progress Analytics",
+    description: "A comprehensive fitness tracking platform that allows users to log workouts, track their lifting metrics over time, and visualize their progress with dynamic charts.",
+    tech: ["React", "Node.js", "PostgreSQL", "Chart.js"],
+    github: "https://github.com/akarshjain05/gym-progress-analytics",
+    live: "",
+  },
+  {
+    id: "resource-sharing",
+    icon: "📚",
+    status: "shipped",
+    tags: ["FULL STACK", "COMMUNITY"],
+    title: "College Resource Sharing System",
+    description: "A centralized platform for college students to share, discover, and discuss academic resources, notes, and materials securely within their institution.",
+    tech: ["React", "Express", "MongoDB"],
+    github: "https://github.com/akarshjain05/college-resource-sharing",
     live: "",
   },
   {
@@ -86,24 +96,11 @@ export const projects = [
     status: "shipped",
     tags: ["FULL STACK", "SECURITY", "COMPETITIVE PROGRAMMING"],
     title: "Mini Code Judge",
-    description:
-      "A competitive-programming judge hosted on Render. Refactored the original monolithic vanilla-JS frontend into a modular structure, then hardened it end to end — GitHub OAuth, JWT blacklisting via Redis, email verification, account lockout, rate limiting, tightened CORS, and a hardened execution sandbox.",
+    description: "A competitive-programming judge hosted on Render. Features GitHub OAuth, JWT blacklisting via Redis, email verification, account lockout, rate limiting, and a hardened execution sandbox.",
     tech: ["Python", "FastAPI", "JavaScript", "Redis", "OAuth"],
-    github: "https://github.com/your-username/mini-code-judge",
+    github: "https://github.com/akarshjain05/mini-code-judge",
     live: "https://your-app.onrender.com",
-  },
-  {
-    id: "e-boe",
-    icon: "🧾",
-    status: "building",
-    tags: ["FULL STACK", "FASTAPI", "IN PROGRESS"],
-    title: "E-BoE — Electronic Bills of Exchange",
-    description:
-      "A management system for electronic bills of exchange, with role-based auth across a FastAPI backend and React frontend. Currently mid-build — backend and auth are in place, frontend pages are still being written.",
-    tech: ["FastAPI", "React", "Role-Based Auth"],
-    github: "https://github.com/your-username/e-boe",
-    live: "",
-  },
+  }
 ];
 
 export const skillGroups = [
