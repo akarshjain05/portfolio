@@ -8,7 +8,7 @@ export default function CopilotPanel() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [messagesLeft, setMessagesLeft] = useState(1);
+  const [messagesLeft, setMessagesLeft] = useState(20);
   const bottomRef = useRef(null);
 
   useEffect(() => {
@@ -32,14 +32,20 @@ export default function CopilotPanel() {
         body: JSON.stringify({ message: userMsg })
       });
 
+      const data = await res.json();
+      
       if (!res.ok) {
+        // If the server sent a formatted reply (like a rate limit or missing API key message), use it
+        if (data.reply) {
+          setMessages(prev => [...prev, { role: "assistant", content: data.reply }]);
+          return;
+        }
         throw new Error("Failed to fetch response");
       }
 
-      const data = await res.json();
       setMessages(prev => [...prev, { role: "assistant", content: data.reply }]);
     } catch (err) {
-      setMessages(prev => [...prev, { role: "assistant", content: "Oops! I couldn't reach the server. Make sure your API key is set and Vercel is connected!" }]);
+      setMessages(prev => [...prev, { role: "assistant", content: "Oops! I couldn't reach the server. Please try again later." }]);
     } finally {
       setIsLoading(false);
     }
