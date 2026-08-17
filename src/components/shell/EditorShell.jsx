@@ -1,7 +1,6 @@
 import { Outlet } from "react-router-dom";
 import TitleBar from "./TitleBar";
 import MenuBar from "./MenuBar";
-import CommandBar from "./CommandBar";
 import ActivityBar from "./ActivityBar";
 import Sidebar from "./Sidebar";
 import TabBar from "./TabBar";
@@ -10,6 +9,7 @@ import StatusBar from "./StatusBar";
 import ScrollToTop from "../ScrollToTop";
 import { useIDE } from "../../contexts/IDEContext";
 import TerminalPanel from "./TerminalPanel";
+import CommandPalette from "./CommandPalette";
 
 export default function EditorShell() {
   const { sidebarOpen, toggleSidebar } = useIDE();
@@ -18,7 +18,6 @@ export default function EditorShell() {
     <div className="ide">
       <TitleBar />
       <MenuBar />
-      <CommandBar />
       <div className="ide__body">
         <ActivityBar
           sidebarOpen={sidebarOpen}
@@ -36,6 +35,7 @@ export default function EditorShell() {
         </div>
       </div>
       <StatusBar />
+      <CommandPalette />
     </div>
   );
 }

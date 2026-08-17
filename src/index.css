@@ -155,6 +155,101 @@ img, svg { display: block; }
 
 @media (max-width: 560px) { .menubar { display: none; } }
 
+/* command palette */
+.palette-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(2px);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 15vh;
+}
+.palette-modal {
+  width: 100%;
+  max-width: 500px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.6);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.palette-input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.palette-prompt {
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+.palette-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 14px;
+}
+.palette-input:focus { outline: none; }
+.palette-esc {
+  font-size: 11px;
+  color: var(--text-muted);
+  background: var(--bg-hover);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.palette-content {
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+.palette-section-title {
+  padding: 8px 16px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+.palette-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+.palette-item:hover, .palette-item--highlight {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+.palette-shortcut, .palette-path {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.palette-empty {
+  padding: 16px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+.palette-footer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 16px;
+  border-top: 1px solid var(--border);
+  background: var(--bg-chrome);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
 /* command bar */
 .commandbar {
   height: var(--commandbar-h);

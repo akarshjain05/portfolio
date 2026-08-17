@@ -7,19 +7,26 @@ const IDEContext = createContext(null);
 export function IDEProvider({ children }) {
   // Initialize with all files open by default, mimicking standard IDE startup behavior
   const [openTabs, setOpenTabs] = useState(() => files.map(f => f.path));
+  const [recentFiles, setRecentFiles] = useState(() => files.map(f => f.path));
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [terminalOpen, setTerminalOpen] = useState(false);
+  const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
   
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Ensure current location is always in open tabs
+  // Ensure current location is always in open tabs and recent files
   useEffect(() => {
     const currentPath = location.pathname;
-    if (currentPath !== "*" && currentPath !== "/empty" && !openTabs.includes(currentPath)) {
-      // Validate it's a known file
+    if (currentPath !== "*" && currentPath !== "/empty") {
       if (files.some(f => f.path === currentPath)) {
-        setOpenTabs(prev => [...prev, currentPath]);
+        if (!openTabs.includes(currentPath)) {
+          setOpenTabs(prev => [...prev, currentPath]);
+        }
+        setRecentFiles(prev => {
+          const filtered = prev.filter(p => p !== currentPath);
+          return [currentPath, ...filtered].slice(0, 5); // Keep top 5 recent
+        });
       }
     }
   }, [location.pathname, openTabs]);
@@ -69,10 +76,31 @@ export function IDEProvider({ children }) {
     setTerminalOpen(v => !v);
   }, []);
 
+  const toggleCommandPalette = useCallback(() => {
+    setCommandPaletteOpen(v => !v);
+  }, []);
+
+  useEffect(() => {
+    const handleGlobalKeyDown = (e) => {
+      // Ctrl+P or Cmd+P
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'p') {
+        e.preventDefault();
+        toggleCommandPalette();
+      }
+      // Esc to close palette
+      if (e.key === 'Escape') {
+        setCommandPaletteOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleGlobalKeyDown);
+    return () => window.removeEventListener("keydown", handleGlobalKeyDown);
+  }, [toggleCommandPalette]);
+
   return (
     <IDEContext.Provider
       value={{
         openTabs,
+        recentFiles,
         openTab,
         closeTab,
         closeAllTabs,
@@ -81,7 +109,10 @@ export function IDEProvider({ children }) {
         toggleSidebar,
         terminalOpen,
         setTerminalOpen,
-        toggleTerminal
+        toggleTerminal,
+        commandPaletteOpen,
+        setCommandPaletteOpen,
+        toggleCommandPalette
       }}
     >
       {children}

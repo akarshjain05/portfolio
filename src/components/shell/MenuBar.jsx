@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 export default function MenuBar() {
   const [activeMenu, setActiveMenu] = useState(null);
   const menuRef = useRef(null);
-  const { openTab, closeTab, closeAllTabs, toggleSidebar, toggleTerminal } = useIDE();
+  const { openTab, closeTab, closeAllTabs, toggleSidebar, toggleTerminal, recentFiles, toggleCommandPalette } = useIDE();
   const navigate = useNavigate();
 
   // Close menu when clicking outside
@@ -35,6 +35,10 @@ export default function MenuBar() {
   const MENUS = {
     File: [
       { label: "New File", shortcut: "Ctrl+N", action: () => openTab("/") },
+      { label: "Open File...", shortcut: "Ctrl+P", action: () => toggleCommandPalette() },
+      { divider: true },
+      ...recentFiles.map(rf => ({ label: `Open Recent: ${rf}`, action: () => openTab(rf) })),
+      { divider: true },
       { label: "Close Tab", shortcut: "Ctrl+W", action: () => closeTab(window.location.pathname) },
       { label: "Close All Tabs", action: () => closeAllTabs() },
       { divider: true },
@@ -49,6 +53,8 @@ export default function MenuBar() {
       { label: "Paste", shortcut: "Ctrl+V", action: () => {} },
     ],
     View: [
+      { label: "Command Palette", shortcut: "Ctrl+P", action: () => toggleCommandPalette() },
+      { divider: true },
       { label: "Toggle Sidebar", shortcut: "Ctrl+B", action: () => toggleSidebar() },
       { label: "Toggle Terminal", shortcut: "Ctrl+`", action: () => toggleTerminal() },
       { divider: true },
