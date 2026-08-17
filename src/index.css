@@ -689,6 +689,8 @@ img, svg { display: block; }
   flex-direction: column;
   min-width: 0;
   min-height: 0;
+  position: relative;
+  overflow: hidden;
 }
 
 /* tab bar */
