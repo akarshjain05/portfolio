@@ -33,7 +33,6 @@ export const socials = [
   { name: "GitHub", url: "https://github.com/akarshjain05", icon: "github" },
   { name: "LinkedIn", url: "https://linkedin.com/in/akarshjain05", icon: "linkedin" },
   { name: "LeetCode", url: "https://leetcode.com/akarshjain05", icon: "leetcode" },
-  { name: "Codeforces", url: "https://codeforces.com/profile/akarshjain05", icon: "codeforces" },
   { name: "Email", url: "mailto:akarshjain2006@gmail.com", icon: "mail" },
 ];
 
