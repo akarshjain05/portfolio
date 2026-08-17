@@ -22,10 +22,10 @@ export const profile = {
 };
 
 export const stats = [
-  { value: "3+", label: "PROJECTS BUILT" },
-  { value: "7-Agent", label: "AI REVIEW PIPELINE" },
-  { value: "SVNIT", label: "COMPUTER SCIENCE" },
-  { value: "∞", label: "ALWAYS LEARNING" },
+  { value: "2+", label: "YEARS" },
+  { value: "4+", label: "PROJECTS" },
+  { value: "∞", label: "CURIOSITY" },
+  { value: "↑", label: "ALWAYS LEARNING" },
 ];
 
 // icon values map to lucide-react components in SocialLink.jsx
