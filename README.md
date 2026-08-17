@@ -1,13 +1,8 @@
 # Akarsh Jain — Developer Portfolio
-
-[![Deploy to GitHub Pages](https://github.com/akarshjain05/portfolio/actions/workflows/deploy.yml/badge.svg)](https://akarshjain05.github.io/portfolio/)
-
 Welcome to my personal developer portfolio! I am a Computer Science student at SVNIT, Surat, specializing in backend engineering, competitive programming, and robust full-stack systems.
 
 This repository contains the source code for my portfolio website, engineered to look and feel like a modern, dark-themed code editor (VS Code).
-
-👉 **Live Site:** [https://akarshjain05.github.io/portfolio/](https://akarshjain05.github.io/portfolio/)
-
+👉 **Live Site:** Hosted on Vercel
 ## 🚀 Featured Projects
 
 This portfolio highlights my core technical work, focusing on systems that prioritize correctness, edge cases, and performance:
@@ -24,7 +19,7 @@ The site itself is a fully responsive Single Page Application (SPA) built with a
 - **Routing:** React Router (client-side routing mapped to IDE "tabs")
 - **Styling:** Pure Vanilla CSS with CSS Variables for IDE theming
 - **Icons:** `lucide-react` & `react-icons` for file-tree and UI glyphs
-- **Deployment:** Fully automated CI/CD via GitHub Actions to GitHub Pages
+- **Deployment:** Vercel Serverless API and Edge Network
 
 The entire data layer (projects, skills, bio, links) is decoupled from the UI components and driven by a central configuration file (`src/data/portfolioData.js`), making it incredibly easy to update content without touching the React logic.
 
