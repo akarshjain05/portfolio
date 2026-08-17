@@ -89,7 +89,7 @@ img, svg { display: block; }
   display: flex;
   align-items: center;
   padding: 0 14px;
-  background: var(--bg-chrome);
+  background: #1e1e2e;
   border-bottom: 1px solid var(--border-soft);
   gap: 12px;
 }
