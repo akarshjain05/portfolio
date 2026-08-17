@@ -44,6 +44,14 @@ export const currentFocus = [
   {
     icon: "🛡️",
     text: "Building SentinelReview — a 7-agent AI pipeline that reviews GitHub PRs for security issues (0.900 precision, 1.000 recall on GHSA benchmark)",
+  },
+  {
+    icon: "🧠",
+    text: "Grinding Data Structures, Algorithms, and Codeforces to master competitive problem-solving",
+  },
+  {
+    icon: "🚀",
+    text: "Exploring advanced RAG architectures and vector databases for my next big AI integration",
   }
 ];
 
@@ -53,8 +61,14 @@ export const education = [
     location: "Surat, India",
     degree: "B.Tech, Computer Science",
     period: "2024 - 2028",
-    notes:
-      "Current CGPA: 7.55 / 10",
+    notes: "Current CGPA: 7.55",
+  },
+  {
+    school: "St. Xaviers School",
+    location: "Hazaribagh, India",
+    degree: "Primary & Higher Secondary Education",
+    period: "2011 - 2024",
+    notes: "Class 12th: 91.0% | Class 10th: 90.0%",
   },
 ];
 

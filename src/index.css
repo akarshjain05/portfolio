@@ -491,11 +491,17 @@ img, svg { display: block; }
   margin-top: 46px;
 }
 
+.focus-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  padding: 30px 32px;
+}
 .focus-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 40px; }
 @media (max-width: 640px) { .focus-grid { grid-template-columns: 1fr; } }
 .focus-item { display: flex; gap: 12px; font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
 .focus-item__icon { flex: 0 0 auto; }
-
+.edu-list { display: flex; flex-direction: column; gap: 16px; }
 .edu-card {
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
