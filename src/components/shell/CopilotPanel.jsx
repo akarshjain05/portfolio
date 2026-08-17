@@ -9,11 +9,15 @@ export default function CopilotPanel() {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [messagesLeft, setMessagesLeft] = useState(20);
-  const bottomRef = useRef(null);
+  const messagesEndRef = useRef(null);
+  const scrollContainerRef = useRef(null);
 
   useEffect(() => {
-    if (copilotOpen) {
-      bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (copilotOpen && scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTo({
+        top: scrollContainerRef.current.scrollHeight,
+        behavior: "smooth"
+      });
     }
   }, [messages, copilotOpen]);
 
@@ -68,7 +72,7 @@ export default function CopilotPanel() {
         </button>
       </div>
 
-      <div className="copilot-drawer__messages">
+      <div className="copilot-drawer__messages" ref={scrollContainerRef}>
         {messages.length === 0 ? (
           <div className="copilot-welcome">
             <div className="copilot-welcome__icon">
@@ -104,7 +108,7 @@ export default function CopilotPanel() {
             <span className="copilot-loading">...</span>
           </div>
         )}
-        <div ref={bottomRef} />
+        <div ref={messagesEndRef} />
       </div>
 
       <div className="copilot-drawer__footer">
