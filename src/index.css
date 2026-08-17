@@ -336,26 +336,58 @@ img, svg { display: block; }
   padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  font-size: 13.5px;
+  gap: 20px;
+  font-size: 13px;
   line-height: 1.6;
+}
+.copilot-msg-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 85%;
+}
+.copilot-msg-wrapper--user {
+  align-self: flex-end;
+}
+.copilot-msg-wrapper--assistant {
+  align-self: flex-start;
+}
+.copilot-msg-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+.copilot-msg-header__icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(183, 148, 246, 0.1);
+  border: 1px solid rgba(183, 148, 246, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .copilot-msg {
   padding: 12px 14px;
-  border-radius: var(--radius-sm);
-  max-width: 90%;
+  border-radius: 8px;
   word-break: break-word;
+  font-size: 12.5px;
 }
 .copilot-msg--user {
-  background: var(--bg-elevated);
-  border: 1px solid var(--border);
-  align-self: flex-end;
+  background: rgba(43, 116, 201, 0.15);
+  border: 1px solid rgba(43, 116, 201, 0.3);
   color: var(--text-primary);
+  border-bottom-right-radius: 2px;
 }
 .copilot-msg--assistant {
-  background: transparent;
-  align-self: flex-start;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
   color: var(--text-secondary);
+  border-top-left-radius: 2px;
 }
 .copilot-msg--assistant p { margin-bottom: 8px; }
 .copilot-msg--assistant p:last-child { margin-bottom: 0; }

@@ -98,14 +98,32 @@ export default function CopilotPanel() {
           </div>
         ) : (
           messages.map((m, i) => (
-            <div key={i} className={`copilot-msg copilot-msg--${m.role}`}>
-              <Markdown>{m.content}</Markdown>
+            <div key={i} className={`copilot-msg-wrapper copilot-msg-wrapper--${m.role}`}>
+              {m.role === 'assistant' && (
+                <div className="copilot-msg-header">
+                  <div className="copilot-msg-header__icon">
+                    <Bot size={12} color="#b794f6" />
+                  </div>
+                  <span>Akarsh's Copilot</span>
+                </div>
+              )}
+              <div className={`copilot-msg copilot-msg--${m.role}`}>
+                <Markdown>{m.content}</Markdown>
+              </div>
             </div>
           ))
         )}
         {isLoading && (
-          <div className="copilot-msg copilot-msg--assistant">
-            <span className="copilot-loading">...</span>
+          <div className="copilot-msg-wrapper copilot-msg-wrapper--assistant">
+            <div className="copilot-msg-header">
+              <div className="copilot-msg-header__icon">
+                <Bot size={12} color="#b794f6" />
+              </div>
+              <span>Akarsh's Copilot</span>
+            </div>
+            <div className="copilot-msg copilot-msg--assistant">
+              <span className="copilot-loading">...</span>
+            </div>
           </div>
         )}
         <div ref={messagesEndRef} />
