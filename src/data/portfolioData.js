@@ -82,7 +82,7 @@ export const projects = [
     description: "A multi-user fitness tracker that computes Epley 1RM, Mifflin-St Jeor BMR/TDEE, and a true maintenance-calorie figure back-calculated from each user's own logged intake vs. real weight change, plus regression-based weight-trend and goal-ETA forecasting.",
     tech: ["FastAPI", "SQLAlchemy", "JWT", "Vanilla JS PWA", "Chart.js", "Docker", "AWS EC2", "Caddy", "GitHub Actions"],
     github: "https://github.com/akarshjain05/gym-progress-analytics",
-    live: "",
+    live: "https://ironlog.in",
   },
   {
     id: "resource-sharing",
@@ -92,8 +92,8 @@ export const projects = [
     title: "Campus Resource Sharing System",
     description: "A campus-only marketplace where students, faculty, and clubs list, borrow, and return shared resources; models the full borrow lifecycle across 4 RBAC roles. Shipped 17 REST routers on FastAPI/SQLAlchemy 2.0 with CSRF-hardened, Redis rate-limited auth, covered by 70+ Pytest cases.",
     tech: ["FastAPI", "SQLAlchemy 2.0", "PostgreSQL", "Alembic", "Redis", "Celery", "JWT/RBAC", "React 18", "Tailwind CSS", "Docker Compose"],
-    github: "https://github.com/akarshjain05/college-resource-sharing",
-    live: "",
+    github: "https://github.com/akarshjain05/College-Resource-Sharing-System",
+    live: "https://13-48-123-128.sslip.io/",
   },
   {
     id: "mini-code-judge",
@@ -104,7 +104,7 @@ export const projects = [
     description: "A competitive-programming judge in the spirit of Codeforces/LeetCode that runs untrusted C/C++/Java/Python submissions in resource-capped, network-isolated Docker sandboxes with an automatic OS-level fallback, returning verdicts via Redis/RQ-queued, horizontally-scalable workers. Includes Gemini-powered AI code review.",
     tech: ["FastAPI", "PostgreSQL", "Docker", "Redis/RQ", "JWT", "Gemini API", "OAuth"],
     github: "https://github.com/akarshjain05/mini-code-judge",
-    live: "https://your-app.onrender.com",
+    live: "https://mini-code-judge-frontend.onrender.com",
   }
 ];
 
