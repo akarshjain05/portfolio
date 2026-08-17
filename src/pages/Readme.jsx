@@ -26,8 +26,8 @@ export default function Readme() {
 
         <h2>👋 About</h2>
         <p>
-          Hi, Akarsh here! CS student at SVNIT, usually somewhere between a Codeforces tab, a
-          FastAPI backend, and a security CTF challenge. I like building things that are correct
+          Hi, Akarsh here! CS student at SVNIT, usually somewhere between a Codeforces tab and a
+          backend system. I like building things that are correct
           and hardened, not just demo-ready.
         </p>
 

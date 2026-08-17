@@ -50,10 +50,6 @@ export const currentFocus = [
     icon: "🧠",
     text: "Grinding Codeforces in C++ — number theory, tree algorithms, game theory",
   },
-  {
-    icon: "🚩",
-    text: "Competing in CTFs and picking apart web app security",
-  },
 ];
 
 export const education = [
@@ -137,7 +133,6 @@ export const skillGroups = [
       { name: "Static Analysis", level: 78 },
       { name: "Web App Security", level: 75 },
       { name: "Auth Hardening", level: 80 },
-      { name: "CTFs", level: 72 },
     ],
   },
   {
