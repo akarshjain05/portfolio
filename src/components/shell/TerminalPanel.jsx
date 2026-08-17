@@ -5,7 +5,7 @@ import { X, Terminal } from "lucide-react";
 export default function TerminalPanel() {
   const { terminalOpen, toggleTerminal } = useIDE();
   const [history, setHistory] = useState([
-    { type: "info", text: "Welcome to Aahana's Terminal Shell v1.0.0" },
+    { type: "info", text: "Welcome to Akarsh's Terminal Shell v1.0.0" },
     { type: "info", text: 'Type "help" to see available commands.' },
   ]);
   const [input, setInput] = useState("");

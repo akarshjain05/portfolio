@@ -42,7 +42,7 @@ export default function MenuBar() {
       { label: "Close Tab", shortcut: "Ctrl+W", action: () => closeTab(window.location.pathname) },
       { label: "Close All Tabs", action: () => closeAllTabs() },
       { divider: true },
-      { label: "Download Resume", action: () => window.open("https://akarshjain05.github.io/portfolio/Aahana_Bobade_Resume.pdf", "_blank") },
+      { label: "Download Resume", action: () => window.open("https://akarshjain05.github.io/portfolio/Akarsh_Resume.pdf", "_blank") },
     ],
     Edit: [
       { label: "Undo", shortcut: "Ctrl+Z", action: () => {} },

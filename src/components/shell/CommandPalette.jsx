@@ -52,7 +52,7 @@ export default function CommandPalette() {
           <div className="palette-section-title">COMMANDS</div>
           <div className="palette-item palette-item--highlight" onClick={toggleCommandPalette}>
             <Sparkles size={14} color="#b794f6" />
-            <span>Open Aahana&apos;s Copilot</span>
+            <span>Open Akarsh&apos;s Copilot</span>
             <span className="palette-shortcut">Ctrl+Shift+C</span>
           </div>
 
