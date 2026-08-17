@@ -61,7 +61,7 @@ export default async function handler(req, res) {
         { role: 'system', content: SYSTEM_PROMPT },
         { role: 'user', content: message }
       ],
-      model: 'llama-3.3-70b-versatile', // Fast, reliable Groq model
+      model: process.env.GROQ_MODEL || 'llama-3.3-70b-versatile',
       temperature: 0.7,
       max_tokens: 500,
     });
