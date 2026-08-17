@@ -11,7 +11,7 @@
 // ─────────────────────────────────────────────────────────────────
 
 export const profile = {
-  name: "Akarsh",
+  name: "Akarsh Jain",
   roles: ["Full-Stack Developer", "AI/ML Engineer", "Competitive Programmer"],
   affiliationBadge: "@ SVNIT",
   heroLine: "Building backend & AI systems that hold up under pressure.",
