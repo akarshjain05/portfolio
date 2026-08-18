@@ -8,7 +8,7 @@ export function IDEProvider({ children }) {
   // Initialize with all files open by default, mimicking standard IDE startup behavior
   const [openTabs, setOpenTabs] = useState(() => files.map(f => f.path));
   const [recentFiles, setRecentFiles] = useState(() => files.map(f => f.path));
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
   const [terminalOpen, setTerminalOpen] = useState(false);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
   const [copilotOpen, setCopilotOpen] = useState(false);

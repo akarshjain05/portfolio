@@ -844,12 +844,12 @@ img, svg { display: block; }
 .activitybar__btn--active::before {
   content: "";
   position: absolute;
-  left: -14px;
-  top: 2px;
-  bottom: 2px;
-  width: 2px;
+  left: -16px;
+  top: 0;
+  bottom: 0;
+  width: 3px;
   background: var(--cyan);
-  border-radius: 2px;
+  border-radius: 0;
 }
 .activitybar__spacer { flex: 1; }
 
