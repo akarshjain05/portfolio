@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { repoName } from "../../data/portfolioData";
-import { Search } from "lucide-react";
+import { Search, X, Minus, Maximize2 } from "lucide-react";
 import { useIDE } from "../../contexts/IDEContext";
 
 const FUNNY_MESSAGES = [
@@ -35,9 +35,15 @@ export default function TitleBar() {
   return (
     <div className="titlebar">
       <div className="titlebar__dots" style={{ position: "relative", display: "flex", alignItems: "center" }}>
-        <button className="titlebar__dot titlebar__dot--red" onClick={handleBlock} title="Close" />
-        <button className="titlebar__dot titlebar__dot--yellow" onClick={handleBlock} title="Minimize" />
-        <button className="titlebar__dot titlebar__dot--green" onClick={toggleFullscreen} title="Maximize" />
+        <button className="titlebar__dot titlebar__dot--red" onClick={handleBlock} title="Close">
+          <X size={8} strokeWidth={3} />
+        </button>
+        <button className="titlebar__dot titlebar__dot--yellow" onClick={handleBlock} title="Minimize">
+          <Minus size={8} strokeWidth={3} />
+        </button>
+        <button className="titlebar__dot titlebar__dot--green" onClick={toggleFullscreen} title="Maximize">
+          <Maximize2 size={7} strokeWidth={3} />
+        </button>
         {msg && (
           <span 
             style={{ 
