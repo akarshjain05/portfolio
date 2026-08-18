@@ -1073,12 +1073,12 @@ img, svg { display: block; }
   color: #f472b6;
 }
 .hero__underline {
-  height: 3px;
-  width: 120px;
-  max-width: 40%;
-  background: var(--border-soft);
+  height: 2px;
+  width: 100%;
+  max-width: 480px;
+  background: linear-gradient(90deg, #f472b6, rgba(244,114,182,0.1));
   border-radius: 2px;
-  margin: 24px 0 32px;
+  margin: 16px 0 16px;
 }
 
 .badge-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 26px; }
@@ -1104,6 +1104,15 @@ img, svg { display: block; }
 .lede { font-family: var(--font-mono); font-size: 15px; line-height: 1.8; color: var(--text-secondary); max-width: 680px; margin-bottom: 34px; }
 .lede strong { color: var(--cyan); font-weight: 600; }
 .lede .hl-pink { color: var(--pink); font-weight: 600; }
+.typewriter__cursor {
+  display: inline-block;
+  margin-left: 2px;
+  animation: blink 1s step-end infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
 
 .btn-row { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 56px; }
 .btn {

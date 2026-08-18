@@ -3,11 +3,19 @@ import { Link } from "react-router-dom";
 import { FolderKanban, User, Mail } from "lucide-react";
 import { profile, stats, socials } from "../data/portfolioData";
 import SocialLink from "../components/SocialLink";
+import Typewriter from "../components/Typewriter";
 
 export default function Home() {
   useEffect(() => {
     document.title = "akarsh : portfolio";
   }, []);
+
+  const typewriterMessages = [
+    "Building intelligent backend systems",
+    "Training machine learning models",
+    "Developing scalable architectures",
+    "Turning data into actionable insights"
+  ];
 
   return (
     <div className="page">
@@ -36,7 +44,9 @@ export default function Home() {
         </span>
       </div>
 
-      <p className="lede">{profile.summary}</p>
+      <p className="lede">
+        <Typewriter messages={typewriterMessages} />
+      </p>
 
       <div className="btn-row">
         <Link to="/projects" className="btn btn--primary">
