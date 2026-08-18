@@ -314,7 +314,15 @@ img, svg { display: block; }
   gap: 12px;
 }
 .titlebar__dots { display: flex; gap: 8px; flex: 0 0 auto; }
-.titlebar__dot { width: 12px; height: 12px; border-radius: 50%; }
+.titlebar__dot { 
+  width: 12px; 
+  height: 12px; 
+  border-radius: 50%; 
+  cursor: pointer;
+  border: none;
+  padding: 0;
+}
+.titlebar__dot:hover { filter: brightness(1.2); }
 .titlebar__dot--red { background: #ff5f57; }
 .titlebar__dot--yellow { background: #febc2e; }
 .titlebar__dot--green { background: #28c840; }
