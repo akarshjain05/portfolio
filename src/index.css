@@ -198,7 +198,7 @@ img, svg { display: block; }
   display: flex;
   flex-direction: column;
   padding: 8px 0;
-  font-family: var(--font-sans);
+  font-family: var(--font-mono);
 }
 
 .settings-menu__group {
