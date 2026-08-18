@@ -63,7 +63,7 @@ export default function StatusBar() {
         <div style={{ position: "relative" }} ref={themeMenuRef}>
           <span 
             className="statusbar__item statusbar__hide-xs" 
-            style={{ color: "var(--purple)", cursor: "pointer" }}
+            style={{ color: "#ffffff", cursor: "pointer" }}
             onClick={() => setThemePickerOpen(!themePickerOpen)}
           >
             {currentTheme.icon} {currentTheme.name}
