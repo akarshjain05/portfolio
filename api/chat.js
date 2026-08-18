@@ -1,9 +1,7 @@
-import { Groq } from 'groq-sdk';
+import { GoogleGenAI } from '@google/genai';
 import { profile, projects, skillGroups, socials, education } from '../src/data/portfolioData.js';
 
-const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY
-});
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 // Simple in-memory rate limiting map
 // Maps IP to { count: number, resetTime: number }
@@ -70,29 +68,28 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Message is required' });
     }
 
-    if (!process.env.GROQ_API_KEY) {
-      return res.status(500).json({ reply: "The API key hasn't been configured yet! The owner needs to add GROQ_API_KEY to their Vercel dashboard." });
+    if (!process.env.GEMINI_API_KEY) {
+      return res.status(500).json({ reply: "The API key hasn't been configured yet! The owner needs to add GEMINI_API_KEY to their Vercel dashboard." });
     }
 
-    const completion = await groq.chat.completions.create({
-      messages: [
-        { role: 'system', content: buildSystemPrompt() },
-        { role: 'user', content: message }
-      ],
-      model: process.env.GROQ_MODEL || 'openai/gpt-oss-120b',
-      temperature: 0.7,
-      max_tokens: 500,
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: message,
+      config: {
+        systemInstruction: buildSystemPrompt(),
+        temperature: 0.7,
+      }
     });
 
-    const reply = completion.choices[0]?.message?.content || "Sorry, I couldn't process that.";
+    const reply = response.text || "Sorry, I couldn't process that.";
     
     res.status(200).json({ reply });
   } catch (error) {
-    console.error("Groq API Error:", error);
+    console.error("Gemini API Error:", error);
     
     // Check if it's an authentication/API key error
-    if (error.status === 401) {
-      return res.status(401).json({ reply: "My API key is invalid! Please check the GROQ_API_KEY in the Vercel dashboard." });
+    if (error.status === 401 || error.message?.includes('API key not valid')) {
+      return res.status(401).json({ reply: "My API key is invalid! Please check the GEMINI_API_KEY in the Vercel dashboard." });
     }
     
     // Otherwise return the general error message
