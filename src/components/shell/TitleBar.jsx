@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { repoName } from "../../data/portfolioData";
 import { Search, X, Minus, Maximize2 } from "lucide-react";
 import { useIDE } from "../../contexts/IDEContext";
@@ -17,11 +17,13 @@ const FUNNY_MESSAGES = [
 export default function TitleBar() {
   const { toggleCommandPalette } = useIDE();
   const [msg, setMsg] = useState("");
+  const timeoutRef = useRef(null);
 
   const handleBlock = () => {
     const randomMsg = FUNNY_MESSAGES[Math.floor(Math.random() * FUNNY_MESSAGES.length)];
     setMsg(randomMsg);
-    setTimeout(() => setMsg(""), 3000);
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(() => setMsg(""), 4000);
   };
 
   const toggleFullscreen = () => {
