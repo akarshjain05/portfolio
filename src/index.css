@@ -1014,7 +1014,7 @@ img, svg { display: block; }
   font-weight: 600;
   gap: 12px;
 }
-.statusbar__side { display: flex; align-items: center; gap: 14px; overflow: hidden; }
+.statusbar__side { display: flex; align-items: center; gap: 14px; }
 .statusbar__item { display: flex; align-items: center; gap: 5px; white-space: nowrap; }
 @media (max-width: 700px) { .statusbar__hide-sm { display: none; } }
 @media (max-width: 480px) { .statusbar__hide-xs { display: none; } }
