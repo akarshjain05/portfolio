@@ -48,10 +48,11 @@ export default function TitleBar() {
           <span 
             style={{ 
               position: "absolute", 
-              left: "45px", 
+              left: "64px", 
               whiteSpace: "nowrap",
-              fontSize: "12px", 
-              color: "var(--text-secondary)", 
+              fontSize: "10.5px", 
+              color: "var(--text-muted)", 
+              opacity: 0.8,
               animation: "fadein 0.2s ease" 
             }}
           >
