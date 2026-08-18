@@ -74,6 +74,27 @@ export default function ActivityBar({ sidebarOpen, onToggleSidebar }) {
         {settingsOpen && (
           <div className="settings-menu">
             <div className="settings-menu__group">
+              <div className="settings-menu__title">🎨 COLOR THEME</div>
+              {[
+                { id: "akarsh-dark", name: "Akarsh Dark", icon: "💜" },
+                { id: "midnight-hacker", name: "Midnight Hacker", icon: "💻" },
+                { id: "crimson-forge", name: "Crimson Forge", icon: "🔥" },
+                { id: "cobalt-blue", name: "Cobalt Blue", icon: "🌊" },
+                { id: "amethyst", name: "Amethyst", icon: "🔮" }
+              ].map(t => (
+                <button 
+                  key={t.id} 
+                  className={`settings-menu__item ${theme === t.id ? "active" : ""}`}
+                  onClick={() => { setTheme(t.id); setSettingsOpen(false); }}
+                >
+                  <div className={`theme-circle theme-circle--${t.id}`}></div>
+                  <span>{t.icon} {t.name}</span>
+                  {theme === t.id && <span className="settings-menu__check">✓</span>}
+                </button>
+              ))}
+            </div>
+
+            <div className="settings-menu__group">
               <div className="settings-menu__title">⚡ QUICK ACTIONS</div>
               <button className="settings-menu__item" onClick={() => { toggleCommandPalette(); setSettingsOpen(false); }}>
                 <Command size={14} /> Command Palette <span className="settings-menu__shortcut">Ctrl+P</span>
