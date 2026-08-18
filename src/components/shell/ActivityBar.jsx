@@ -4,10 +4,10 @@ import { useIDE } from "../../contexts/IDEContext";
 
 const THEMES = [
   { id: "akarsh-dark", name: "Akarsh Dark", icon: "💜" },
-  { id: "rose-pine", name: "Rosé Pine", icon: "🌸" },
-  { id: "tokyo-night", name: "Tokyo Night", icon: "🌌" },
-  { id: "catppuccin", name: "Catppuccin", icon: "🐱" },
-  { id: "gruvbox", name: "Gruvbox", icon: "🔥" }
+  { id: "midnight-hacker", name: "Midnight Hacker", icon: "💻" },
+  { id: "crimson-forge", name: "Crimson Forge", icon: "🔥" },
+  { id: "cobalt-blue", name: "Cobalt Blue", icon: "🌊" },
+  { id: "amethyst", name: "Amethyst", icon: "🔮" }
 ];
 
 export default function ActivityBar({ sidebarOpen, onToggleSidebar }) {

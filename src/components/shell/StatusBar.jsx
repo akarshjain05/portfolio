@@ -6,10 +6,10 @@ import { useIDE } from "../../contexts/IDEContext";
 
 const THEME_NAMES = {
   "akarsh-dark": "Akarsh Dark",
-  "rose-pine": "Rosé Pine",
-  "tokyo-night": "Tokyo Night",
-  "catppuccin": "Catppuccin",
-  "gruvbox": "Gruvbox"
+  "midnight-hacker": "Midnight Hacker",
+  "crimson-forge": "Crimson Forge",
+  "cobalt-blue": "Cobalt Blue",
+  "amethyst": "Amethyst"
 };
 
 export default function StatusBar() {
