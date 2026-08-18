@@ -337,6 +337,7 @@ img, svg { display: block; }
 .titlebar__dot--red:hover { background: #ff4a41; }
 .titlebar__dot--yellow { background: #febc2e; }
 .titlebar__dot--yellow:hover { background: #f6ab0e; }
+.titlebar__dot--disabled { background: #555555; cursor: default; }
 .titlebar__dot--green { background: #28c840; }
 .titlebar__dot--green:hover { background: #1eb734; }
 .titlebar__search-container {

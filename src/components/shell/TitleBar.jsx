@@ -1,26 +1,39 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { repoName } from "../../data/portfolioData";
-import { Search, X, Minus, Maximize2 } from "lucide-react";
+import { Search, X, Minus } from "lucide-react";
 import { useIDE } from "../../contexts/IDEContext";
 
-const FUNNY_MESSAGES = [
+const CLOSE_MESSAGES = [
   "Nice try! You can't close a portfolio 😏",
   "I'm staying open forever! 😈",
   "Error 404: Exit button disabled 🚫",
-  "Where do you think you're going? 🤨",
-  "My code is too good to be minimized ✨",
   "No escaping the portfolio matrix 💊",
-  "Are you not entertained? 🤺",
   "Denied! 🛑"
+];
+
+const MINIMIZE_MESSAGES = [
+  "My code is too good to be minimized ✨",
+  "Where do you think you're going? 🤨",
+  "Please don't shrink me! 🥺",
+  "I prefer to take up all the space 💅"
 ];
 
 export default function TitleBar() {
   const { toggleCommandPalette } = useIDE();
   const [msg, setMsg] = useState("");
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const timeoutRef = useRef(null);
 
-  const handleBlock = () => {
-    const randomMsg = FUNNY_MESSAGES[Math.floor(Math.random() * FUNNY_MESSAGES.length)];
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    return () => document.removeEventListener("fullscreenchange", handleFullscreenChange);
+  }, []);
+
+  const showMessage = (msgList) => {
+    const randomMsg = msgList[Math.floor(Math.random() * msgList.length)];
     setMsg(randomMsg);
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     timeoutRef.current = setTimeout(() => setMsg(""), 4000);
@@ -37,14 +50,28 @@ export default function TitleBar() {
   return (
     <div className="titlebar">
       <div className="titlebar__dots" style={{ position: "relative", display: "flex", alignItems: "center" }}>
-        <button className="titlebar__dot titlebar__dot--red" onClick={handleBlock} title="Close">
+        <button className="titlebar__dot titlebar__dot--red" onClick={() => showMessage(CLOSE_MESSAGES)} title="Close">
           <X size={8} strokeWidth={3} />
         </button>
-        <button className="titlebar__dot titlebar__dot--yellow" onClick={handleBlock} title="Minimize">
-          <Minus size={8} strokeWidth={3} />
+        <button 
+          className={`titlebar__dot ${isFullscreen ? 'titlebar__dot--disabled' : 'titlebar__dot--yellow'}`} 
+          onClick={!isFullscreen ? () => showMessage(MINIMIZE_MESSAGES) : undefined} 
+          title="Minimize"
+          disabled={isFullscreen}
+        >
+          {!isFullscreen && <Minus size={8} strokeWidth={3} />}
         </button>
-        <button className="titlebar__dot titlebar__dot--green" onClick={toggleFullscreen} title="Maximize">
-          <Maximize2 size={7} strokeWidth={3} />
+        <button className="titlebar__dot titlebar__dot--green" onClick={toggleFullscreen} title={isFullscreen ? "Exit Fullscreen" : "Fullscreen"}>
+          {isFullscreen ? (
+            <svg width="8" height="8" viewBox="0 0 12 12" fill="currentColor">
+              <path d="M1 11L5 7v4H1z" />
+              <path d="M11 1L7 5V1h4z" />
+            </svg>
+          ) : (
+            <svg width="8" height="8" viewBox="0 0 12 12" fill="currentColor">
+              <path fillRule="evenodd" d="M1 1h10v10H1V1zm2 2v6l6-6H3z" clipRule="evenodd" />
+            </svg>
+          )}
         </button>
         {msg && (
           <span 
