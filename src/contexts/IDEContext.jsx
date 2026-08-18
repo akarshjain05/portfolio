@@ -12,6 +12,9 @@ export function IDEProvider({ children }) {
   const [terminalOpen, setTerminalOpen] = useState(false);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
   const [copilotOpen, setCopilotOpen] = useState(false);
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem("ide-theme") || "akarsh-dark";
+  });
   
   const location = useLocation();
   const navigate = useNavigate();
@@ -31,6 +34,12 @@ export function IDEProvider({ children }) {
       }
     }
   }, [location.pathname, openTabs]);
+
+  // Apply theme to document
+  useEffect(() => {
+    localStorage.setItem("ide-theme", theme);
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
 
   const openTab = useCallback((path) => {
     if (!openTabs.includes(path)) {
@@ -125,7 +134,9 @@ export function IDEProvider({ children }) {
         toggleCommandPalette,
         copilotOpen,
         setCopilotOpen,
-        toggleCopilot
+        toggleCopilot,
+        theme,
+        setTheme
       }}
     >
       {children}

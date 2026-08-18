@@ -43,6 +43,110 @@
   --sidebar-w: 190px;
 }
 
+/* Rosé Pine */
+[data-theme="rose-pine"] {
+  --bg: #191724;
+  --bg-chrome: #1f1d2e;
+  --bg-panel: #1f1d2e;
+  --bg-elevated: #26233a;
+  --bg-card: #26233a;
+  --bg-hover: #2a273f;
+  --border: #44415a;
+  --border-soft: #26233a;
+
+  --text-primary: #e0def4;
+  --text-secondary: #908caa;
+  --text-muted: #6e6a86;
+  --comment: #ebbcba;
+
+  --cyan: #9ccfd8;
+  --pink: #eb6f92;
+  --purple: #c4a7e7;
+  --orange: #ea9a97;
+  --yellow: #f6c177;
+  --blue: #31748f;
+  --red: #eb6f92;
+  --green: #9ccfd8;
+}
+
+/* Tokyo Night */
+[data-theme="tokyo-night"] {
+  --bg: #1a1b26;
+  --bg-chrome: #16161e;
+  --bg-panel: #16161e;
+  --bg-elevated: #24283b;
+  --bg-card: #24283b;
+  --bg-hover: #292e42;
+  --border: #414868;
+  --border-soft: #24283b;
+
+  --text-primary: #c0caf5;
+  --text-secondary: #a9b1d6;
+  --text-muted: #565f89;
+  --comment: #9ece6a;
+
+  --cyan: #7dcfff;
+  --pink: #bb9af7;
+  --purple: #9d7cd8;
+  --orange: #ff9e64;
+  --yellow: #e0af68;
+  --blue: #7aa2f7;
+  --red: #f7768e;
+  --green: #9ece6a;
+}
+
+/* Catppuccin */
+[data-theme="catppuccin"] {
+  --bg: #1e1e2e;
+  --bg-chrome: #181825;
+  --bg-panel: #181825;
+  --bg-elevated: #313244;
+  --bg-card: #313244;
+  --bg-hover: #45475a;
+  --border: #585b70;
+  --border-soft: #313244;
+
+  --text-primary: #cdd6f4;
+  --text-secondary: #bac2de;
+  --text-muted: #a6adc8;
+  --comment: #a6e3a1;
+
+  --cyan: #89dceb;
+  --pink: #f5c2e7;
+  --purple: #cba6f7;
+  --orange: #fab387;
+  --yellow: #f9e2af;
+  --blue: #89b4fa;
+  --red: #f38ba8;
+  --green: #a6e3a1;
+}
+
+/* Gruvbox */
+[data-theme="gruvbox"] {
+  --bg: #282828;
+  --bg-chrome: #1d2021;
+  --bg-panel: #1d2021;
+  --bg-elevated: #3c3836;
+  --bg-card: #3c3836;
+  --bg-hover: #504945;
+  --border: #665c54;
+  --border-soft: #3c3836;
+
+  --text-primary: #ebdbb2;
+  --text-secondary: #d5c4a1;
+  --text-muted: #bdae93;
+  --comment: #98971a;
+
+  --cyan: #8ec07c;
+  --pink: #d3869b;
+  --purple: #b16286;
+  --orange: #fe8019;
+  --yellow: #fabd2f;
+  --blue: #83a598;
+  --red: #fb4934;
+  --green: #b8bb26;
+}
+
 * { box-sizing: border-box; }
 
 html, body {
@@ -72,6 +176,121 @@ img, svg { display: block; }
 *::-webkit-scrollbar-track { background: transparent; }
 *::-webkit-scrollbar-thumb { background: var(--border); border-radius: 0; }
 *::-webkit-scrollbar-thumb:hover { background: #34343c; }
+
+.activitybar__settings-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.settings-menu {
+  position: absolute;
+  bottom: 10px;
+  left: 55px;
+  width: 260px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0;
+  font-family: var(--font-sans);
+}
+
+.settings-menu__group {
+  display: flex;
+  flex-direction: column;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--border-soft);
+}
+.settings-menu__group:last-child {
+  border-bottom: none;
+}
+
+.settings-menu__title {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+  padding: 4px 16px 8px;
+  text-transform: uppercase;
+}
+
+.settings-menu__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 16px;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+.settings-menu__item:hover, .settings-menu__item.active {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.settings-menu__shortcut {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.settings-menu__check {
+  margin-left: auto;
+  color: var(--blue);
+}
+
+.theme-circle {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+.theme-circle--akarsh-dark { background: #b794f6; }
+.theme-circle--rose-pine { background: #eb6f92; }
+.theme-circle--tokyo-night { background: #7aa2f7; }
+.theme-circle--catppuccin { background: #cba6f7; }
+.theme-circle--gruvbox { background: #fe8019; }
+
+.settings-menu__footer {
+  padding: 8px 16px;
+}
+.settings-shortcut {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+.settings-shortcut .key {
+  background: var(--bg-hover);
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-primary);
+}
+
+.settings-menu__credit {
+  padding: 12px 16px 4px;
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.settings-menu__credit b {
+  color: var(--text-secondary);
+}
 
 /* ───────────────────────────── ide shell ───────────────────────────── */
 .ide {

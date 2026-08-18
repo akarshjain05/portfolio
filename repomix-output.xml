@@ -1,0 +1,3535 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+api/
+  chat.js
+public/
+  _redirects
+  favicon.svg
+src/
+  components/
+    shell/
+      ActivityBar.jsx
+      Breadcrumb.jsx
+      CommandPalette.jsx
+      CopilotPanel.jsx
+      EditorShell.jsx
+      MenuBar.jsx
+      Sidebar.jsx
+      StatusBar.jsx
+      TabBar.jsx
+      TerminalPanel.jsx
+      TitleBar.jsx
+    icons.jsx
+    ProjectCard.jsx
+    ScrollToTop.jsx
+    SkillBar.jsx
+    SocialLink.jsx
+  contexts/
+    IDEContext.jsx
+  data/
+    portfolioData.js
+  hooks/
+    useClock.js
+  pages/
+    About.jsx
+    Contact.jsx
+    EmptyState.jsx
+    Home.jsx
+    NotFound.jsx
+    Projects.jsx
+    Readme.jsx
+    Skills.jsx
+  App.jsx
+  index.css
+  main.jsx
+.gitignore
+.oxlintrc.json
+index.html
+package.json
+README.md
+vercel.json
+vite.config.js
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path="public/_redirects">
+/*  /index.html  200
+</file>
+
+<file path="public/favicon.svg">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" rx="7" fill="#0d0d10"/>
+  <text x="16" y="22" font-family="monospace" font-size="16" font-weight="700" text-anchor="middle" fill="#5eead4">&lt;/&gt;</text>
+</svg>
+</file>
+
+<file path="src/components/shell/Breadcrumb.jsx">
+import { useLocation } from "react-router-dom";
+import { ChevronRight } from "lucide-react";
+import { files, repoName } from "../../data/portfolioData";
+
+export default function Breadcrumb() {
+  const { pathname } = useLocation();
+  const active =
+    files.find((f) => (f.path === "/" ? pathname === "/" : pathname.startsWith(f.path))) ||
+    files[0];
+
+  const crumbs = [repoName, "src", "pages", active.label];
+
+  return (
+    <div className="breadcrumb">
+      {crumbs.map((crumb, i) => (
+        <span key={crumb + i} style={{ display: "flex", alignItems: "center", gap: 6 }}>
+          {i > 0 && <ChevronRight size={11} />}
+          <span>{crumb}</span>
+        </span>
+      ))}
+    </div>
+  );
+}
+</file>
+
+<file path="src/components/shell/StatusBar.jsx">
+import { useLocation } from "react-router-dom";
+import { GitBranch, RefreshCw, AlertTriangle, Sparkles, Clock } from "lucide-react";
+import { files, repoName } from "../../data/portfolioData";
+import useClock from "../../hooks/useClock";
+
+export default function StatusBar() {
+  const { pathname } = useLocation();
+  const time = useClock();
+  const active =
+    files.find((f) => (f.path === "/" ? pathname === "/" : pathname.startsWith(f.path))) ||
+    files[0];
+
+  return (
+    <div className="statusbar">
+      <div className="statusbar__side">
+        <span className="statusbar__item">
+          <AlertTriangle size={12} />0
+        </span>
+        <span className="statusbar__item statusbar__hide-xs">
+          <GitBranch size={12} />
+          main
+        </span>
+        <span className="statusbar__item statusbar__hide-sm">
+          <RefreshCw size={12} />
+        </span>
+        <span className="statusbar__item statusbar__hide-sm">Akarsh&rsquo;s Portfolio</span>
+      </div>
+      <div className="statusbar__side">
+        <span className="statusbar__item statusbar__hide-sm">
+          <Sparkles size={12} />
+          Copilot
+        </span>
+        <span className="statusbar__item">{active.lang}</span>
+        <span className="statusbar__item statusbar__hide-xs">UTF-8</span>
+        <span className="statusbar__item statusbar__hide-sm">Prettier</span>
+        <span className="statusbar__item statusbar__hide-xs">{repoName} Dark</span>
+        <span className="statusbar__item">
+          <Clock size={12} />
+          {time}
+        </span>
+      </div>
+    </div>
+  );
+}
+</file>
+
+<file path="src/components/ProjectCard.jsx">
+import { ExternalLink } from "lucide-react";
+import { FaGithub } from "react-icons/fa6";
+
+export default function ProjectCard({ project }) {
+  return (
+    <article className="project-card">
+      <div className="project-card__top">
+        <span className="project-card__icon" aria-hidden="true">
+          {project.icon}
+        </span>
+        <div className="project-card__links">
+          {project.github && (
+            <a
+              className="pill-link"
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaGithub size={12} /> GitHub
+            </a>
+          )}
+          {project.live && (
+            <a
+              className="pill-link pill-link--live"
+              href={project.live}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <ExternalLink size={12} /> Live
+            </a>
+          )}
+        </div>
+      </div>
+
+      <div className="project-card__tags">
+        {project.tags.join(" · ")}
+        <span className={`status-dot status-dot--${project.status}`}>
+          <i />
+          {project.status === "shipped" ? "shipped" : "building"}
+        </span>
+      </div>
+
+      <h3 className="project-card__title">{project.title}</h3>
+      <p className="project-card__desc">{project.description}</p>
+
+      <div className="tech-row">
+        {project.tech.map((t) => (
+          <span className="tech-chip" key={t}>
+            {t}
+          </span>
+        ))}
+      </div>
+    </article>
+  );
+}
+</file>
+
+<file path="src/components/ScrollToTop.jsx">
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+
+// React Router doesn't reset scroll position between route changes.
+// Without this, navigating from the bottom of Skills to Contact would
+// land you mid-page instead of at the top.
+export default function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    const el = document.querySelector(".content");
+    if (el) el.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+</file>
+
+<file path="src/components/SkillBar.jsx">
+export default function SkillBar({ name, level, color }) {
+  return (
+    <div className="skill-row">
+      <div className="skill-row__top">
+        <span className="skill-row__name">{name}</span>
+        <span className="skill-row__pct">{level}%</span>
+      </div>
+      <div className="skill-bar">
+        <div
+          className="skill-bar__fill"
+          style={{ width: `${level}%`, background: color }}
+        />
+      </div>
+    </div>
+  );
+}
+</file>
+
+<file path="src/components/SocialLink.jsx">
+import { SocialIcon } from "./icons";
+
+// `variant="pill"` -> compact icon+label pill (used on the Home page)
+// `variant="card"`  -> full contact-link card with name + value (used on Contact)
+export default function SocialLink({ social, variant = "pill" }) {
+  const isExternal = !social.url.startsWith("mailto:");
+
+  if (variant === "card") {
+    return (
+      <a
+        className="contact-link"
+        href={social.url}
+        target={isExternal ? "_blank" : undefined}
+        rel={isExternal ? "noopener noreferrer" : undefined}
+      >
+        <span className="contact-link__icon">
+          <SocialIcon name={social.icon} size={18} />
+        </span>
+        <span>
+          <span className="contact-link__name">{social.name.toUpperCase()}</span>
+          <span className="contact-link__value">
+            {social.url.replace("mailto:", "").replace("https://", "")}
+          </span>
+        </span>
+      </a>
+    );
+  }
+
+  return (
+    <a
+      className="social-pill"
+      href={social.url}
+      target={isExternal ? "_blank" : undefined}
+      rel={isExternal ? "noopener noreferrer" : undefined}
+    >
+      <SocialIcon name={social.icon} size={15} />
+      {social.name}
+    </a>
+  );
+}
+</file>
+
+<file path="src/hooks/useClock.js">
+import { useEffect, useState } from "react";
+
+function format(date) {
+  return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+}
+
+// Live HH:MM clock, ticking once a minute (matches the status-bar clock
+// you see in most code editors — no need for second-level precision).
+export default function useClock() {
+  const [time, setTime] = useState(() => format(new Date()));
+
+  useEffect(() => {
+    const id = setInterval(() => setTime(format(new Date())), 1000 * 30);
+    return () => clearInterval(id);
+  }, []);
+
+  return time;
+}
+</file>
+
+<file path="src/pages/Contact.jsx">
+import { useEffect, useState } from "react";
+import { Send, CheckCircle2 } from "lucide-react";
+import { socials } from "../data/portfolioData";
+import SocialLink from "../components/SocialLink";
+
+const emailSocial = socials.find((s) => s.icon === "mail");
+const MAILTO_TARGET = emailSocial ? emailSocial.url.replace("mailto:", "") : "";
+
+export default function Contact() {
+  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
+  const [status, setStatus] = useState(null);
+
+  useEffect(() => {
+    document.title = "contact.css : portfolio";
+  }, []);
+
+  useEffect(() => {
+    if (!status) return;
+    const id = setTimeout(() => setStatus(null), 6000);
+    return () => clearTimeout(id);
+  }, [status]);
+
+  function update(field) {
+    return (e) => setForm((f) => ({ ...f, [field]: e.target.value }));
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    const subject = form.subject.trim() || `Portfolio message from ${form.name}`;
+    const body = `${form.message}\n\n— ${form.name} (${form.email})`;
+    const mailto = `mailto:${MAILTO_TARGET}?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(body)}`;
+
+    window.location.href = mailto;
+    setStatus("ok");
+  }
+
+  return (
+    <div className="page">
+      <span className="comment">// contact.css — let&rsquo;s build something</span>
+      <h1 className="page-title" style={{ marginBottom: 10 }}>
+        Contact
+      </h1>
+      <p style={{ color: "var(--text-muted)", fontSize: 13.5, marginBottom: 36 }}>
+        // open to work, collabs &amp; good conversations
+      </p>
+
+      <div className="contact-grid">
+        <div>
+          <h2 className="skill-group__title">FIND ME ON</h2>
+          {socials.map((s) => (
+            <SocialLink social={s} variant="card" key={s.name} />
+          ))}
+        </div>
+
+        <div>
+          <h2 className="skill-group__title">SEND A MESSAGE</h2>
+          <form onSubmit={handleSubmit} noValidate={false}>
+            <div className="field">
+              <label className="field__label" htmlFor="name">
+                YOUR_NAME <span className="req">*</span>
+              </label>
+              <input
+                id="name"
+                className="field__input"
+                placeholder="string"
+                required
+                value={form.name}
+                onChange={update("name")}
+              />
+            </div>
+            <div className="field">
+              <label className="field__label" htmlFor="email">
+                YOUR_EMAIL <span className="req">*</span>
+              </label>
+              <input
+                id="email"
+                type="email"
+                className="field__input"
+                placeholder="string"
+                required
+                value={form.email}
+                onChange={update("email")}
+              />
+            </div>
+            <div className="field">
+              <label className="field__label" htmlFor="subject">
+                SUBJECT
+              </label>
+              <input
+                id="subject"
+                className="field__input"
+                placeholder="string"
+                value={form.subject}
+                onChange={update("subject")}
+              />
+            </div>
+            <div className="field">
+              <label className="field__label" htmlFor="message">
+                MESSAGE <span className="req">*</span>
+              </label>
+              <textarea
+                id="message"
+                className="field__textarea"
+                placeholder="'''your message'''"
+                required
+                value={form.message}
+                onChange={update("message")}
+              />
+            </div>
+
+            <button type="submit" className="send-btn">
+              <Send size={15} />
+              send_message()
+            </button>
+
+            {status === "ok" && (
+              <div className="form-status form-status--ok">
+                <CheckCircle2 size={13} style={{ display: "inline", marginRight: 6, verticalAlign: -2 }} />
+                Opening your email client with this filled in — hit send there to reach me.
+              </div>
+            )}
+
+            <p className="form-note">
+              // opens your email client — swap in a service like Formspree or EmailJS
+              in Contact.jsx if you&rsquo;d rather receive these directly
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+}
+</file>
+
+<file path="src/pages/NotFound.jsx">
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { Home as HomeIcon } from "lucide-react";
+
+export default function NotFound() {
+  useEffect(() => {
+    document.title = "404 : portfolio";
+  }, []);
+
+  return (
+    <div className="page notfound">
+      <div className="notfound__code">404</div>
+      <p className="notfound__msg">// this file doesn&rsquo;t exist in this repo</p>
+      <Link to="/" className="btn btn--primary" style={{ display: "inline-flex" }}>
+        <HomeIcon size={16} />
+        Back to home.jsx
+      </Link>
+    </div>
+  );
+}
+</file>
+
+<file path="src/pages/Projects.jsx">
+import { useEffect } from "react";
+import { projects } from "../data/portfolioData";
+import ProjectCard from "../components/ProjectCard";
+
+export default function Projects() {
+  useEffect(() => {
+    document.title = "projects.js : portfolio";
+  }, []);
+
+  return (
+    <div className="page">
+      <span className="comment">// projects.js : things I&rsquo;ve built &amp; shipped</span>
+      <h1 className="page-title" style={{ marginBottom: 10 }}>
+        Projects
+      </h1>
+      <p style={{ color: "var(--text-muted)", fontSize: 13.5, marginBottom: 36 }}>
+        const projects = [ ...shipped, ...in_progress ];
+      </p>
+
+      <div className="project-grid">
+        {projects.map((project) => (
+          <ProjectCard project={project} key={project.id} />
+        ))}
+      </div>
+    </div>
+  );
+}
+</file>
+
+<file path=".oxlintrc.json">
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["react", "oxc"],
+  "rules": {
+    "react/rules-of-hooks": "error",
+    "react/only-export-components": ["warn", { "allowConstantExport": true }]
+  }
+}
+</file>
+
+<file path="index.html">
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Akarsh — Computer Science student building full-stack, AI, and security systems." />
+    <meta name="theme-color" content="#08080a" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+    <title>akarsh : portfolio</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+</file>
+
+<file path="src/components/shell/ActivityBar.jsx">
+import { useState, useRef, useEffect } from "react";
+import { Files, Search, GitBranch, Sparkles, Settings, Palette, Command, TerminalSquare, Maximize } from "lucide-react";
+import { useIDE } from "../../contexts/IDEContext";
+
+const THEMES = [
+  { id: "akarsh-dark", name: "Akarsh Dark", icon: "💜" },
+  { id: "rose-pine", name: "Rosé Pine", icon: "🌸" },
+  { id: "tokyo-night", name: "Tokyo Night", icon: "🌌" },
+  { id: "catppuccin", name: "Catppuccin", icon: "🐱" },
+  { id: "gruvbox", name: "Gruvbox", icon: "🔥" }
+];
+
+export default function ActivityBar({ sidebarOpen, onToggleSidebar }) {
+  const { toggleCommandPalette, copilotOpen, toggleCopilot, toggleTerminal, theme, setTheme } = useIDE();
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const menuRef = useRef(null);
+  
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setSettingsOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(() => {});
+    } else if (document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+    setSettingsOpen(false);
+  };
+
+  return (
+    <div className="activitybar">
+      <button
+        type="button"
+        className={`activitybar__btn ${sidebarOpen ? "activitybar__btn--active" : ""}`}
+        onClick={onToggleSidebar}
+        aria-label="Toggle file explorer"
+        aria-pressed={sidebarOpen}
+      >
+        <Files size={19} />
+      </button>
+      <button 
+        type="button" 
+        className="activitybar__btn" 
+        onClick={toggleCommandPalette}
+        aria-label="Search" 
+        tabIndex={-1}
+      >
+        <Search size={19} />
+      </button>
+      <button type="button" className="activitybar__btn" aria-label="Source control" tabIndex={-1}>
+        <GitBranch size={19} />
+      </button>
+      <button 
+        type="button" 
+        className={`activitybar__btn ${copilotOpen ? "activitybar__btn--active" : ""}`}
+        onClick={toggleCopilot}
+        aria-label="Copilot" 
+        tabIndex={-1}
+      >
+        <Sparkles size={19} />
+      </button>
+      <div className="activitybar__spacer" />
+      
+      <div className="activitybar__settings-container" ref={menuRef}>
+        <button 
+          type="button" 
+          className={`activitybar__btn ${settingsOpen ? "activitybar__btn--active" : ""}`}
+          onClick={() => setSettingsOpen(!settingsOpen)}
+          aria-label="Settings" 
+          tabIndex={-1}
+        >
+          <Settings size={19} />
+        </button>
+
+        {settingsOpen && (
+          <div className="settings-menu">
+            <div className="settings-menu__group">
+              <div className="settings-menu__title">🎨 COLOR THEME</div>
+              {THEMES.map(t => (
+                <button 
+                  key={t.id} 
+                  className={`settings-menu__item ${theme === t.id ? "active" : ""}`}
+                  onClick={() => { setTheme(t.id); setSettingsOpen(false); }}
+                >
+                  <div className={`theme-circle theme-circle--${t.id}`}></div>
+                  <span>{t.icon} {t.name}</span>
+                  {theme === t.id && <span className="settings-menu__check">✓</span>}
+                </button>
+              ))}
+            </div>
+
+            <div className="settings-menu__group">
+              <div className="settings-menu__title">⚡ QUICK ACTIONS</div>
+              <button className="settings-menu__item" onClick={() => { toggleCommandPalette(); setSettingsOpen(false); }}>
+                <Command size={14} /> Command Palette <span className="settings-menu__shortcut">Ctrl+P</span>
+              </button>
+              <button className="settings-menu__item" onClick={() => { toggleTerminal(); setSettingsOpen(false); }}>
+                <TerminalSquare size={14} /> Toggle Terminal <span className="settings-menu__shortcut">Ctrl+`</span>
+              </button>
+              <button className="settings-menu__item" onClick={() => { toggleCopilot(); setSettingsOpen(false); }}>
+                <Sparkles size={14} /> Copilot Chat
+              </button>
+              <button className="settings-menu__item" onClick={toggleFullscreen}>
+                <Maximize size={14} /> Toggle Fullscreen <span className="settings-menu__shortcut">F11</span>
+              </button>
+            </div>
+
+            <div className="settings-menu__group settings-menu__footer">
+              <div className="settings-menu__title">⌨ KEYBOARD SHORTCUTS</div>
+              <div className="settings-shortcut"><span className="key">Ctrl P</span> Go to file (command palette)</div>
+              <div className="settings-shortcut"><span className="key">Ctrl `</span> Toggle terminal</div>
+              <div className="settings-shortcut"><span className="key">Ctrl B</span> Toggle sidebar</div>
+              <div className="settings-shortcut"><span className="key">Esc</span> Close overlay</div>
+            </div>
+            
+            <div className="settings-menu__credit">
+              Portfolio v1.0 • React + Vite<br />
+              Made with 💜 by <b>Akarsh Jain</b>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+</file>
+
+<file path="src/components/shell/TabBar.jsx">
+import { NavLink } from "react-router-dom";
+import { X } from "lucide-react";
+import { files } from "../../data/portfolioData";
+import { FileTypeIcon } from "../icons";
+import { useIDE } from "../../contexts/IDEContext";
+
+export default function TabBar() {
+  const { openTabs, closeTab } = useIDE();
+  
+  const activeFiles = files.filter(f => openTabs.includes(f.path));
+
+  return (
+    <div className="tabbar">
+      {activeFiles.map((file) => (
+        <NavLink
+          key={file.id}
+          to={file.path}
+          end={file.path === "/"}
+          className={({ isActive }) => `tab ${isActive ? "tab--active" : ""}`}
+        >
+          <FileTypeIcon type={file.icon} size={13} />
+          {file.label}
+          <div className="tab__close-btn" onClick={(e) => closeTab(file.path, e)}>
+            <X size={12} className="tab__close" />
+          </div>
+        </NavLink>
+      ))}
+    </div>
+  );
+}
+</file>
+
+<file path="src/components/shell/TerminalPanel.jsx">
+import { useState, useRef, useEffect } from "react";
+import { useIDE } from "../../contexts/IDEContext";
+import { X, Terminal } from "lucide-react";
+
+export default function TerminalPanel() {
+  const { terminalOpen, toggleTerminal } = useIDE();
+  const [history, setHistory] = useState([
+    { type: "info", text: "Welcome to Akarsh's Terminal Shell v1.0.0" },
+    { type: "info", text: 'Type "help" to see available commands.' },
+  ]);
+  const [input, setInput] = useState("");
+  const inputRef = useRef(null);
+  const endRef = useRef(null);
+
+  useEffect(() => {
+    if (terminalOpen && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [terminalOpen]);
+
+  useEffect(() => {
+    if (endRef.current) {
+      endRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [history]);
+
+  const handleCommand = (cmd) => {
+    const trimmed = cmd.trim();
+    if (!trimmed) return;
+
+    setHistory((prev) => [...prev, { type: "cmd", text: `$ ${trimmed}` }]);
+
+    const args = trimmed.toLowerCase().split(" ");
+    const command = args[0];
+
+    setTimeout(() => {
+      let output = "";
+      switch (command) {
+        case "help":
+          output = "Available commands: help, clear, whoami, date, echo, ls";
+          break;
+        case "clear":
+          setHistory([]);
+          return;
+        case "whoami":
+          output = "guest_user";
+          break;
+        case "date":
+          output = new Date().toString();
+          break;
+        case "echo":
+          output = args.slice(1).join(" ");
+          break;
+        case "ls":
+          output = "about.html  contact.css  home.tsx  projects.js  readme.md  skills.json";
+          break;
+        default:
+          output = `bash: ${command}: command not found`;
+      }
+      setHistory((prev) => [...prev, { type: "out", text: output }]);
+    }, 100);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleCommand(input);
+      setInput("");
+    }
+  };
+
+  if (!terminalOpen) return null;
+
+  return (
+    <div className="terminal-panel">
+      <div className="terminal-panel__header">
+        <div className="terminal-panel__title">
+          <Terminal size={14} /> TERMINAL
+        </div>
+        <div className="terminal-panel__actions">
+          <X size={16} onClick={toggleTerminal} style={{ cursor: "pointer" }} />
+        </div>
+      </div>
+      <div className="terminal-panel__content" onClick={() => inputRef.current?.focus()}>
+        {history.map((line, i) => (
+          <div key={i} className={`term-line term-line--${line.type}`}>
+            {line.text}
+          </div>
+        ))}
+        <div className="term-input-row">
+          <span className="term-prompt">$</span>
+          <input
+            ref={inputRef}
+            type="text"
+            className="term-input"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
+            spellCheck={false}
+            autoComplete="off"
+          />
+        </div>
+        <div ref={endRef} />
+      </div>
+    </div>
+  );
+}
+</file>
+
+<file path="src/pages/EmptyState.jsx">
+import React from "react";
+import { useIDE } from "../contexts/IDEContext";
+
+export default function EmptyState() {
+  const { openTab } = useIDE();
+
+  return (
+    <div className="page" style={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", color: "var(--text-muted)", marginTop: "10vh" }}>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React Logo" width={80} style={{ opacity: 0.1, marginBottom: 20 }} />
+      <h2 style={{ fontSize: "24px", fontWeight: "600", marginBottom: "8px", color: "var(--text-secondary)" }}>Akarsh Jain</h2>
+      <p style={{ fontSize: "14px", marginBottom: "32px" }}>Select a file from the sidebar to start</p>
+      
+      <div style={{ display: "flex", gap: "24px", fontSize: "13px" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "12px", alignItems: "flex-end" }}>
+          <span>Show All Commands</span>
+          <span>Go to File</span>
+          <span>Toggle Terminal</span>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: "12px", color: "var(--text-secondary)" }}>
+          <span><kbd style={{ background: "var(--bg-hover)", padding: "2px 6px", borderRadius: "4px", border: "1px solid var(--border)" }}>Ctrl</kbd> + <kbd style={{ background: "var(--bg-hover)", padding: "2px 6px", borderRadius: "4px", border: "1px solid var(--border)" }}>Shift</kbd> + <kbd style={{ background: "var(--bg-hover)", padding: "2px 6px", borderRadius: "4px", border: "1px solid var(--border)" }}>P</kbd></span>
+          <span><kbd style={{ background: "var(--bg-hover)", padding: "2px 6px", borderRadius: "4px", border: "1px solid var(--border)" }}>Ctrl</kbd> + <kbd style={{ background: "var(--bg-hover)", padding: "2px 6px", borderRadius: "4px", border: "1px solid var(--border)" }}>P</kbd></span>
+          <span><kbd style={{ background: "var(--bg-hover)", padding: "2px 6px", borderRadius: "4px", border: "1px solid var(--border)" }}>Ctrl</kbd> + <kbd style={{ background: "var(--bg-hover)", padding: "2px 6px", borderRadius: "4px", border: "1px solid var(--border)" }}>`</kbd></span>
+        </div>
+      </div>
+    </div>
+  );
+}
+</file>
+
+<file path="src/pages/Readme.jsx">
+import { useEffect } from "react";
+import { profile, currentFocus, skillGroups } from "../data/portfolioData";
+
+const stackBadges = skillGroups.flatMap((g) => g.skills.map((s) => s.name));
+
+export default function Readme() {
+  useEffect(() => {
+    document.title = "README.md : portfolio";
+  }, []);
+
+  return (
+    <div className="page">
+      <div className="readme-card">
+        <h1>{profile.name}</h1>
+        <p className="readme-card__sub">
+          Computer Science Student {profile.affiliationBadge} &middot; {profile.location} 🇮🇳
+        </p>
+
+        <div className="readme-card__badges">
+          {["Python", "C++", "JavaScript", "FastAPI", "LangGraph"].map((b) => (
+            <span className="readme-badge" key={b}>
+              {b}
+            </span>
+          ))}
+        </div>
+
+        <h2>👋 About</h2>
+        <p>
+          Hi, Akarsh here! CS student at SVNIT, usually somewhere between a Codeforces tab and a
+          backend system. I like building things that are correct
+          and hardened, not just demo-ready.
+        </p>
+
+        <h2>⚡ Currently</h2>
+        <ul className="readme-list">
+          {currentFocus.map((item) => (
+            <li key={item.text}>
+              <span aria-hidden="true">{item.icon}</span>
+              <span>{item.text}</span>
+            </li>
+          ))}
+        </ul>
+
+        <h2>🛠️ Stack</h2>
+        <div className="readme-card__badges">
+          {stackBadges.map((b) => (
+            <span className="readme-badge" key={b}>
+              {b}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+</file>
+
+<file path="src/App.jsx">
+import { Routes, Route } from "react-router-dom";
+import EditorShell from "./components/shell/EditorShell";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Projects from "./pages/Projects";
+import Skills from "./pages/Skills";
+import Contact from "./pages/Contact";
+import Readme from "./pages/Readme";
+import NotFound from "./pages/NotFound";
+import EmptyState from "./pages/EmptyState";
+import { IDEProvider } from "./contexts/IDEContext";
+
+export default function App() {
+  return (
+    <IDEProvider>
+      <Routes>
+        <Route element={<EditorShell />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/projects" element={<Projects />} />
+        <Route path="/skills" element={<Skills />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/readme" element={<Readme />} />
+        <Route path="/empty" element={<EmptyState />} />
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    </Routes>
+    </IDEProvider>
+  );
+}
+</file>
+
+<file path=".gitignore">
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+.vite
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+</file>
+
+<file path="vercel.json">
+{
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/$1" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
+</file>
+
+<file path="vite.config.js">
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [react()],
+  base: '/',
+})
+</file>
+
+<file path="src/components/shell/CommandPalette.jsx">
+import { useState, useRef, useEffect } from "react";
+import { useIDE } from "../../contexts/IDEContext";
+import { Search, Sparkles } from "lucide-react";
+import { files } from "../../data/portfolioData";
+import { FileTypeIcon } from "../icons";
+
+export default function CommandPalette() {
+  const { commandPaletteOpen, toggleCommandPalette, openTab } = useIDE();
+  const [query, setQuery] = useState("");
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (commandPaletteOpen && inputRef.current) {
+      inputRef.current.focus();
+      setQuery("");
+    }
+  }, [commandPaletteOpen]);
+
+  if (!commandPaletteOpen) return null;
+
+  const filteredFiles = files.filter(
+    (f) =>
+      f.label.toLowerCase().includes(query.toLowerCase()) ||
+      f.path.toLowerCase().includes(query.toLowerCase())
+  );
+
+  const handleSelect = (path) => {
+    openTab(path);
+    toggleCommandPalette();
+  };
+
+  return (
+    <div className="palette-overlay" onClick={toggleCommandPalette}>
+      <div
+        className="palette-modal"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="palette-input-row">
+          <span className="palette-prompt">&gt;</span>
+          <input
+            ref={inputRef}
+            type="text"
+            className="palette-input"
+            placeholder="Go to file or run command..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+          <span className="palette-esc">Esc</span>
+        </div>
+
+        <div className="palette-content">
+          <div className="palette-section-title">COMMANDS</div>
+          <div className="palette-item palette-item--highlight" onClick={() => {
+            toggleCopilot();
+            toggleCommandPalette();
+          }}>
+            <Sparkles size={14} color="#b794f6" />
+            <span>Open Akarsh&apos;s Copilot</span>
+            <span className="palette-shortcut">Ctrl+Shift+C</span>
+          </div>
+
+          <div className="palette-section-title">FILES</div>
+          {filteredFiles.map((file) => (
+            <div
+              key={file.id}
+              className="palette-item"
+              onClick={() => handleSelect(file.path)}
+            >
+              <FileTypeIcon type={file.icon} />
+              <span>{file.label}</span>
+              <span className="palette-path">{file.path.split('/').filter(Boolean)[0] || 'src'}/</span>
+            </div>
+          ))}
+          {filteredFiles.length === 0 && (
+            <div className="palette-empty">No matching results</div>
+          )}
+        </div>
+        
+        <div className="palette-footer">
+          <span>↑↓ navigate</span>
+          <span>↵ open</span>
+          <span>Esc close</span>
+          <span style={{ marginLeft: "auto" }}>Tip: type "copilot" to open AI chat</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+</file>
+
+<file path="src/components/shell/TitleBar.jsx">
+import { repoName } from "../../data/portfolioData";
+import { Search } from "lucide-react";
+import { useIDE } from "../../contexts/IDEContext";
+
+export default function TitleBar() {
+  const { toggleCommandPalette } = useIDE();
+  return (
+    <div className="titlebar">
+      <div className="titlebar__dots">
+        <span className="titlebar__dot titlebar__dot--red" />
+        <span className="titlebar__dot titlebar__dot--yellow" />
+        <span className="titlebar__dot titlebar__dot--green" />
+      </div>
+      <div className="titlebar__search-container" onClick={toggleCommandPalette}>
+        <Search size={13} />
+        <span>{repoName} :portfolio</span>
+        <span className="titlebar__kbd">
+          <kbd>Ctrl</kbd>
+          <kbd>P</kbd>
+        </span>
+      </div>
+      <div className="titlebar__spacer" />
+    </div>
+  );
+}
+</file>
+
+<file path="src/contexts/IDEContext.jsx">
+import React, { createContext, useContext, useState, useCallback, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { files } from "../data/portfolioData";
+
+const IDEContext = createContext(null);
+
+export function IDEProvider({ children }) {
+  // Initialize with all files open by default, mimicking standard IDE startup behavior
+  const [openTabs, setOpenTabs] = useState(() => files.map(f => f.path));
+  const [recentFiles, setRecentFiles] = useState(() => files.map(f => f.path));
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [terminalOpen, setTerminalOpen] = useState(false);
+  const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
+  const [copilotOpen, setCopilotOpen] = useState(false);
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem("ide-theme") || "akarsh-dark";
+  });
+  
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // Ensure current location is always in open tabs and recent files
+  useEffect(() => {
+    const currentPath = location.pathname;
+    if (currentPath !== "*" && currentPath !== "/empty") {
+      if (files.some(f => f.path === currentPath)) {
+        if (!openTabs.includes(currentPath)) {
+          setOpenTabs(prev => [...prev, currentPath]);
+        }
+        setRecentFiles(prev => {
+          const filtered = prev.filter(p => p !== currentPath);
+          return [currentPath, ...filtered].slice(0, 5); // Keep top 5 recent
+        });
+      }
+    }
+  }, [location.pathname, openTabs]);
+
+  // Apply theme to document
+  useEffect(() => {
+    localStorage.setItem("ide-theme", theme);
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
+
+  const openTab = useCallback((path) => {
+    if (!openTabs.includes(path)) {
+      setOpenTabs(prev => [...prev, path]);
+    }
+    navigate(path);
+  }, [openTabs, navigate]);
+
+  const closeTab = useCallback((path, e) => {
+    if (e) {
+      e.stopPropagation();
+      e.preventDefault();
+    }
+    
+    setOpenTabs(prev => {
+      const newTabs = prev.filter(p => p !== path);
+      
+      // If closing the active tab, navigate to the adjacent one
+      if (location.pathname === path) {
+        if (newTabs.length > 0) {
+          const closedIndex = prev.indexOf(path);
+          // Prefer navigating to the left, fallback to right
+          const nextIndex = closedIndex > 0 ? closedIndex - 1 : 0;
+          navigate(newTabs[nextIndex]);
+        } else {
+          navigate("/empty");
+        }
+      }
+      
+      return newTabs;
+    });
+  }, [location.pathname, navigate]);
+
+  const closeAllTabs = useCallback(() => {
+    setOpenTabs([]);
+    navigate("/empty");
+  }, [navigate]);
+
+  const toggleSidebar = useCallback(() => {
+    setSidebarOpen(v => !v);
+  }, []);
+
+  const toggleTerminal = useCallback(() => {
+    setTerminalOpen(v => !v);
+  }, []);
+
+  const toggleCommandPalette = useCallback(() => {
+    setCommandPaletteOpen(v => !v);
+  }, []);
+
+  const toggleCopilot = useCallback(() => {
+    setCopilotOpen(v => !v);
+  }, []);
+
+  useEffect(() => {
+    const handleGlobalKeyDown = (e) => {
+      // Ctrl+P or Cmd+P
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'p') {
+        e.preventDefault();
+        toggleCommandPalette();
+      }
+      // Ctrl+Shift+C for Copilot
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'c') {
+        e.preventDefault();
+        toggleCopilot();
+      }
+      // Esc to close palette
+      if (e.key === 'Escape') {
+        setCommandPaletteOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleGlobalKeyDown);
+    return () => window.removeEventListener("keydown", handleGlobalKeyDown);
+  }, [toggleCommandPalette]);
+
+  return (
+    <IDEContext.Provider
+      value={{
+        openTabs,
+        recentFiles,
+        openTab,
+        closeTab,
+        closeAllTabs,
+        sidebarOpen,
+        setSidebarOpen,
+        toggleSidebar,
+        terminalOpen,
+        setTerminalOpen,
+        toggleTerminal,
+        commandPaletteOpen,
+        setCommandPaletteOpen,
+        toggleCommandPalette,
+        copilotOpen,
+        setCopilotOpen,
+        toggleCopilot,
+        theme,
+        setTheme
+      }}
+    >
+      {children}
+    </IDEContext.Provider>
+  );
+}
+
+export function useIDE() {
+  const context = useContext(IDEContext);
+  if (!context) {
+    throw new Error("useIDE must be used within an IDEProvider");
+  }
+  return context;
+}
+</file>
+
+<file path="src/pages/About.jsx">
+import { useEffect } from "react";
+import { GraduationCap, MapPin } from "lucide-react";
+import { profile, currentFocus, education } from "../data/portfolioData";
+
+export default function About() {
+  useEffect(() => {
+    document.title = "about.html : portfolio";
+  }, []);
+
+  return (
+    <div className="page">
+      <span className="comment">// who I am · what I do · where I build</span>
+      <h1 className="page-title">About Me</h1>
+
+      <div className="bio-card" style={{ marginTop: 28 }}>
+        {profile.bio}
+      </div>
+
+      <h2 className="section-heading">CURRENT FOCUS</h2>
+      <div className="focus-card">
+        <div className="focus-grid">
+          {currentFocus.map((item) => (
+            <div className="focus-item" key={item.text}>
+              <span className="focus-item__icon" aria-hidden="true">
+                {item.icon}
+              </span>
+              <span>{item.text}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <h2 className="section-heading">EDUCATION</h2>
+      <div className="edu-list">
+        {education.map((edu) => (
+          <div className="edu-card" key={edu.school}>
+            <div className="edu-card__top">
+              <span className="edu-card__school">
+                <GraduationCap size={17} color="#007acc" />
+                {edu.school}
+              </span>
+              <span className="edu-card__period">{edu.period}</span>
+            </div>
+            <div className="edu-card__loc">
+              <MapPin size={12} style={{ display: "inline", marginRight: 4, verticalAlign: -1 }} />
+              {edu.location}
+            </div>
+            <div className="edu-card__degree">{edu.degree}</div>
+            <div className="edu-card__notes">{edu.notes}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+</file>
+
+<file path="src/pages/Skills.jsx">
+import { useEffect } from "react";
+import { skillGroups } from "../data/portfolioData";
+import SkillBar from "../components/SkillBar";
+
+const BAR_COLORS = [
+  "#f472b6", // pink
+  "#fb923c", // orange
+  "#fbbf24", // yellow
+  "#007acc", // blue
+  "#b794f6", // purple
+  "#60a5fa", // blue
+  "#4ade80", // green
+];
+
+export default function Skills() {
+  useEffect(() => {
+    document.title = "skills.json : portfolio";
+  }, []);
+
+  return (
+    <div className="page">
+      <span className="comment">// skills.json — tech stack &amp; tools I actually use</span>
+      <h1 className="page-title" style={{ marginBottom: 14 }}>
+        Skills
+      </h1>
+      <p className="skills-intro">
+        {"{ "}
+        <span className="k">&quot;status&quot;</span>: <span className="v">&quot;always_learning&quot;</span>,{" "}
+        <span className="k">&quot;passion&quot;</span>: <span className="v">&quot;immeasurable&quot;</span>
+        {" }"}
+      </p>
+
+      <div className="skill-grid">
+        {skillGroups.map((group) => (
+          <div key={group.title}>
+            <h2 className="skill-group__title">{group.title.toUpperCase()}</h2>
+            {group.skills.map((skill, j) => (
+              <SkillBar
+                key={skill.name}
+                name={skill.name}
+                level={skill.level}
+                color={BAR_COLORS[j % BAR_COLORS.length]}
+              />
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+</file>
+
+<file path="src/components/shell/EditorShell.jsx">
+import { Outlet } from "react-router-dom";
+import TitleBar from "./TitleBar";
+import MenuBar from "./MenuBar";
+import ActivityBar from "./ActivityBar";
+import Sidebar from "./Sidebar";
+import TabBar from "./TabBar";
+import Breadcrumb from "./Breadcrumb";
+import StatusBar from "./StatusBar";
+import ScrollToTop from "../ScrollToTop";
+import { useIDE } from "../../contexts/IDEContext";
+import TerminalPanel from "./TerminalPanel";
+import CommandPalette from "./CommandPalette";
+import CopilotPanel from "./CopilotPanel";
+
+export default function EditorShell() {
+  const { sidebarOpen, toggleSidebar } = useIDE();
+
+  return (
+    <div className="ide">
+      <TitleBar />
+      <MenuBar />
+      <div className="ide__body">
+        <ActivityBar
+          sidebarOpen={sidebarOpen}
+          onToggleSidebar={toggleSidebar}
+        />
+        <Sidebar open={sidebarOpen} onNavigate={toggleSidebar} />
+        <div className="ide__main">
+          <TabBar />
+          <Breadcrumb />
+          <main className="content">
+            <ScrollToTop />
+            <Outlet />
+          </main>
+          <TerminalPanel />
+          <CopilotPanel />
+        </div>
+      </div>
+      <StatusBar />
+      <CommandPalette />
+    </div>
+  );
+}
+</file>
+
+<file path="src/components/shell/MenuBar.jsx">
+import { useState, useRef, useEffect } from "react";
+import { useIDE } from "../../contexts/IDEContext";
+import { useNavigate } from "react-router-dom";
+
+export default function MenuBar() {
+  const [activeMenu, setActiveMenu] = useState(null);
+  const menuRef = useRef(null);
+  const { openTab, closeTab, closeAllTabs, toggleSidebar, toggleTerminal, recentFiles, toggleCommandPalette } = useIDE();
+  const navigate = useNavigate();
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setActiveMenu(null);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const handleMenuClick = (item) => {
+    if (activeMenu === item) {
+      setActiveMenu(null);
+    } else {
+      setActiveMenu(item);
+    }
+  };
+
+  const executeAction = (action) => {
+    action();
+    setActiveMenu(null);
+  };
+
+  const MENUS = {
+    File: [
+      { label: "New File", shortcut: "Ctrl+N", action: () => openTab("/") },
+      { label: "Open File...", shortcut: "Ctrl+P", action: () => toggleCommandPalette() },
+      { divider: true },
+      ...recentFiles.map(rf => ({ label: `Open Recent: ${rf}`, action: () => openTab(rf) })),
+      { divider: true },
+      { label: "Close Tab", shortcut: "Ctrl+W", action: () => closeTab(window.location.pathname) },
+      { label: "Close All Tabs", action: () => closeAllTabs() },
+      { divider: true },
+      { label: "Download Resume", action: () => window.open("https://akarshjain05.github.io/portfolio/Akarsh_Resume.pdf", "_blank") },
+    ],
+    Edit: [
+      { label: "Undo", shortcut: "Ctrl+Z", action: () => {} },
+      { label: "Redo", shortcut: "Ctrl+Y", action: () => {} },
+      { divider: true },
+      { label: "Cut", shortcut: "Ctrl+X", action: () => {} },
+      { label: "Copy", shortcut: "Ctrl+C", action: () => {} },
+      { label: "Paste", shortcut: "Ctrl+V", action: () => {} },
+    ],
+    View: [
+      { label: "Command Palette", shortcut: "Ctrl+P", action: () => toggleCommandPalette() },
+      { divider: true },
+      { label: "Toggle Sidebar", shortcut: "Ctrl+B", action: () => toggleSidebar() },
+      { label: "Toggle Terminal", shortcut: "Ctrl+`", action: () => toggleTerminal() },
+      { divider: true },
+      { label: "Enter Full Screen", shortcut: "F11", action: () => {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(() => {});
+        } else {
+          document.exitFullscreen().catch(() => {});
+        }
+      }},
+    ],
+    Go: [
+      { label: "Go to Home", action: () => openTab("/") },
+      { label: "Go to About", action: () => openTab("/about") },
+      { label: "Go to Projects", action: () => openTab("/projects") },
+      { label: "Go to Skills", action: () => openTab("/skills") },
+    ],
+    Run: [
+      { label: "Start Terminal", action: () => toggleTerminal() },
+      { label: "Run Build Task", shortcut: "Ctrl+Shift+B", action: () => toggleTerminal() },
+    ],
+    Terminal: [
+      { label: "New Terminal", shortcut: "Ctrl+Shift+`", action: () => toggleTerminal() },
+    ],
+    Help: [
+      { label: "Welcome", action: () => openTab("/") },
+      { label: "About Author", action: () => window.open("https://github.com/akarshjain05", "_blank") },
+    ],
+  };
+
+  return (
+    <div className="menubar" ref={menuRef}>
+      {Object.keys(MENUS).map((item) => (
+        <div key={item} style={{ position: "relative" }}>
+          <span
+            className={`menubar__item ${activeMenu === item ? "menubar__item--active" : ""}`}
+            onClick={() => handleMenuClick(item)}
+            onMouseEnter={() => activeMenu && setActiveMenu(item)}
+          >
+            {item}
+          </span>
+          {activeMenu === item && (
+            <div className="menu-dropdown">
+              {MENUS[item].map((menuItem, idx) =>
+                menuItem.divider ? (
+                  <div key={`div-${idx}`} className="menu-divider" />
+                ) : (
+                  <div
+                    key={menuItem.label}
+                    className="menu-option"
+                    onClick={() => executeAction(menuItem.action)}
+                  >
+                    <span>{menuItem.label}</span>
+                    {menuItem.shortcut && <span className="menu-shortcut">{menuItem.shortcut}</span>}
+                  </div>
+                )
+              )}
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+</file>
+
+<file path="src/components/shell/Sidebar.jsx">
+import { NavLink } from "react-router-dom";
+import { Sparkles, Settings } from "lucide-react";
+import { files, repoName } from "../../data/portfolioData";
+import { FileTypeIcon } from "../icons";
+import { useIDE } from "../../contexts/IDEContext";
+
+export default function Sidebar({ open, onNavigate }) {
+  const { toggleCopilot } = useIDE();
+  return (
+    <>
+      <aside className={`sidebar ${open ? "sidebar--open" : ""}`}>
+        <div className="sidebar__header">{repoName.toUpperCase()}</div>
+        <nav className="sidebar__list">
+          {files.map((file) => (
+            <NavLink
+              key={file.id}
+              to={file.path}
+              end={file.path === "/"}
+              onClick={onNavigate}
+              className={({ isActive }) =>
+                `sidebar__item ${isActive ? "sidebar__item--active" : ""}`
+              }
+            >
+              <span className="sidebar__icon">
+                <FileTypeIcon type={file.icon} />
+              </span>
+              <span className="sidebar__label">
+                {file.label}
+              </span>
+            </NavLink>
+          ))}
+        </nav>
+        <div className="sidebar__copilot" onClick={toggleCopilot} style={{cursor: 'pointer'}}>
+          <Sparkles size={14} color="#b794f6" />
+          <span>Akarsh&rsquo;s Copilot</span>
+          <span className="sidebar__copilot-badge">AI</span>
+        </div>
+        <div className="sidebar__settings">
+          <Settings size={14} />
+          <span>Settings</span>
+        </div>
+      </aside>
+      <div
+        className={`sidebar__overlay ${open ? "sidebar__overlay--visible" : ""}`}
+        onClick={onNavigate}
+        aria-hidden="true"
+      />
+    </>
+  );
+}
+</file>
+
+<file path="src/pages/Home.jsx">
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { FolderKanban, User, Mail } from "lucide-react";
+import { profile, stats, socials } from "../data/portfolioData";
+import SocialLink from "../components/SocialLink";
+
+export default function Home() {
+  useEffect(() => {
+    document.title = "akarsh : portfolio";
+  }, []);
+
+  return (
+    <div className="page">
+      <span className="comment">// hello world !! Welcome to my portfolio</span>
+
+      <h1 className="hero__name">
+        <span className="hero__firstname">{profile.name.split(' ')[0]}</span>
+        <br />
+        <span className="hero__lastname">{profile.name.split(' ').slice(1).join(' ')}</span>
+      </h1>
+      <div className="hero__underline" />
+
+      <div className="badge-row">
+        {profile.roles.map((role, idx) => {
+          const dotColors = ["#007acc", "#f472b6", "#60a5fa"];
+          return (
+            <span className="badge" key={role}>
+              <span className="badge__dot" style={{ background: dotColors[idx % dotColors.length] }} />
+              {role}
+            </span>
+          );
+        })}
+        <span className="badge badge--accent">
+          <span className="badge__dot" style={{ background: "#f472b6" }} />
+          {profile.affiliationBadge}
+        </span>
+      </div>
+
+      <p className="lede">{profile.summary}</p>
+
+      <div className="btn-row">
+        <Link to="/projects" className="btn btn--primary">
+          <FolderKanban size={16} />
+          Projects
+        </Link>
+        <Link to="/about" className="btn">
+          <User size={16} />
+          About Me
+        </Link>
+        <Link to="/contact" className="btn">
+          <Mail size={16} />
+          Contact
+        </Link>
+      </div>
+
+      <div className="stat-grid">
+        {stats.map((stat) => (
+          <div className="stat-card" key={stat.label}>
+            <div className="stat-card__value">{stat.value}</div>
+            <div className="stat-card__label">{stat.label}</div>
+          </div>
+        ))}
+      </div>
+
+      <div className="social-row">
+        {socials.map((s) => (
+          <SocialLink social={s} key={s.name} />
+        ))}
+      </div>
+    </div>
+  );
+}
+</file>
+
+<file path="src/main.jsx">
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import { BrowserRouter } from 'react-router-dom'
+import './index.css'
+import App from './App.jsx'
+
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
+      <App />
+    </BrowserRouter>
+  </StrictMode>,
+)
+</file>
+
+<file path="src/components/icons.jsx">
+import {
+  Mail,
+  Phone,
+  FileText
+} from "lucide-react";
+import { FaGithub, FaLinkedin, FaInstagram, FaReact, FaHtml5, FaCss3Alt, FaMarkdown } from "react-icons/fa6";
+import { SiLeetcode, SiCodeforces, SiCodechef, SiJavascript, SiTypescript } from "react-icons/si";
+import { VscJson } from "react-icons/vsc";
+
+// file-tree / tab / breadcrumb icons, keyed by portfolioData.js `icon`
+const FILE_ICONS = {
+  component: FaReact,
+  html: FaHtml5,
+  js: SiJavascript,
+  json: VscJson,
+  css: FaCss3Alt,
+  markdown: FaMarkdown,
+};
+
+const FILE_COLORS = {
+  component: "#007acc",
+  html: "#fb923c",
+  js: "#fbbf24",
+  json: "#b794f6",
+  css: "#60a5fa",
+  markdown: "#60a5fa", // Changed to match the blue markdown icon in image
+};
+
+export function FileTypeIcon({ type, size = 15 }) {
+  const Icon = FILE_ICONS[type] || FileText;
+  return <Icon size={size} color={FILE_COLORS[type]} />;
+}
+
+// social / brand icons, keyed by portfolioData.js `icon`
+const SOCIAL_ICONS = {
+  github: FaGithub,
+  linkedin: FaLinkedin,
+  leetcode: SiLeetcode,
+  codeforces: SiCodeforces,
+  codechef: SiCodechef,
+  instagram: FaInstagram,
+  mail: Mail,
+  phone: Phone,
+};
+
+export function SocialIcon({ name, size = 17 }) {
+  const Icon = SOCIAL_ICONS[name] || Mail;
+  return <Icon size={size} />;
+}
+</file>
+
+<file path="README.md">
+# Akarsh Jain — Developer Portfolio
+Welcome to my personal developer portfolio! I am a Computer Science student at SVNIT, Surat, specializing in backend engineering, competitive programming, and robust full-stack systems.
+
+This repository contains the source code for my portfolio website, engineered to look and feel like a modern, dark-themed code editor (VS Code).
+👉 **Live Site:** Hosted on Vercel
+## 🚀 Featured Projects
+
+This portfolio highlights my core technical work, focusing on systems that prioritize correctness, edge cases, and performance:
+
+- **IronLog – Gym Progress Analytics Platform**: A multi-user fitness tracker that computes Epley 1RM, Mifflin-St Jeor BMR/TDEE, and a true maintenance-calorie figure back-calculated from each user's own logged intake vs. real weight change, plus regression-based weight-trend and goal-ETA forecasting (FastAPI, SQLAlchemy, JWT, Vanilla JS PWA, AWS EC2).
+- **Campus Resource Sharing System**: A campus-only marketplace where students, faculty, and clubs list, borrow, and return shared resources; models the full borrow lifecycle across 4 RBAC roles. Shipped 17 REST routers with CSRF-hardened, Redis rate-limited auth (FastAPI, Redis, Celery, React).
+- **Mini Code Judge**: A competitive-programming judge in the spirit of Codeforces/LeetCode that runs untrusted C/C++/Java/Python submissions in resource-capped, network-isolated Docker sandboxes with an automatic OS-level fallback, returning verdicts via Redis/RQ-queued, horizontally-scalable workers. Includes Gemini-powered AI code review (FastAPI, PostgreSQL, Redis, Docker).
+
+## 🛠️ Portfolio Architecture
+
+The site itself is a fully responsive Single Page Application (SPA) built with a focus on a unique, developer-centric UX:
+
+- **Frontend Framework:** React 19 + Vite
+- **Routing:** React Router (client-side routing mapped to IDE "tabs")
+- **Styling:** Pure Vanilla CSS with CSS Variables for IDE theming
+- **Icons:** `lucide-react` & `react-icons` for file-tree and UI glyphs
+- **Deployment:** Vercel Serverless API and Edge Network
+
+The entire data layer (projects, skills, bio, links) is decoupled from the UI components and driven by a central configuration file (`src/data/portfolioData.js`), making it incredibly easy to update content without touching the React logic.
+
+## 💻 Running Locally
+
+To spin up this portfolio on your local machine:
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/akarshjain05/portfolio.git
+
+# 2. Navigate into the directory
+cd portfolio
+
+# 3. Install dependencies
+npm install
+
+# 4. Start the Vite development server
+npm run dev
+```
+
+Visit `http://localhost:5173` to see the site running locally.
+
+## 📫 Let's Connect
+
+I am always building, learning, and grinding Codeforces. If you want to talk about backend systems, security, or competitive programming, feel free to reach out:
+
+- **Email:** akarshjain2006@gmail.com
+- **LinkedIn:** [linkedin.com/in/akarshjain05](https://linkedin.com/in/akarshjain05)
+- **GitHub:** [github.com/akarshjain05](https://github.com/akarshjain05)
+</file>
+
+<file path="src/components/shell/CopilotPanel.jsx">
+import { useState, useRef, useEffect } from "react";
+import { Sparkles, X, Send, Bot } from "lucide-react";
+import { useIDE } from "../../contexts/IDEContext";
+import Markdown from "react-markdown";
+
+export default function CopilotPanel() {
+  const { copilotOpen, toggleCopilot } = useIDE();
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Persist rate limit in localStorage
+  const [messagesLeft, setMessagesLeft] = useState(() => {
+    const saved = localStorage.getItem('copilotMessagesLeft');
+    const savedDate = localStorage.getItem('copilotDate');
+    const today = new Date().toDateString();
+    
+    if (savedDate !== today) {
+      localStorage.setItem('copilotDate', today);
+      localStorage.setItem('copilotMessagesLeft', '5');
+      return 5;
+    }
+    return saved !== null ? parseInt(saved, 10) : 5;
+  });
+
+  const questionPool = [
+    "What is his biggest strength?",
+    "Tell me about his competitive programming stats",
+    "Has he won any hackathons?",
+    "Does he have any open source contributions?",
+    "What is his CGPA?",
+    "What is IronLog?",
+    "What is the Campus Resource Sharing System?",
+    "Tell me about Mini Code Judge",
+    "How can I contact Akarsh?",
+    "What are his favorite technologies?"
+  ];
+
+  const [currentSuggestions, setCurrentSuggestions] = useState([
+    "Tell me about Akarsh?",
+    "What projects has Akarsh built?",
+    "What's his tech stack?"
+  ]);
+
+  useEffect(() => {
+    localStorage.setItem('copilotMessagesLeft', messagesLeft.toString());
+  }, [messagesLeft]);
+
+  const messagesEndRef = useRef(null);
+  const scrollContainerRef = useRef(null);
+
+  useEffect(() => {
+    if (copilotOpen && scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTo({
+        top: scrollContainerRef.current.scrollHeight,
+        behavior: "smooth"
+      });
+    }
+  }, [messages, copilotOpen, currentSuggestions]);
+
+  const sendMessage = async (userMsg) => {
+    if (!userMsg.trim() || isLoading || messagesLeft <= 0) return;
+
+    setInput("");
+    setMessages(prev => [...prev, { role: "user", content: userMsg }]);
+    setIsLoading(true);
+    setMessagesLeft(prev => prev - 1);
+
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userMsg })
+      });
+
+      const data = await res.json();
+      
+      if (!res.ok) {
+        // If the server sent a formatted reply (like a rate limit or missing API key message), use it
+        if (data.reply) {
+          setMessages(prev => [...prev, { role: "assistant", content: data.reply }]);
+          return;
+        }
+        throw new Error("Failed to fetch response");
+      }
+
+      setMessages(prev => [...prev, { role: "assistant", content: data.reply }]);
+
+      // Generate new random suggestions
+      const shuffled = [...questionPool].sort(() => 0.5 - Math.random());
+      setCurrentSuggestions(shuffled.slice(0, 3));
+
+    } catch (err) {
+      setMessages(prev => [...prev, { role: "assistant", content: "Oops! I couldn't reach the server. Please try again later." }]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    sendMessage(input);
+  };
+
+  return (
+    <div className={`copilot-drawer ${copilotOpen ? "copilot-drawer--open" : ""}`}>
+      <div className="copilot-drawer__header">
+        <div className="copilot-drawer__title">
+          <Sparkles size={14} color="#b794f6" />
+          <span>Copilot</span>
+        </div>
+        <button onClick={toggleCopilot} className="copilot-drawer__close">
+          <X size={16} />
+        </button>
+      </div>
+
+      <div className="copilot-drawer__messages" ref={scrollContainerRef}>
+        {messages.length === 0 ? (
+          <div className="copilot-welcome">
+            <div className="copilot-welcome__icon">
+              <Bot size={24} color="#b794f6" />
+            </div>
+            <h2>Hi! I'm Akarsh's Copilot 👋</h2>
+            <p>Ask me anything about his projects, skills, experience, or achievements.</p>
+          </div>
+        ) : (
+          messages.map((m, i) => (
+            <div key={i} className={`copilot-msg-wrapper copilot-msg-wrapper--${m.role}`}>
+              {m.role === 'assistant' && (
+                <div className="copilot-msg-header">
+                  <div className="copilot-msg-header__icon">
+                    <Bot size={12} color="#b794f6" />
+                  </div>
+                  <span>Akarsh's Copilot</span>
+                </div>
+              )}
+              <div className={`copilot-msg copilot-msg--${m.role}`}>
+                <Markdown>{m.content}</Markdown>
+              </div>
+            </div>
+          ))
+        )}
+        
+        {isLoading && (
+          <div className="copilot-msg-wrapper copilot-msg-wrapper--assistant">
+            <div className="copilot-msg-header">
+              <div className="copilot-msg-header__icon">
+                <Bot size={12} color="#b794f6" />
+              </div>
+              <span>Akarsh's Copilot</span>
+            </div>
+            <div className="copilot-msg copilot-msg--assistant">
+              <span className="copilot-loading">...</span>
+            </div>
+          </div>
+        )}
+
+        {/* Dynamic Suggestions (only show if not loading and messages left) */}
+        {!isLoading && messagesLeft > 0 && (
+          <div className="copilot-suggestions">
+            {currentSuggestions.map(text => (
+              <button key={text} className="copilot-suggestion" onClick={() => sendMessage(text)}>
+                <Sparkles size={12} color="#b794f6" style={{ flex: '0 0 auto', marginTop: 2 }} />
+                <span>{text}</span>
+              </button>
+            ))}
+          </div>
+        )}
+
+        <div ref={messagesEndRef} />
+      </div>
+
+      <div className="copilot-drawer__footer">
+        <form className="copilot-drawer__input-wrapper" onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Ask about Akarsh's projects, experience, ..."
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            className="copilot-drawer__input"
+            disabled={messagesLeft <= 0}
+          />
+          <div className="copilot-drawer__input-bottom">
+            <span className="copilot-limit">{messagesLeft} msg left</span>
+            <button type="submit" disabled={!input.trim() || isLoading || messagesLeft <= 0} className="copilot-drawer__send">
+              <Send size={14} />
+            </button>
+          </div>
+        </form>
+        <div className="copilot-disclaimer">
+          AI can make mistakes · Contact Akarsh directly for important info
+        </div>
+      </div>
+    </div>
+  );
+}
+</file>
+
+<file path="package.json">
+{
+  "name": "akarsh-portfolio",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "oxlint src",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@google/genai": "^2.17.1",
+    "lucide-react": "^1.31.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-icons": "^5.7.0",
+    "react-markdown": "^10.1.0",
+    "react-router-dom": "^7.18.2"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.4",
+    "oxlint": "^1.75.0",
+    "vite": "^8.2.0"
+  }
+}
+</file>
+
+<file path="src/data/portfolioData.js">
+// ─────────────────────────────────────────────────────────────────
+// portfolioData.js
+//
+// Every editable piece of content in this portfolio lives here:
+// your name, bio, links, projects, and skills. Update this one
+// file and it flows through the whole site — you shouldn't need
+// to touch component files just to change copy or links.
+//
+// Anywhere you see "your-username" / "your.email@..." / "#" is a
+// placeholder — swap in your real links.
+// ─────────────────────────────────────────────────────────────────
+
+export const profile = {
+  name: "Akarsh Jain",
+  roles: ["Full-Stack Developer", "AI/ML Engineer", "Competitive Programmer"],
+  affiliationBadge: "@ SVNIT",
+  heroLine: "Building backend & AI systems that hold up under pressure.",
+  summary:
+    "I work at the intersection of backend engineering, applied AI, and competitive programming. I care about the things demos usually skip past — correctness, edge cases, and performance — not just something that works once on stage.",
+  bio: "Hi, I'm Akarsh — a Computer Science undergraduate at SVNIT Surat who builds robust systems that actually hold up under pressure. My work sits at the intersection of backend engineering, applied AI, and competitive programming. I specialize in taking systems all the way to production—from designing secure REST APIs to containerizing background job pipelines on AWS EC2. I'd much rather spend an extra evening hardening a codebase with Pytest and Redis rate-limiting than ship a fragile demo that only survives the happy path.",
+  location: "India",
+};
+
+export const stats = [
+  { value: "2+", label: "YEARS" },
+  { value: "4+", label: "PROJECTS" },
+  { value: "650+", label: "LEETCODE" },
+  { value: "1600+", label: "CODEFORCES" },
+];
+
+// icon values map to lucide-react components in SocialLink.jsx
+export const socials = [
+  { name: "GitHub", url: "https://github.com/akarshjain05", icon: "github" },
+  { name: "LinkedIn", url: "https://linkedin.com/in/akarshjain05", icon: "linkedin" },
+  { name: "Instagram", url: "https://instagram.com/akarsh_jain05", icon: "instagram" },
+  { name: "LeetCode", url: "https://leetcode.com/akarsh_jain05", icon: "leetcode" },
+  { name: "Codeforces", url: "https://codeforces.com/profile/akarsh_jain05", icon: "codeforces" },
+  { name: "CodeChef", url: "https://codechef.com/users/akarshjain05", icon: "codechef" },
+  { name: "Email", url: "mailto:akarshjain2006@gmail.com", icon: "mail" },
+  { name: "Phone", url: "tel:+917321019524", icon: "phone" },
+];
+
+export const currentFocus = [
+  {
+    icon: "🛡️",
+    text: "Building SentinelReview — a 7-agent AI pipeline that reviews GitHub PRs for security issues (0.900 precision, 1.000 recall on GHSA benchmark)",
+  },
+  {
+    icon: "🧠",
+    text: "Grinding Data Structures, Algorithms, and Codeforces to master competitive problem-solving",
+  },
+  {
+    icon: "🚀",
+    text: "Exploring advanced RAG architectures and vector databases for my next big AI integration",
+  }
+];
+
+export const education = [
+  {
+    school: "SVNIT — Sardar Vallabhbhai National Institute of Technology",
+    location: "Surat, India",
+    degree: "B.Tech, Computer Science",
+    period: "2024 - 2028",
+    notes: "Current CGPA: 7.55",
+  },
+  {
+    school: "St. Xaviers School",
+    location: "Hazaribagh, India",
+    degree: "Primary & Higher Secondary Education",
+    period: "2011 - 2024",
+    notes: "Class 12th: 91.0% | Class 10th: 90.0%",
+  },
+];
+
+export const projects = [
+  {
+    id: "gym-progress",
+    icon: "📈",
+    status: "shipped",
+    tags: ["FULL STACK", "ANALYTICS"],
+    title: "IronLog – Gym Progress Analytics Platform",
+    description: "A multi-user fitness tracker that computes Epley 1RM, Mifflin-St Jeor BMR/TDEE, and a true maintenance-calorie figure back-calculated from each user's own logged intake vs. real weight change, plus regression-based weight-trend and goal-ETA forecasting.",
+    tech: ["FastAPI", "SQLAlchemy", "JWT", "Vanilla JS PWA", "Chart.js", "Docker", "AWS EC2", "Caddy", "GitHub Actions"],
+    github: "https://github.com/akarshjain05/gym-progress-analytics",
+    live: "https://ironlog.in",
+  },
+  {
+    id: "resource-sharing",
+    icon: "📚",
+    status: "shipped",
+    tags: ["FULL STACK", "COMMUNITY"],
+    title: "Campus Resource Sharing System",
+    description: "A campus-only marketplace where students, faculty, and clubs list, borrow, and return shared resources; models the full borrow lifecycle across 4 RBAC roles. Shipped 17 REST routers on FastAPI/SQLAlchemy 2.0 with CSRF-hardened, Redis rate-limited auth, covered by 70+ Pytest cases.",
+    tech: ["FastAPI", "SQLAlchemy 2.0", "PostgreSQL", "Alembic", "Redis", "Celery", "JWT/RBAC", "React 18", "Tailwind CSS", "Docker Compose"],
+    github: "https://github.com/akarshjain05/College-Resource-Sharing-System",
+    live: "https://13-48-123-128.sslip.io/",
+  },
+  {
+    id: "mini-code-judge",
+    icon: "⚖️",
+    status: "shipped",
+    tags: ["FULL STACK", "SECURITY", "COMPETITIVE PROGRAMMING"],
+    title: "Mini Code Judge",
+    description: "A competitive-programming judge in the spirit of Codeforces/LeetCode that runs untrusted C/C++/Java/Python submissions in resource-capped, network-isolated Docker sandboxes with an automatic OS-level fallback, returning verdicts via Redis/RQ-queued, horizontally-scalable workers. Includes Gemini-powered AI code review.",
+    tech: ["FastAPI", "PostgreSQL", "Docker", "Redis/RQ", "JWT", "Gemini API", "OAuth"],
+    github: "https://github.com/akarshjain05/mini-code-judge",
+    live: "https://mini-code-judge-frontend.onrender.com",
+  }
+];
+
+export const skillGroups = [
+  {
+    title: "Languages",
+    skills: [
+      { name: "C++", level: 90 },
+      { name: "C", level: 85 },
+      { name: "Python", level: 88 },
+      { name: "JavaScript", level: 80 },
+      { name: "TypeScript", level: 75 },
+      { name: "SQL", level: 85 },
+    ],
+  },
+  {
+    title: "Backend & APIs",
+    skills: [
+      { name: "FastAPI", level: 90 },
+      { name: "REST API Design", level: 85 },
+      { name: "JWT / OAuth2", level: 88 },
+      { name: "LangGraph", level: 75 },
+      { name: "Pydantic", level: 85 },
+      { name: "RBAC", level: 82 },
+    ],
+  },
+  {
+    title: "Testing & Tools",
+    skills: [
+      { name: "Pytest", level: 85 },
+      { name: "Unit & Integration Testing", level: 82 },
+      { name: "Git", level: 88 },
+      { name: "Docker", level: 85 },
+      { name: "Postman", level: 80 },
+    ],
+  },
+  {
+    title: "Deployment & Infra",
+    skills: [
+      { name: "AWS EC2", level: 80 },
+      { name: "Docker Compose", level: 85 },
+      { name: "Render", level: 78 },
+      { name: "Caddy", level: 75 },
+      { name: "GitHub Actions", level: 82 },
+    ],
+  },
+  {
+    title: "Core CS",
+    skills: [
+      { name: "Data Structures & Algorithms", level: 92 },
+      { name: "Object Oriented Programming", level: 85 },
+      { name: "DBMS", level: 85 },
+      { name: "Operating Systems", level: 80 },
+      { name: "Computer Networks", level: 80 },
+    ],
+  },
+];
+
+// Drives the sidebar file tree, the tab bar, breadcrumbs, and the
+// status-bar language label. Add a new page by adding an entry here
+// AND a matching <Route> in App.jsx.
+export const files = [
+  { id: "home", label: "home.jsx", path: "/", lang: "JavaScript JSX", icon: "component" },
+  { id: "about", label: "about.html", path: "/about", lang: "HTML", icon: "html" },
+  { id: "projects", label: "projects.js", path: "/projects", lang: "JavaScript", icon: "js" },
+  { id: "skills", label: "skills.json", path: "/skills", lang: "JSON", icon: "json" },
+  { id: "contact", label: "contact.css", path: "/contact", lang: "CSS", icon: "css" },
+  { id: "readme", label: "README.md", path: "/readme", lang: "Markdown", icon: "markdown" },
+];
+
+export const repoName = "akarsh jain";
+</file>
+
+<file path="api/chat.js">
+import { GoogleGenAI } from '@google/genai';
+import { profile, projects, skillGroups, socials, education } from '../src/data/portfolioData.js';
+
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+
+// Simple in-memory rate limiting map
+// Maps IP to { count: number, resetTime: number }
+const rateLimitMap = new Map();
+
+// 5 requests per 24 hours per IP
+const RATE_LIMIT = 5;
+const RATE_LIMIT_WINDOW = 24 * 60 * 60 * 1000; 
+
+const buildSystemPrompt = () => {
+  const projectList = projects.map((p, i) => `${i + 1}. ${p.title} (${p.status}): ${p.description} Tech: ${p.tech.join(", ")}. (Live: ${p.live || p.github})`).join("\n");
+  const skillsList = skillGroups.map(g => `- ${g.title}: ${g.skills.map(s => s.name).join(", ")}`).join("\n");
+  const socialLinks = socials.map(s => `- ${s.name}: ${s.url}`).join("\n");
+  const eduList = education.map(e => `- ${e.degree} at ${e.school} (${e.period}). ${e.notes}`).join("\n");
+
+  return `You are ${profile.name}'s personal AI Copilot for his portfolio website.
+${profile.bio}
+
+Here are his main projects:
+${projectList}
+
+Key Skills:
+${skillsList}
+
+Education:
+${eduList}
+
+Contact & Links:
+${socialLinks}
+
+Keep your answers brief, friendly, and professional. Use markdown.
+When asked about his tech stack, mention his backend/AI focus and point them to the skills.json tab.
+Do not hallucinate facts not provided. If you don't know, say you don't know but mention they can contact him at ${socials.find(s => s.name === 'Email')?.url || 'his email'}.`;
+};
+
+export default async function handler(req, res) {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method Not Allowed' });
+  }
+
+  // Rate Limiting Logic
+  const ip = req.headers['x-forwarded-for'] || req.socket?.remoteAddress || 'unknown';
+  const now = Date.now();
+  
+  if (!rateLimitMap.has(ip)) {
+    rateLimitMap.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW });
+  } else {
+    const data = rateLimitMap.get(ip);
+    if (now > data.resetTime) {
+      // Reset window
+      rateLimitMap.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW });
+    } else {
+      data.count++;
+      if (data.count > RATE_LIMIT) {
+        return res.status(429).json({ reply: "You're sending messages too fast! Please try again later." });
+      }
+    }
+  }
+
+  try {
+    const { message } = req.body;
+    
+    if (!message) {
+      return res.status(400).json({ error: 'Message is required' });
+    }
+
+    if (!process.env.GEMINI_API_KEY) {
+      return res.status(500).json({ reply: "The API key hasn't been configured yet! The owner needs to add GEMINI_API_KEY to their Vercel dashboard." });
+    }
+
+    const response = await ai.models.generateContent({
+      model: 'gemini-3.6-flash',
+      contents: message,
+      config: {
+        systemInstruction: buildSystemPrompt(),
+        temperature: 0.7,
+      }
+    });
+
+    const reply = response.text || "Sorry, I couldn't process that.";
+    
+    res.status(200).json({ reply });
+  } catch (error) {
+    console.error("Gemini API Error:", error);
+    
+    // Check if it's an authentication/API key error
+    if (error.status === 401 || error.message?.includes('API key not valid')) {
+      return res.status(401).json({ reply: "My API key is invalid! Please check the GEMINI_API_KEY in the Vercel dashboard." });
+    }
+    
+    // Otherwise return the general error message
+    res.status(500).json({ reply: `Server Error: ${error.message}` });
+  }
+}
+</file>
+
+<file path="src/index.css">
+/* ───────────────────────────── design tokens ───────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --bg: #1e1e1e;
+  --bg-chrome: #252526;
+  --bg-panel: #252526;
+  --bg-elevated: #2d2d30;
+  --bg-card: #2d2d30;
+  --bg-hover: #333333;
+  --border: #3c3c3c;
+  --border-soft: #2d2d30;
+
+  --text-primary: #f2f2f5;
+  --text-secondary: #9a9aa6;
+  --text-muted: #63636e;
+  --comment: #6a9955;
+
+  --cyan: #007acc;
+  --pink: #f472b6;
+  --purple: #b794f6;
+  --orange: #fb923c;
+  --yellow: #fbbf24;
+  --blue: #60a5fa;
+  --red: #f87171;
+  --green: #4ade80;
+
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+
+  --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --titlebar-h: 35px;
+  --menubar-h: 30px;
+  --commandbar-h: 40px;
+  --tabbar-h: 35px;
+  --breadcrumb-h: 26px;
+  --statusbar-h: 22px;
+  --activitybar-w: 48px;
+  --sidebar-w: 190px;
+}
+
+/* Rosé Pine */
+[data-theme="rose-pine"] {
+  --bg: #191724;
+  --bg-chrome: #1f1d2e;
+  --bg-panel: #1f1d2e;
+  --bg-elevated: #26233a;
+  --bg-card: #26233a;
+  --bg-hover: #2a273f;
+  --border: #44415a;
+  --border-soft: #26233a;
+
+  --text-primary: #e0def4;
+  --text-secondary: #908caa;
+  --text-muted: #6e6a86;
+  --comment: #ebbcba;
+
+  --cyan: #9ccfd8;
+  --pink: #eb6f92;
+  --purple: #c4a7e7;
+  --orange: #ea9a97;
+  --yellow: #f6c177;
+  --blue: #31748f;
+  --red: #eb6f92;
+  --green: #9ccfd8;
+}
+
+/* Tokyo Night */
+[data-theme="tokyo-night"] {
+  --bg: #1a1b26;
+  --bg-chrome: #16161e;
+  --bg-panel: #16161e;
+  --bg-elevated: #24283b;
+  --bg-card: #24283b;
+  --bg-hover: #292e42;
+  --border: #414868;
+  --border-soft: #24283b;
+
+  --text-primary: #c0caf5;
+  --text-secondary: #a9b1d6;
+  --text-muted: #565f89;
+  --comment: #9ece6a;
+
+  --cyan: #7dcfff;
+  --pink: #bb9af7;
+  --purple: #9d7cd8;
+  --orange: #ff9e64;
+  --yellow: #e0af68;
+  --blue: #7aa2f7;
+  --red: #f7768e;
+  --green: #9ece6a;
+}
+
+/* Catppuccin */
+[data-theme="catppuccin"] {
+  --bg: #1e1e2e;
+  --bg-chrome: #181825;
+  --bg-panel: #181825;
+  --bg-elevated: #313244;
+  --bg-card: #313244;
+  --bg-hover: #45475a;
+  --border: #585b70;
+  --border-soft: #313244;
+
+  --text-primary: #cdd6f4;
+  --text-secondary: #bac2de;
+  --text-muted: #a6adc8;
+  --comment: #a6e3a1;
+
+  --cyan: #89dceb;
+  --pink: #f5c2e7;
+  --purple: #cba6f7;
+  --orange: #fab387;
+  --yellow: #f9e2af;
+  --blue: #89b4fa;
+  --red: #f38ba8;
+  --green: #a6e3a1;
+}
+
+/* Gruvbox */
+[data-theme="gruvbox"] {
+  --bg: #282828;
+  --bg-chrome: #1d2021;
+  --bg-panel: #1d2021;
+  --bg-elevated: #3c3836;
+  --bg-card: #3c3836;
+  --bg-hover: #504945;
+  --border: #665c54;
+  --border-soft: #3c3836;
+
+  --text-primary: #ebdbb2;
+  --text-secondary: #d5c4a1;
+  --text-muted: #bdae93;
+  --comment: #98971a;
+
+  --cyan: #8ec07c;
+  --pink: #d3869b;
+  --purple: #b16286;
+  --orange: #fe8019;
+  --yellow: #fabd2f;
+  --blue: #83a598;
+  --red: #fb4934;
+  --green: #b8bb26;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow: hidden;
+}
+
+#root { height: 100%; }
+
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; }
+ul { list-style: none; margin: 0; padding: 0; }
+h1, h2, h3, h4, p { margin: 0; }
+img, svg { display: block; }
+
+::selection { background: var(--cyan); color: #ffffff; }
+
+/* scrollbars */
+* { scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+*::-webkit-scrollbar { width: 8px; height: 8px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb { background: var(--border); border-radius: 0; }
+*::-webkit-scrollbar-thumb:hover { background: #34343c; }
+
+/* ───────────────────────────── ide shell ───────────────────────────── */
+.ide {
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* title bar */
+.titlebar {
+  position: relative;
+  height: var(--titlebar-h);
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  background: #1e1e2e;
+  border-bottom: 1px solid var(--border-soft);
+  gap: 12px;
+}
+.titlebar__dots { display: flex; gap: 8px; flex: 0 0 auto; }
+.titlebar__dot { width: 12px; height: 12px; border-radius: 50%; }
+.titlebar__dot--red { background: #ff5f57; }
+.titlebar__dot--yellow { background: #febc2e; }
+.titlebar__dot--green { background: #28c840; }
+.titlebar__search-container {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-hover);
+  padding: 4px 64px 4px 32px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+  height: 26px;
+}
+.titlebar__search-container:hover {
+  background: var(--bg-panel);
+  border-color: var(--cyan);
+}
+.titlebar__kbd {
+  position: absolute;
+  right: 8px;
+  display: flex;
+  gap: 4px;
+}
+.titlebar__kbd kbd {
+  background: var(--bg-chrome);
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-size: 10px;
+  color: var(--text-muted);
+}
+.titlebar__spacer { width: 52px; flex: 0 0 auto; }
+@media (max-width: 640px) { .titlebar__spacer { display: none; } }
+
+/* menu bar */
+.menubar {
+  height: var(--menubar-h);
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 0 16px;
+  background: var(--bg-chrome);
+  border-bottom: 1px solid var(--border-soft);
+  font-size: 12.5px;
+  color: var(--text-secondary);
+  overflow: visible;
+}
+.menubar__item {
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.menubar__item:hover, .menubar__item--active { background: var(--bg-hover); color: var(--text-primary); }
+
+.menu-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  min-width: 220px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  z-index: 100;
+  padding: 6px 0;
+}
+.menu-option {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 16px;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+.menu-option:hover { background: var(--blue); color: #ffffff; }
+.menu-option:hover .menu-shortcut { color: #ffffff; opacity: 0.8; }
+.menu-shortcut { color: var(--text-muted); font-size: 11px; }
+.menu-divider { height: 1px; background: var(--border-soft); margin: 6px 0; }
+
+@media (max-width: 560px) { .menubar { display: none; } }
+
+/* command palette */
+.palette-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(2px);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 15vh;
+}
+.palette-modal {
+  width: 100%;
+  max-width: 500px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.6);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.palette-input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.palette-prompt {
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+.palette-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 14px;
+}
+.palette-input:focus { outline: none; }
+.palette-esc {
+  font-size: 11px;
+  color: var(--text-muted);
+  background: var(--bg-hover);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.palette-content {
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+.palette-section-title {
+  padding: 8px 16px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+.palette-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+.palette-item:hover, .palette-item--highlight {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+.palette-shortcut, .palette-path {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.palette-empty {
+  padding: 16px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+.palette-footer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 16px;
+  border-top: 1px solid var(--border);
+  background: var(--bg-chrome);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* copilot drawer */
+.copilot-drawer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 320px;
+  background: var(--bg-panel);
+  border-left: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 50;
+  box-shadow: -4px 0 12px rgba(0,0,0,0.3);
+}
+.copilot-drawer--open {
+  transform: translateX(0);
+}
+.copilot-drawer__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-soft);
+  background: var(--bg-chrome);
+}
+.copilot-drawer__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+.copilot-drawer__close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+}
+.copilot-drawer__close:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+.copilot-drawer__messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.copilot-msg-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 85%;
+}
+.copilot-msg-wrapper--user {
+  align-self: flex-end;
+}
+.copilot-msg-wrapper--assistant {
+  align-self: flex-start;
+}
+.copilot-msg-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+.copilot-msg-header__icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(183, 148, 246, 0.1);
+  border: 1px solid rgba(183, 148, 246, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.copilot-msg {
+  padding: 12px 14px;
+  border-radius: 8px;
+  word-break: break-word;
+  font-size: 12.5px;
+}
+.copilot-msg--user {
+  background: rgba(43, 116, 201, 0.15);
+  border: 1px solid rgba(43, 116, 201, 0.3);
+  color: var(--text-primary);
+  border-bottom-right-radius: 2px;
+}
+.copilot-msg--assistant {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  border-top-left-radius: 2px;
+}
+.copilot-msg--assistant p { margin-bottom: 8px; }
+.copilot-msg--assistant p:last-child { margin-bottom: 0; }
+.copilot-msg--assistant code {
+  background: var(--bg-elevated);
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+.copilot-welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px 0;
+}
+.copilot-welcome__icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid rgba(183, 148, 246, 0.3);
+  background: rgba(183, 148, 246, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.copilot-welcome h2 {
+  font-size: 16px;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.copilot-welcome p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+.copilot-suggestions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  width: 100%;
+}
+.copilot-suggestion {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  padding: 10px;
+  border-radius: 0;
+  display: flex;
+  gap: 8px;
+  text-align: left;
+  cursor: pointer;
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.4;
+  transition: all 0.2s ease;
+}
+.copilot-suggestion:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+.copilot-suggestion span { flex: 1; }
+
+.copilot-drawer__footer {
+  padding: 12px;
+  border-top: 1px solid var(--border-soft);
+  background: var(--bg-chrome);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.copilot-drawer__input-wrapper {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+}
+.copilot-drawer__input {
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 13px;
+  padding: 4px;
+  margin-bottom: 8px;
+  font-family: inherit;
+}
+.copilot-drawer__input:focus {
+  outline: none;
+}
+.copilot-drawer__input-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 4px;
+}
+.copilot-limit {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+.copilot-drawer__send {
+  background: rgba(183, 148, 246, 0.15);
+  color: var(--purple);
+  border: none;
+  padding: 6px 10px;
+  border-radius: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+.copilot-drawer__send:not(:disabled):hover {
+  background: rgba(183, 148, 246, 0.3);
+}
+.copilot-drawer__send:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.copilot-disclaimer {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-align: center;
+}
+.copilot-loading {
+  animation: blink 1s infinite;
+}
+@keyframes blink { 0% { opacity: 0.2; } 50% { opacity: 1; } 100% { opacity: 0.2; } }
+
+
+
+/* terminal panel */
+.terminal-panel {
+  height: 250px;
+  flex: 0 0 auto;
+  border-top: 1px solid var(--border-soft);
+  background: var(--bg-panel);
+  display: flex;
+  flex-direction: column;
+}
+.terminal-panel__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--border-soft);
+  background: var(--bg-chrome);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+.terminal-panel__title { display: flex; align-items: center; gap: 8px; }
+.terminal-panel__actions { display: flex; align-items: center; }
+.terminal-panel__actions:hover { color: var(--text-primary); }
+.terminal-panel__content {
+  flex: 1;
+  padding: 12px 16px;
+  overflow-y: auto;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.term-line { margin-bottom: 4px; }
+.term-line--info { color: var(--text-secondary); }
+.term-line--cmd { color: var(--text-primary); font-weight: 600; }
+.term-line--out { color: var(--cyan); }
+.term-input-row { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+.term-prompt { color: var(--green); font-weight: 600; }
+.term-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: inherit;
+}
+.term-input:focus { outline: none; }
+
+/* body: activity bar + sidebar + main */
+.ide__body {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.activitybar {
+  width: var(--activitybar-w);
+  flex: 0 0 auto;
+  background: var(--bg-panel);
+  border-right: 1px solid var(--border-soft);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 14px 0;
+  gap: 22px;
+}
+.activitybar__btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  padding: 4px;
+  border-radius: var(--radius-sm);
+  display: flex;
+}
+.activitybar__btn:hover { color: var(--text-secondary); }
+.activitybar__btn--active { color: var(--text-primary); position: relative; }
+.activitybar__btn--active::before {
+  content: "";
+  position: absolute;
+  left: -14px;
+  top: 2px;
+  bottom: 2px;
+  width: 2px;
+  background: var(--cyan);
+  border-radius: 2px;
+}
+.activitybar__spacer { flex: 1; }
+
+/* sidebar */
+.sidebar {
+  width: var(--sidebar-w);
+  flex: 0 0 auto;
+  background: var(--bg-panel);
+  border-right: 1px solid var(--border-soft);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.sidebar__header {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  padding: 16px 24px 12px;
+}
+.sidebar__list { flex: 1; overflow-y: auto; padding-bottom: 12px; }
+.sidebar__item {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  width: 100%;
+  text-align: left;
+  padding: 6px 24px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: none;
+  border: none;
+  border-left: 2px solid transparent;
+}
+.sidebar__item:hover { background: var(--bg-hover); color: var(--text-primary); }
+.sidebar__item--active {
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  font-weight: 600;
+  border-left-color: var(--blue);
+}
+.sidebar__icon { flex: 0 0 auto; display: flex; }
+.sidebar__label { flex: 1; text-align: center; margin-right: 37px; }
+.sidebar__copilot {
+  margin: 10px 16px;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: rgba(183, 148, 246, 0.08);
+  border-color: rgba(183, 148, 246, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--purple);
+}
+.sidebar__copilot-badge {
+  margin-left: auto;
+  font-size: 10px;
+  background: rgba(183, 148, 246, 0.15);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.sidebar__settings {
+  padding: 10px 16px 14px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  border-top: 1px solid var(--border-soft);
+}
+
+/* mobile sidebar becomes an overlay drawer */
+.sidebar__overlay { display: none; }
+@media (max-width: 780px) {
+  .sidebar {
+    position: absolute;
+    left: calc(-1 * var(--activitybar-w));
+    top: 0;
+    bottom: 0;
+    z-index: 30;
+    transform: translateX(-100%);
+    transition: transform 0.2s ease;
+    box-shadow: 20px 0 40px rgba(0,0,0,0.4);
+  }
+  .sidebar--open { transform: translateX(0); }
+  .sidebar__overlay {
+    display: block;
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 20;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+  .sidebar__overlay--visible { opacity: 1; pointer-events: auto; }
+}
+
+/* main column */
+.ide__main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* tab bar */
+.tabbar {
+  height: var(--tabbar-h);
+  flex: 0 0 auto;
+  display: flex;
+  background: var(--bg-panel);
+  border-bottom: 1px solid var(--border-soft);
+  overflow-x: auto;
+}
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 14px;
+  font-size: 12.5px;
+  color: var(--text-muted);
+  border-right: 1px solid var(--border-soft);
+  background: transparent;
+  white-space: nowrap;
+  flex: 0 0 auto;
+}
+.tab:hover { color: var(--text-secondary); background: var(--bg-hover); }
+.tab--active {
+  color: var(--text-primary);
+  background: var(--bg-elevated);
+  box-shadow: inset 0 -2px 0 var(--cyan);
+}
+.tab__close-btn { color: var(--text-muted); display: none; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 0; }
+.tab:hover .tab__close-btn { display: flex; opacity: 0.6; }
+.tab__close-btn:hover { opacity: 1 !important; background: var(--bg-chrome); color: var(--text-primary); }
+
+/* breadcrumb */
+.breadcrumb {
+  height: var(--breadcrumb-h);
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 18px;
+  font-size: 11.5px;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border-soft);
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.breadcrumb span:last-child { color: var(--text-secondary); }
+
+/* content area */
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 44px 56px 90px;
+}
+@media (max-width: 900px) { .content { padding: 34px 30px 80px; } }
+@media (max-width: 560px) { .content { padding: 26px 18px 70px; } }
+
+/* status bar */
+.statusbar {
+  height: var(--statusbar-h);
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  background: var(--cyan);
+  color: #ffffff;
+  font-size: 11.5px;
+  font-weight: 600;
+  gap: 12px;
+}
+.statusbar__side { display: flex; align-items: center; gap: 14px; overflow: hidden; }
+.statusbar__item { display: flex; align-items: center; gap: 5px; white-space: nowrap; }
+@media (max-width: 700px) { .statusbar__hide-sm { display: none; } }
+@media (max-width: 480px) { .statusbar__hide-xs { display: none; } }
+
+/* ───────────────────────────── page content ───────────────────────────── */
+.page { max-width: 1040px; margin: 0 auto; animation: fadein 0.25s ease; }
+@keyframes fadein { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+.comment { color: var(--comment); font-family: var(--font-mono); font-size: 15px; font-weight: 500; font-style: italic; display: block; margin-bottom: 20px; }
+.comment--block { margin-bottom: 28px; }
+
+.page-title {
+  font-size: clamp(32px, 6vw, 52px);
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
+}
+
+.hero__name {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(48px, 10vw, 84px);
+  font-weight: 800;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  margin-bottom: 12px;
+  word-break: break-word;
+  text-transform: capitalize;
+}
+.hero__firstname {
+  color: #ffffff;
+}
+.hero__lastname {
+  color: #f472b6;
+}
+.hero__underline {
+  height: 3px;
+  width: 120px;
+  max-width: 40%;
+  background: var(--border-soft);
+  border-radius: 2px;
+  margin: 24px 0 32px;
+}
+
+.badge-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 26px; }
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  border-radius: 0;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--text-secondary);
+}
+.badge__dot { width: 7px; height: 7px; border-radius: 50%; flex: 0 0 auto; }
+.badge--accent {
+  border-color: rgba(244, 114, 182, 0.4);
+  color: var(--pink);
+  background: rgba(244, 114, 182, 0.08);
+}
+
+.lede { font-family: var(--font-mono); font-size: 15px; line-height: 1.8; color: var(--text-secondary); max-width: 680px; margin-bottom: 34px; }
+.lede strong { color: var(--cyan); font-weight: 600; }
+.lede .hl-pink { color: var(--pink); font-weight: 600; }
+
+.btn-row { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 56px; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 20px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  font-size: 13.5px;
+  color: var(--text-primary);
+  transition: transform 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+}
+.btn:hover { transform: translateY(-1px); border-color: #34343e; background: var(--bg-elevated); }
+.btn--primary { background: var(--cyan); color: #ffffff; border-color: var(--cyan); font-weight: 600; }
+.btn--primary:hover { background: #005a9e; }
+
+.stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border-soft); border: 1px solid var(--border-soft); border-radius: var(--radius-md); overflow: hidden; margin-bottom: 50px; }
+.stat-card { background: var(--bg-panel); padding: 26px 18px; text-align: center; }
+.stat-card__value { font-family: 'Syne', sans-serif; font-size: clamp(22px, 3.5vw, 28px); font-weight: 800; margin-bottom: 6px; color: var(--text-primary); }
+.stat-card__label { font-family: var(--font-sans); font-size: 11px; font-weight: 600; letter-spacing: 0.15em; color: var(--text-muted); text-transform: uppercase; }
+@media (max-width: 700px) { .stat-grid { grid-template-columns: repeat(2, 1fr); } }
+
+.social-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.social-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-card);
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+.social-pill:hover { color: var(--text-primary); border-color: #34343e; background: var(--bg-elevated); }
+
+/* about page */
+.bio-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  padding: 30px 32px;
+  font-size: 14.5px;
+  line-height: 1.85;
+  color: var(--text-secondary);
+  margin-bottom: 36px;
+  font-family: var(--font-mono);
+}
+.bio-card strong { color: var(--text-primary); }
+.bio-card .hl-cyan { color: var(--cyan); font-weight: 600; }
+.bio-card .hl-pink { color: var(--pink); font-weight: 600; }
+
+.section-heading {
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  color: var(--cyan);
+  margin-bottom: 18px;
+  margin-top: 46px;
+}
+
+.focus-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  padding: 30px 32px;
+}
+.focus-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 40px; }
+@media (max-width: 640px) { .focus-grid { grid-template-columns: 1fr; } }
+.focus-item { display: flex; gap: 12px; font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+.focus-item__icon { flex: 0 0 auto; }
+.edu-list { display: flex; flex-direction: column; gap: 16px; }
+.edu-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  padding: 24px 26px;
+}
+.edu-card__top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 4px; }
+.edu-card__school { font-size: 17px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+.edu-card__period { font-size: 12.5px; color: var(--text-muted); white-space: nowrap; }
+.edu-card__loc { font-size: 13px; color: var(--text-muted); margin-bottom: 10px; }
+.edu-card__degree { color: var(--cyan); font-weight: 600; font-size: 14.5px; margin-bottom: 6px; }
+.edu-card__notes { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+
+/* projects page */
+.project-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+@media (max-width: 800px) { .project-grid { grid-template-columns: 1fr; } }
+
+.project-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  padding: 26px;
+  display: flex;
+  flex-direction: column;
+}
+.project-card__top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; gap: 10px; }
+.project-card__icon { font-size: 26px; line-height: 1; }
+.project-card__links { display: flex; gap: 8px; flex-wrap: wrap; }
+.pill-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  font-size: 11.5px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text-secondary);
+}
+.pill-link:hover { color: var(--text-primary); border-color: #34343e; }
+.pill-link--live { color: var(--cyan); border-color: rgba(94,234,212,0.35); }
+
+.project-card__tags { font-size: 11px; letter-spacing: 0.06em; color: var(--purple); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.status-dot { display: inline-flex; align-items: center; gap: 5px; font-size: 10.5px; letter-spacing: 0.04em; padding: 2px 8px; border-radius: 0; border: 1px solid var(--border); }
+.status-dot--shipped { color: var(--green); border-color: rgba(74,222,128,0.3); }
+.status-dot--building { color: var(--orange); border-color: rgba(251,146,60,0.3); }
+.status-dot i { width: 6px; height: 6px; border-radius: 50%; background: currentColor; display: inline-block; }
+
+.project-card__title { font-size: 21px; font-weight: 700; margin-bottom: 10px; }
+.project-card__desc { font-size: 13.5px; line-height: 1.7; color: var(--text-secondary); flex: 1; margin-bottom: 18px; }
+.tech-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.tech-chip { font-size: 11.5px; padding: 5px 10px; border-radius: 0; border: 1px solid var(--border); color: var(--text-secondary); background: var(--bg-elevated); }
+
+/* skills page */
+.skills-intro { font-size: 13.5px; color: var(--text-secondary); margin-bottom: 40px; }
+.skills-intro .k { color: var(--pink); }
+.skills-intro .v { color: var(--cyan); }
+.skill-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 44px 60px; }
+@media (max-width: 800px) { .skill-grid { grid-template-columns: 1fr; gap: 34px; } }
+.skill-group__title {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border-soft);
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+}
+.skill-row { margin-bottom: 16px; }
+.skill-row:last-child { margin-bottom: 0; }
+.skill-row__top { display: flex; justify-content: space-between; font-size: 13.5px; margin-bottom: 7px; }
+.skill-row__name { color: var(--text-primary); }
+.skill-row__pct { color: var(--text-muted); font-size: 12px; }
+.skill-bar { height: 5px; background: var(--bg-elevated); border-radius: 0; overflow: hidden; }
+.skill-bar__fill { height: 100%; border-radius: 0; }
+
+/* contact page */
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+@media (max-width: 800px) { .contact-grid { grid-template-columns: 1fr; gap: 40px; } }
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  margin-bottom: 12px;
+}
+.contact-link:hover { border-color: #34343e; background: var(--bg-elevated); }
+.contact-link__icon {
+  width: 38px; height: 38px; border-radius: var(--radius-sm);
+  background: var(--bg-elevated);
+  display: flex; align-items: center; justify-content: center;
+  flex: 0 0 auto;
+  color: var(--cyan);
+}
+.contact-link__name { font-size: 11px; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 2px; }
+.contact-link__value { font-size: 14px; color: var(--text-primary); word-break: break-word; }
+
+.field { margin-bottom: 16px; }
+.field__label { display: block; font-size: 12px; color: var(--text-secondary); margin-bottom: 7px; }
+.field__label .req { color: var(--pink); }
+.field__input, .field__textarea {
+  width: 100%;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 11px 13px;
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  color: var(--text-primary);
+}
+.field__input::placeholder, .field__textarea::placeholder { color: var(--text-muted); }
+.field__input:focus, .field__textarea:focus { outline: none; border-color: var(--cyan); }
+.field__textarea { resize: vertical; min-height: 110px; }
+.send-btn {
+  width: 100%;
+  padding: 13px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--cyan);
+  background: var(--cyan);
+  color: #08080a;
+  font-weight: 700;
+  font-size: 13.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.send-btn:hover { background: #7ff2e2; }
+.send-btn:disabled { opacity: 0.6; cursor: default; }
+.form-note { font-size: 11.5px; color: var(--text-muted); margin-top: 10px; text-align: center; }
+.form-status { font-size: 12.5px; margin-top: 10px; padding: 9px 12px; border-radius: var(--radius-sm); border: 1px solid; }
+.form-status--ok { color: var(--green); border-color: rgba(74,222,128,0.3); background: rgba(74,222,128,0.06); }
+.form-status--err { color: var(--red); border-color: rgba(248,113,113,0.3); background: rgba(248,113,113,0.06); }
+
+/* readme page */
+.readme-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  padding: 34px 36px;
+}
+.readme-card h1 { font-size: 30px; font-weight: 800; margin-bottom: 6px; }
+.readme-card__sub { color: var(--text-muted); font-size: 13.5px; margin-bottom: 20px; }
+.readme-card__badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
+.readme-badge { font-size: 11.5px; padding: 5px 11px; border-radius: 0; border: 1px solid var(--border); background: var(--bg-elevated); color: var(--text-secondary); }
+.readme-card h2 { font-size: 16px; margin: 26px 0 12px; display: flex; align-items: center; gap: 8px; }
+.readme-card p { font-size: 14px; line-height: 1.75; color: var(--text-secondary); }
+.readme-list { margin-top: 4px; }
+.readme-list li { font-size: 13.5px; line-height: 1.9; color: var(--text-secondary); display: flex; gap: 10px; }
+
+/* 404 */
+.notfound { text-align: center; padding: 90px 20px; }
+.notfound__code { font-size: 90px; font-weight: 800; color: var(--pink); line-height: 1; }
+.notfound__msg { color: var(--text-secondary); margin: 14px 0 28px; font-size: 15px; }
+
+@media (max-width: 480px) {
+  .stat-grid { grid-template-columns: 1fr 1fr; }
+  .btn-row { flex-direction: column; }
+  .btn { justify-content: center; }
+}
+</file>
+
+</files>
