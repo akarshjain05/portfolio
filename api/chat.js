@@ -7,9 +7,9 @@ const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 // Maps IP to { count: number, resetTime: number }
 const rateLimitMap = new Map();
 
-// 20 requests per hour per IP
-const RATE_LIMIT = 20;
-const RATE_LIMIT_WINDOW = 60 * 60 * 1000; 
+// 5 requests per 24 hours per IP
+const RATE_LIMIT = 5;
+const RATE_LIMIT_WINDOW = 24 * 60 * 60 * 1000; 
 
 const buildSystemPrompt = () => {
   const projectList = projects.map((p, i) => `${i + 1}. ${p.title} (${p.status}): ${p.description} Tech: ${p.tech.join(", ")}. (Live: ${p.live || p.github})`).join("\n");

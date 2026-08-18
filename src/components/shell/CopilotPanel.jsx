@@ -8,7 +8,44 @@ export default function CopilotPanel() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [messagesLeft, setMessagesLeft] = useState(20);
+
+  // Persist rate limit in localStorage
+  const [messagesLeft, setMessagesLeft] = useState(() => {
+    const saved = localStorage.getItem('copilotMessagesLeft');
+    const savedDate = localStorage.getItem('copilotDate');
+    const today = new Date().toDateString();
+    
+    if (savedDate !== today) {
+      localStorage.setItem('copilotDate', today);
+      localStorage.setItem('copilotMessagesLeft', '5');
+      return 5;
+    }
+    return saved !== null ? parseInt(saved, 10) : 5;
+  });
+
+  const questionPool = [
+    "What is his biggest strength?",
+    "Tell me about his competitive programming stats",
+    "Has he won any hackathons?",
+    "Does he have any open source contributions?",
+    "What is his CGPA?",
+    "What is IronLog?",
+    "What is the Campus Resource Sharing System?",
+    "Tell me about Mini Code Judge",
+    "How can I contact Akarsh?",
+    "What are his favorite technologies?"
+  ];
+
+  const [currentSuggestions, setCurrentSuggestions] = useState([
+    "Tell me about Akarsh?",
+    "What projects has Akarsh built?",
+    "What's his tech stack?"
+  ]);
+
+  useEffect(() => {
+    localStorage.setItem('copilotMessagesLeft', messagesLeft.toString());
+  }, [messagesLeft]);
+
   const messagesEndRef = useRef(null);
   const scrollContainerRef = useRef(null);
 
@@ -19,7 +56,7 @@ export default function CopilotPanel() {
         behavior: "smooth"
       });
     }
-  }, [messages, copilotOpen]);
+  }, [messages, copilotOpen, currentSuggestions]);
 
   const sendMessage = async (userMsg) => {
     if (!userMsg.trim() || isLoading || messagesLeft <= 0) return;
@@ -48,6 +85,11 @@ export default function CopilotPanel() {
       }
 
       setMessages(prev => [...prev, { role: "assistant", content: data.reply }]);
+
+      // Generate new random suggestions
+      const shuffled = [...questionPool].sort(() => 0.5 - Math.random());
+      setCurrentSuggestions(shuffled.slice(0, 3));
+
     } catch (err) {
       setMessages(prev => [...prev, { role: "assistant", content: "Oops! I couldn't reach the server. Please try again later." }]);
     } finally {
@@ -80,21 +122,6 @@ export default function CopilotPanel() {
             </div>
             <h2>Hi! I'm Akarsh's Copilot 👋</h2>
             <p>Ask me anything about his projects, skills, experience, or achievements.</p>
-            <div className="copilot-suggestions">
-              {[
-                "Tell me about Akarsh?",
-                "What projects has Akarsh built?",
-                "Tell me about his work experience",
-                "What's his tech stack?",
-                "How can I contact Akarsh?",
-                "How can I support Akarsh?"
-              ].map(text => (
-                <button key={text} className="copilot-suggestion" onClick={() => sendMessage(text)}>
-                  <Sparkles size={12} color="#b794f6" style={{ flex: '0 0 auto', marginTop: 2 }} />
-                  <span>{text}</span>
-                </button>
-              ))}
-            </div>
           </div>
         ) : (
           messages.map((m, i) => (
@@ -113,6 +140,7 @@ export default function CopilotPanel() {
             </div>
           ))
         )}
+        
         {isLoading && (
           <div className="copilot-msg-wrapper copilot-msg-wrapper--assistant">
             <div className="copilot-msg-header">
@@ -126,6 +154,19 @@ export default function CopilotPanel() {
             </div>
           </div>
         )}
+
+        {/* Dynamic Suggestions (only show if not loading and messages left) */}
+        {!isLoading && messagesLeft > 0 && (
+          <div className="copilot-suggestions">
+            {currentSuggestions.map(text => (
+              <button key={text} className="copilot-suggestion" onClick={() => sendMessage(text)}>
+                <Sparkles size={12} color="#b794f6" style={{ flex: '0 0 auto', marginTop: 2 }} />
+                <span>{text}</span>
+              </button>
+            ))}
+          </div>
+        )}
+
         <div ref={messagesEndRef} />
       </div>
 
