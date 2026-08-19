@@ -863,6 +863,11 @@ img, svg { display: block; }
   flex-direction: column;
   overflow: hidden;
 }
+@media (min-width: 781px) {
+  .sidebar:not(.sidebar--open) {
+    display: none;
+  }
+}
 .sidebar__header {
   font-family: var(--font-mono);
   font-weight: 600;
