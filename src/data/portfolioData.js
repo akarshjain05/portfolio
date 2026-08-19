@@ -24,8 +24,8 @@ export const profile = {
 export const stats = [
   { value: "2+", label: "YEARS" },
   { value: "4+", label: "PROJECTS" },
-  { value: "650+", label: "LEETCODE" },
-  { value: "1600+", label: "CODEFORCES" },
+  { value: "∞", label: "CURIOSITY" },
+  { value: "↑", label: "ALWAYS LEARNING" },
 ];
 
 // icon values map to lucide-react components in SocialLink.jsx
