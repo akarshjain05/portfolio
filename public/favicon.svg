@@ -1,23 +1,35 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
   <defs>
-    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#330033" stop-opacity="1" />
-      <stop offset="100%" stop-color="#0a0a0f" stop-opacity="1" />
-    </radialGradient>
-    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#00ffff" />
-      <stop offset="100%" stop-color="#ff00cc" />
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19" />
+      <stop offset="100%" stop-color="#05070a" />
     </linearGradient>
-    <filter id="neon" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-      <feMerge>
-        <feMergeNode in="coloredBlur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
+
+    <!-- Mesh gradients -->
+    <linearGradient id="mesh1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6" />
+      <stop offset="100%" stop-color="#3b82f6" />
+    </linearGradient>
+    <linearGradient id="mesh2" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ec4899" />
+      <stop offset="100%" stop-color="#8b5cf6" />
+    </linearGradient>
+    <linearGradient id="mesh3" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#14b8a6" />
+      <stop offset="100%" stop-color="#3b82f6" />
+    </linearGradient>
+    
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="12" />
     </filter>
   </defs>
-  <rect width="100" height="100" rx="20" fill="url(#glow)"/>
-  <path d="M 20 20 L 80 20 L 80 80 L 20 80 Z" fill="none" stroke="#00ffff" stroke-width="2" opacity="0.5"/>
-  <path d="M 10 10 L 90 10 L 90 90 L 10 90 Z" fill="none" stroke="#ff00cc" stroke-width="4" opacity="0.8"/>
-  <text x="50" y="68" font-family="monospace, sans-serif" font-size="52" font-weight="900" text-anchor="middle" fill="url(#textGrad)" filter="url(#neon)">&lt;/&gt;</text>
+
+  <rect width="100" height="100" rx="24" fill="url(#bg)"/>
+  
+  <circle cx="40" cy="35" r="22" fill="url(#mesh1)" filter="url(#glow)" opacity="0.8"/>
+  <circle cx="70" cy="55" r="24" fill="url(#mesh2)" filter="url(#glow)" opacity="0.7"/>
+  <circle cx="35" cy="70" r="20" fill="url(#mesh3)" filter="url(#glow)" opacity="0.7"/>
+  
+  <path d="M 50 22 L 22 78 L 33 78 L 50 40 L 67 78 L 78 78 Z" fill="#ffffff" opacity="0.95"/>
+  <path d="M 36 62 L 64 62 L 60 53 L 40 53 Z" fill="#ffffff" opacity="0.95"/>
 </svg>
