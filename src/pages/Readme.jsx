@@ -5,7 +5,7 @@ const stackBadges = skillGroups.flatMap((g) => g.skills.map((s) => s.name));
 
 export default function Readme() {
   useEffect(() => {
-    document.title = "README.md : portfolio";
+    document.title = "README.md ⚡ Akarsh Jain";
   }, []);
 
   return (

@@ -4,7 +4,7 @@ import ProjectCard from "../components/ProjectCard";
 
 export default function Projects() {
   useEffect(() => {
-    document.title = "projects.js : portfolio";
+    document.title = "projects.js ⚡ Akarsh Jain";
   }, []);
 
   return (

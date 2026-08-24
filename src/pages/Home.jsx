@@ -7,7 +7,7 @@ import Typewriter from "../components/Typewriter";
 
 export default function Home() {
   useEffect(() => {
-    document.title = "akarsh : portfolio";
+    document.title = "akarsh ⚡ Akarsh Jain";
   }, []);
 
   const typewriterMessages = [

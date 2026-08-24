@@ -14,7 +14,7 @@ const BAR_COLORS = [
 
 export default function Skills() {
   useEffect(() => {
-    document.title = "skills.json : portfolio";
+    document.title = "skills.json ⚡ Akarsh Jain";
   }, []);
 
   return (
