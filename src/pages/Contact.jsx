@@ -11,7 +11,7 @@ export default function Contact() {
   const [status, setStatus] = useState(null);
 
   useEffect(() => {
-    document.title = "contact.css ⚡ Akarsh Jain";
+    document.title = "Akarsh Jain";
   }, []);
 
   useEffect(() => {

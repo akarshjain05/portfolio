@@ -4,7 +4,7 @@ import { Home as HomeIcon } from "lucide-react";
 
 export default function NotFound() {
   useEffect(() => {
-    document.title = "404 ⚡ Akarsh Jain";
+    document.title = "Akarsh Jain";
   }, []);
 
   return (

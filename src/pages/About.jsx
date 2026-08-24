@@ -4,7 +4,7 @@ import { profile, currentFocus, education } from "../data/portfolioData";
 
 export default function About() {
   useEffect(() => {
-    document.title = "about.html ⚡ Akarsh Jain";
+    document.title = "Akarsh Jain";
   }, []);
 
   return (
