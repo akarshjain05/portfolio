@@ -35,10 +35,7 @@ export default function Sidebar({ open, onNavigate }) {
           <span>Akarsh&rsquo;s Copilot</span>
           <span className="sidebar__copilot-badge">AI</span>
         </div>
-        <div className="sidebar__settings">
-          <Settings size={14} />
-          <span>Settings</span>
-        </div>
+
       </aside>
       <div
         className={`sidebar__overlay ${open ? "sidebar__overlay--visible" : ""}`}
