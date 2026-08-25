@@ -5,7 +5,7 @@ import { files } from "../../data/portfolioData";
 import { FileTypeIcon } from "../icons";
 
 export default function CommandPalette() {
-  const { commandPaletteOpen, toggleCommandPalette, openTab } = useIDE();
+  const { commandPaletteOpen, toggleCommandPalette, openTab, toggleCopilot } = useIDE();
   const [query, setQuery] = useState("");
   const inputRef = useRef(null);
 
