@@ -1,11 +1,8 @@
-import { useEffect } from "react";
+import { } from "react";
 import { projects } from "../data/portfolioData";
 import ProjectCard from "../components/ProjectCard";
 
 export default function Projects() {
-  useEffect(() => {
-    document.title = "Akarsh Jain";
-  }, []);
 
   return (
     <div className="page">

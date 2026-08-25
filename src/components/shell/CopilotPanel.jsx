@@ -46,8 +46,16 @@ export default function CopilotPanel() {
     localStorage.setItem('copilotMessagesLeft', messagesLeft.toString());
   }, [messagesLeft]);
 
-  const messagesEndRef = useRef(null);
   const scrollContainerRef = useRef(null);
+  const abortControllerRef = useRef(null);
+
+  useEffect(() => {
+    return () => {
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (copilotOpen && scrollContainerRef.current) {
@@ -61,22 +69,26 @@ export default function CopilotPanel() {
   const sendMessage = async (userMsg) => {
     if (!userMsg.trim() || isLoading || messagesLeft <= 0) return;
 
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
+    abortControllerRef.current = new AbortController();
+
     setInput("");
     setMessages(prev => [...prev, { role: "user", content: userMsg }]);
     setIsLoading(true);
-    setMessagesLeft(prev => prev - 1);
 
     try {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: userMsg })
+        body: JSON.stringify({ message: userMsg }),
+        signal: abortControllerRef.current.signal
       });
 
       const data = await res.json();
       
       if (!res.ok) {
-        // If the server sent a formatted reply (like a rate limit or missing API key message), use it
         if (data.reply) {
           setMessages(prev => [...prev, { role: "assistant", content: data.reply }]);
           return;
@@ -84,13 +96,19 @@ export default function CopilotPanel() {
         throw new Error("Failed to fetch response");
       }
 
+      setMessagesLeft(prev => prev - 1);
       setMessages(prev => [...prev, { role: "assistant", content: data.reply }]);
 
-      // Generate new random suggestions
-      const shuffled = [...questionPool].sort(() => 0.5 - Math.random());
+      // Fisher-Yates shuffle
+      const shuffled = [...questionPool];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
       setCurrentSuggestions(shuffled.slice(0, 3));
 
     } catch (err) {
+      if (err.name === 'AbortError') return;
       setMessages(prev => [...prev, { role: "assistant", content: "Oops! I couldn't reach the server. Please try again later." }]);
     } finally {
       setIsLoading(false);
@@ -167,7 +185,6 @@ export default function CopilotPanel() {
           </div>
         )}
 
-        <div ref={messagesEndRef} />
       </div>
 
       <div className="copilot-drawer__footer">

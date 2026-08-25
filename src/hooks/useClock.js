@@ -10,7 +10,7 @@ export default function useClock() {
   const [time, setTime] = useState(() => format(new Date()));
 
   useEffect(() => {
-    const id = setInterval(() => setTime(format(new Date())), 1000 * 30);
+    const id = setInterval(() => setTime(format(new Date())), 1000 * 60);
     return () => clearInterval(id);
   }, []);
 

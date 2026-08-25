@@ -1,5 +1,6 @@
 import { ExternalLink } from "lucide-react";
 import { FaGithub } from "react-icons/fa6";
+import PropTypes from "prop-types";
 
 export default function ProjectCard({ project }) {
   return (
@@ -47,3 +48,14 @@ export default function ProjectCard({ project }) {
     </article>
   );
 }
+
+ProjectCard.propTypes = {
+  project: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    icon: PropTypes.node,
+    github: PropTypes.string,
+    live: PropTypes.string,
+    tech: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }).isRequired,
+};

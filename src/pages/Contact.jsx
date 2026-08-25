@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { Send, CheckCircle2 } from "lucide-react";
 import { socials } from "../data/portfolioData";
 import SocialLink from "../components/SocialLink";
@@ -9,10 +9,6 @@ const MAILTO_TARGET = emailSocial ? emailSocial.url.replace("mailto:", "") : "";
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [status, setStatus] = useState(null);
-
-  useEffect(() => {
-    document.title = "Akarsh Jain";
-  }, []);
 
   useEffect(() => {
     if (!status) return;

@@ -1,4 +1,5 @@
 import { SocialIcon } from "./icons";
+import PropTypes from "prop-types";
 
 // `variant="pill"` -> compact icon+label pill (used on the Home page)
 // `variant="card"`  -> full contact-link card with name + value (used on Contact)
@@ -38,3 +39,12 @@ export default function SocialLink({ social, variant = "pill" }) {
     </a>
   );
 }
+
+SocialLink.propTypes = {
+  social: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
+    icon: PropTypes.string.isRequired,
+  }).isRequired,
+  variant: PropTypes.oneOf(["pill", "card"]),
+};

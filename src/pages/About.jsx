@@ -1,11 +1,8 @@
-import { useEffect } from "react";
+import { } from "react";
 import { GraduationCap, MapPin } from "lucide-react";
 import { profile, currentFocus, education } from "../data/portfolioData";
 
 export default function About() {
-  useEffect(() => {
-    document.title = "Akarsh Jain";
-  }, []);
 
   return (
     <div className="page">

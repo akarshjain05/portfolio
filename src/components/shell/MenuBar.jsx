@@ -1,13 +1,12 @@
 import { useState, useRef, useEffect } from "react";
 import { useIDE } from "../../contexts/IDEContext";
-import { useNavigate, useLocation } from "react-router-dom";
-import { profile, socials } from "../../data/portfolioData";
+import { useLocation } from "react-router-dom";
+import { profile, socials, files } from "../../data/portfolioData";
 
 export default function MenuBar() {
   const [activeMenu, setActiveMenu] = useState(null);
   const menuRef = useRef(null);
   const { openTab, closeTab, closeAllTabs, toggleSidebar, toggleTerminal, recentFiles, toggleCommandPalette } = useIDE();
-  const navigate = useNavigate();
   const { pathname } = useLocation();
 
   // Close menu when clicking outside
@@ -39,7 +38,10 @@ export default function MenuBar() {
       { label: "New File", shortcut: "Ctrl+N", action: () => openTab("/") },
       { label: "Open File...", shortcut: "Ctrl+P", action: () => toggleCommandPalette() },
       { divider: true },
-      ...recentFiles.map(rf => ({ label: `Open Recent: ${rf}`, action: () => openTab(rf) })),
+      ...recentFiles.map(rf => {
+        const fileObj = files.find(f => f.path === rf);
+        return { label: `Open Recent: ${fileObj ? fileObj.label : rf}`, action: () => openTab(rf) };
+      }),
       { divider: true },
       { label: "Close Tab", shortcut: "Ctrl+W", action: () => closeTab(pathname) },
       { label: "Close All Tabs", action: () => closeAllTabs() },

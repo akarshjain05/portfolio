@@ -115,7 +115,7 @@ export function IDEProvider({ children }) {
     };
     window.addEventListener("keydown", handleGlobalKeyDown);
     return () => window.removeEventListener("keydown", handleGlobalKeyDown);
-  }, [toggleCommandPalette]);
+  }, [toggleCommandPalette, toggleCopilot]);
 
   const contextValue = useMemo(() => ({
     openTabs,
@@ -139,7 +139,8 @@ export function IDEProvider({ children }) {
     setTheme
   }), [
     openTabs, recentFiles, openTab, closeTab, closeAllTabs,
-    sidebarOpen, terminalOpen, commandPaletteOpen, copilotOpen, theme
+    sidebarOpen, toggleSidebar, terminalOpen, toggleTerminal, 
+    commandPaletteOpen, toggleCommandPalette, copilotOpen, toggleCopilot, theme
   ]);
 
   return (

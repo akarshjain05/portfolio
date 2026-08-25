@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { } from "react";
 import { skillGroups } from "../data/portfolioData";
 import SkillBar from "../components/SkillBar";
 
@@ -13,9 +13,6 @@ const BAR_COLORS = [
 ];
 
 export default function Skills() {
-  useEffect(() => {
-    document.title = "Akarsh Jain";
-  }, []);
 
   return (
     <div className="page">

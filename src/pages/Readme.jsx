@@ -1,12 +1,9 @@
-import { useEffect } from "react";
+import { } from "react";
 import { profile, currentFocus, skillGroups } from "../data/portfolioData";
 
 const stackBadges = skillGroups.flatMap((g) => g.skills.map((s) => s.name));
 
 export default function Readme() {
-  useEffect(() => {
-    document.title = "Akarsh Jain";
-  }, []);
 
   return (
     <div className="page">

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { } from "react";
 import { Link } from "react-router-dom";
 import { FolderKanban, User, Mail } from "lucide-react";
 import { profile, stats, socials } from "../data/portfolioData";
@@ -6,9 +6,6 @@ import SocialLink from "../components/SocialLink";
 import Typewriter from "../components/Typewriter";
 
 export default function Home() {
-  useEffect(() => {
-    document.title = "Akarsh Jain";
-  }, []);
 
   const typewriterMessages = [
     "Building intelligent backend systems",

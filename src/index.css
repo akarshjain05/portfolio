@@ -1351,3 +1351,51 @@ img, svg { display: block; }
   .btn-row { flex-direction: column; }
   .btn { justify-content: center; }
 }
+
+/* ───────────────────────────── EMPTY STATE ───────────────────────────── */
+.empty-state-wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  margin-top: 10vh;
+}
+.empty-state-logo {
+  opacity: 0.1;
+  margin-bottom: 20px;
+}
+.empty-state-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text-secondary);
+}
+.empty-state-desc {
+  font-size: 14px;
+  margin-bottom: 32px;
+}
+.empty-state-shortcuts {
+  display: flex;
+  gap: 24px;
+  font-size: 13px;
+}
+.empty-state-labels {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-end;
+}
+.empty-state-keys {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  color: var(--text-secondary);
+}
+.empty-state-kbd {
+  background: var(--bg-hover);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
