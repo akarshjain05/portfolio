@@ -105,6 +105,17 @@ export const projects = [
     tech: ["FastAPI", "PostgreSQL", "Docker", "Redis/RQ", "JWT", "Gemini API", "OAuth"],
     github: "https://github.com/akarshjain05/mini-code-judge",
     live: "https://mini-code-judge-frontend.onrender.com",
+  },
+  {
+    id: "sentinel-review",
+    icon: "🛡️",
+    status: "shipped",
+    tags: ["FULL STACK", "AI", "SECURITY"],
+    title: "SentinelReview",
+    description: "An agentic security code review tool for GitHub Pull Requests powered by a 7-agent LangGraph architecture. It grounds vulnerability claims in authoritative sources like OWASP, autonomously generates patches in a secure sandbox, and posts actionable reviews directly to GitHub.",
+    tech: ["FastAPI", "React/Vite", "LangGraph", "LiteLLM", "Docker", "PostgreSQL/pgvector", "Redis/RQ", "GitHub Apps"],
+    github: "https://github.com/akarshjain05/sentinelreview",
+    live: null,
   }
 ];
 
