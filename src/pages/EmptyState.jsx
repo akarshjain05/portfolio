@@ -6,7 +6,7 @@ export default function EmptyState() {
 
   return (
     <div className="page" style={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", color: "var(--text-muted)", marginTop: "10vh" }}>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React Logo" width={80} style={{ opacity: 0.1, marginBottom: 20 }} />
+      <img src="/react-icon.svg" alt="React Logo" width={80} style={{ opacity: 0.1, marginBottom: 20 }} />
       <h2 style={{ fontSize: "24px", fontWeight: "600", marginBottom: "8px", color: "var(--text-secondary)" }}>Akarsh Jain</h2>
       <p style={{ fontSize: "14px", marginBottom: "32px" }}>Select a file from the sidebar to start</p>
       
