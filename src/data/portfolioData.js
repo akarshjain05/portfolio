@@ -116,18 +116,8 @@ export const projects = [
     tech: ["FastAPI", "React/Vite", "LangGraph", "LiteLLM", "Docker", "PostgreSQL/pgvector", "Redis/RQ", "GitHub Apps"],
     github: "https://github.com/akarshjain05/sentinelreview",
     live: null,
-  },
-  {
-    id: "ai-software-factory",
-    icon: "🏭",
-    status: "shipped",
-    tags: ["AI", "ORCHESTRATION", "FULL STACK"],
-    title: "Autonomous AI Software Factory",
-    description: "An agentic platform that takes natural-language requirements and autonomously plans, decomposes, implements, tests, and integrates them. Uses a stateful LangGraph orchestrator with a deterministic task DAG, model router, and isolated Docker sandbox to optimize reasoning and token usage.",
-    tech: ["FastAPI", "React/TypeScript", "Vite", "LangGraph", "Docker", "PostgreSQL", "LiteLLM"],
-    github: "https://github.com/akarshjain05/autonomous-ai-software-factory",
-    live: null,
   }
+
 ];
 
 export const skillGroups = [
