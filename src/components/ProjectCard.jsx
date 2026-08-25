@@ -32,13 +32,7 @@ export default function ProjectCard({ project }) {
         </div>
       </div>
 
-      <div className="project-card__tags">
-        {project.tags.join(" · ")}
-        <span className={`status-dot status-dot--${project.status}`}>
-          <i />
-          {project.status === "shipped" ? "shipped" : "building"}
-        </span>
-      </div>
+
 
       <h3 className="project-card__title">{project.title}</h3>
       <p className="project-card__desc">{project.description}</p>
