@@ -1,15 +1,23 @@
 import { GoogleGenAI } from '@google/genai';
+import { Redis } from '@upstash/redis';
 import { profile, projects, skillGroups, socials, education } from '../src/data/portfolioData.js';
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
-// Simple in-memory rate limiting map
-// Maps IP to { count: number, resetTime: number }
-const rateLimitMap = new Map();
+// Vercel KV / Upstash Redis for persistent rate limiting
+const redis = (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) 
+  ? new Redis({
+      url: process.env.KV_REST_API_URL,
+      token: process.env.KV_REST_API_TOKEN,
+    })
+  : null;
+
+// Fallback in-memory map (will leak/reset in serverless, but keeps app alive without KV)
+const fallbackRateLimitMap = new Map();
 
 // 5 requests per 24 hours per IP
 const RATE_LIMIT = 5;
-const RATE_LIMIT_WINDOW = 24 * 60 * 60 * 1000; 
+const RATE_LIMIT_WINDOW_SEC = 24 * 60 * 60; // 24 hours in seconds
 
 const buildSystemPrompt = () => {
   const projectList = projects.map((p, i) => `${i + 1}. ${p.title} (${p.status}): ${p.description} Tech: ${p.tech.join(", ")}. (Live: ${p.live || p.github})`).join("\n");
@@ -44,21 +52,43 @@ export default async function handler(req, res) {
 
   // Rate Limiting Logic
   const ip = req.headers['x-forwarded-for'] || req.socket?.remoteAddress || 'unknown';
-  const now = Date.now();
-  
-  if (!rateLimitMap.has(ip)) {
-    rateLimitMap.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW });
+  let rateLimited = false;
+
+  if (redis && ip !== 'unknown') {
+    const key = `ratelimit:${ip}`;
+    try {
+      const current = await redis.incr(key);
+      if (current === 1) {
+        await redis.expire(key, RATE_LIMIT_WINDOW_SEC);
+      }
+      if (current > RATE_LIMIT) {
+        rateLimited = true;
+      }
+    } catch (e) {
+      console.error("Redis rate limit error:", e);
+    }
   } else {
-    const data = rateLimitMap.get(ip);
-    if (now > data.resetTime) {
-      // Reset window
-      rateLimitMap.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW });
+    // Fallback logic for local dev or missing KV
+    const now = Date.now();
+    const RATE_LIMIT_WINDOW_MS = RATE_LIMIT_WINDOW_SEC * 1000;
+    
+    if (fallbackRateLimitMap.size > 1000) fallbackRateLimitMap.clear(); // Leak prevention
+    
+    if (!fallbackRateLimitMap.has(ip)) {
+      fallbackRateLimitMap.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW_MS });
     } else {
-      data.count++;
-      if (data.count > RATE_LIMIT) {
-        return res.status(429).json({ reply: "You're sending messages too fast! Please try again later." });
+      const data = fallbackRateLimitMap.get(ip);
+      if (now > data.resetTime) {
+        fallbackRateLimitMap.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW_MS });
+      } else {
+        data.count++;
+        if (data.count > RATE_LIMIT) rateLimited = true;
       }
     }
+  }
+
+  if (rateLimited) {
+    return res.status(429).json({ reply: "You're sending messages too fast! Please try again later." });
   }
 
   try {
