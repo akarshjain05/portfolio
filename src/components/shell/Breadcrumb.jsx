@@ -1,14 +1,11 @@
-import { useLocation } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
-import { files, repoName } from "../../data/portfolioData";
+import { repoName } from "../../data/portfolioData";
+import { useActiveFile } from "../../hooks/useActiveFile";
 
 export default function Breadcrumb() {
-  const { pathname } = useLocation();
-  const active =
-    files.find((f) => (f.path === "/" ? pathname === "/" : pathname.startsWith(f.path))) ||
-    files[0];
+  const { activeFile } = useActiveFile();
 
-  const crumbs = [repoName, "src", "pages", active.label];
+  const crumbs = [repoName, "src", "pages", activeFile.label];
 
   return (
     <div className="breadcrumb">

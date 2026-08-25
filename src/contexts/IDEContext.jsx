@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useCallback, useEffect } from "react";
+import React, { createContext, useContext, useState, useCallback, useEffect, useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { files } from "../data/portfolioData";
 
@@ -24,16 +24,18 @@ export function IDEProvider({ children }) {
     const currentPath = location.pathname;
     if (currentPath !== "*" && currentPath !== "/empty") {
       if (files.some(f => f.path === currentPath)) {
-        if (!openTabs.includes(currentPath)) {
-          setOpenTabs(prev => [...prev, currentPath]);
-        }
+        setOpenTabs(prev => {
+          if (!prev.includes(currentPath)) return [...prev, currentPath];
+          return prev;
+        });
         setRecentFiles(prev => {
+          if (prev[0] === currentPath) return prev;
           const filtered = prev.filter(p => p !== currentPath);
           return [currentPath, ...filtered].slice(0, 5); // Keep top 5 recent
         });
       }
     }
-  }, [location.pathname, openTabs]);
+  }, [location.pathname]);
 
   // Apply theme to document
   useEffect(() => {
@@ -115,30 +117,33 @@ export function IDEProvider({ children }) {
     return () => window.removeEventListener("keydown", handleGlobalKeyDown);
   }, [toggleCommandPalette]);
 
+  const contextValue = useMemo(() => ({
+    openTabs,
+    recentFiles,
+    openTab,
+    closeTab,
+    closeAllTabs,
+    sidebarOpen,
+    setSidebarOpen,
+    toggleSidebar,
+    terminalOpen,
+    setTerminalOpen,
+    toggleTerminal,
+    commandPaletteOpen,
+    setCommandPaletteOpen,
+    toggleCommandPalette,
+    copilotOpen,
+    setCopilotOpen,
+    toggleCopilot,
+    theme,
+    setTheme
+  }), [
+    openTabs, recentFiles, openTab, closeTab, closeAllTabs,
+    sidebarOpen, terminalOpen, commandPaletteOpen, copilotOpen, theme
+  ]);
+
   return (
-    <IDEContext.Provider
-      value={{
-        openTabs,
-        recentFiles,
-        openTab,
-        closeTab,
-        closeAllTabs,
-        sidebarOpen,
-        setSidebarOpen,
-        toggleSidebar,
-        terminalOpen,
-        setTerminalOpen,
-        toggleTerminal,
-        commandPaletteOpen,
-        setCommandPaletteOpen,
-        toggleCommandPalette,
-        copilotOpen,
-        setCopilotOpen,
-        toggleCopilot,
-        theme,
-        setTheme
-      }}
-    >
+    <IDEContext.Provider value={contextValue}>
       {children}
     </IDEContext.Provider>
   );

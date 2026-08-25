@@ -1,12 +1,14 @@
 import { useState, useRef, useEffect } from "react";
 import { useIDE } from "../../contexts/IDEContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { profile, socials } from "../../data/portfolioData";
 
 export default function MenuBar() {
   const [activeMenu, setActiveMenu] = useState(null);
   const menuRef = useRef(null);
   const { openTab, closeTab, closeAllTabs, toggleSidebar, toggleTerminal, recentFiles, toggleCommandPalette } = useIDE();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -39,10 +41,10 @@ export default function MenuBar() {
       { divider: true },
       ...recentFiles.map(rf => ({ label: `Open Recent: ${rf}`, action: () => openTab(rf) })),
       { divider: true },
-      { label: "Close Tab", shortcut: "Ctrl+W", action: () => closeTab(window.location.pathname) },
+      { label: "Close Tab", shortcut: "Ctrl+W", action: () => closeTab(pathname) },
       { label: "Close All Tabs", action: () => closeAllTabs() },
       { divider: true },
-      { label: "Download Resume", action: () => window.open("https://akarshjain05.github.io/portfolio/Akarsh_Resume.pdf", "_blank") },
+      { label: "Download Resume", action: () => window.open(profile.resumeUrl, "_blank") },
     ],
     Edit: [
       { label: "Undo", shortcut: "Ctrl+Z", action: () => {} },
@@ -71,6 +73,8 @@ export default function MenuBar() {
       { label: "Go to About", action: () => openTab("/about") },
       { label: "Go to Projects", action: () => openTab("/projects") },
       { label: "Go to Skills", action: () => openTab("/skills") },
+      { label: "Go to Contact", action: () => openTab("/contact") },
+      { label: "Go to Readme", action: () => openTab("/readme") },
     ],
     Run: [
       { label: "Start Terminal", action: () => toggleTerminal() },
@@ -81,7 +85,7 @@ export default function MenuBar() {
     ],
     Help: [
       { label: "Welcome", action: () => openTab("/") },
-      { label: "About Author", action: () => window.open("https://github.com/akarshjain05", "_blank") },
+      { label: "About Author", action: () => window.open(socials.find(s => s.name === "GitHub")?.url, "_blank") },
     ],
   };
 

@@ -1,22 +1,15 @@
 import { useState, useRef, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { GitBranch, RefreshCw, AlertTriangle, Sparkles, Clock, Palette } from "lucide-react";
-import { files, repoName } from "../../data/portfolioData";
+import { repoName } from "../../data/portfolioData";
 import useClock from "../../hooks/useClock";
 import { useIDE } from "../../contexts/IDEContext";
-
-const THEMES = [
-  { id: "akarsh-dark", name: "Akarsh Dark", icon: "💜" },
-  { id: "midnight-hacker", name: "Midnight Hacker", icon: "💻" },
-  { id: "crimson-forge", name: "Crimson Forge", icon: "🔥" },
-  { id: "cobalt-blue", name: "Cobalt Blue", icon: "🌊" },
-  { id: "amethyst", name: "Amethyst", icon: "🔮" }
-];
+import { useActiveFile } from "../../hooks/useActiveFile";
+import ThemePicker, { THEMES } from "../ThemePicker";
 
 export default function StatusBar() {
-  const { pathname } = useLocation();
   const time = useClock();
-  const { toggleCopilot, theme, setTheme } = useIDE();
+  const { toggleCopilot, theme } = useIDE();
   const [themePickerOpen, setThemePickerOpen] = useState(false);
   const themeMenuRef = useRef(null);
 
@@ -30,9 +23,7 @@ export default function StatusBar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
   
-  const active =
-    files.find((f) => (f.path === "/" ? pathname === "/" : pathname.startsWith(f.path))) ||
-    files[0];
+  const { activeFile } = useActiveFile();
 
   const currentTheme = THEMES.find(t => t.id === theme) || THEMES[0];
 
@@ -56,7 +47,7 @@ export default function StatusBar() {
           <Sparkles size={12} />
           Copilot
         </span>
-        <span className="statusbar__item">{active.lang}</span>
+        <span className="statusbar__item">{activeFile.lang}</span>
         <span className="statusbar__item statusbar__hide-xs">UTF-8</span>
         <span className="statusbar__item statusbar__hide-sm">Prettier</span>
         
@@ -73,17 +64,7 @@ export default function StatusBar() {
             <div className="settings-menu" style={{ bottom: "100%", right: "0", left: "auto", marginBottom: "5px", width: "200px" }}>
               <div className="settings-menu__group">
                 <div className="settings-menu__title">COLOR THEME</div>
-                {THEMES.map(t => (
-                  <button 
-                    key={t.id} 
-                    className={`settings-menu__item ${theme === t.id ? "active" : ""}`}
-                    onClick={() => { setTheme(t.id); setThemePickerOpen(false); }}
-                  >
-                    <div className={`theme-circle theme-circle--${t.id}`}></div>
-                    <span>{t.icon} {t.name}</span>
-                    {theme === t.id && <span className="settings-menu__check">✓</span>}
-                  </button>
-                ))}
+                <ThemePicker onSelect={() => setThemePickerOpen(false)} />
               </div>
             </div>
           )}
