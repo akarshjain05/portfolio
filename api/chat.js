@@ -98,6 +98,14 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Message is required' });
     }
 
+    if (typeof message !== 'string') {
+      return res.status(400).json({ error: 'Message must be a string' });
+    }
+
+    if (message.length > 500) {
+      return res.status(400).json({ error: 'Message too long (max 500 characters)' });
+    }
+
     if (!process.env.GEMINI_API_KEY) {
       return res.status(500).json({ reply: "The API key hasn't been configured yet! The owner needs to add GEMINI_API_KEY to their Vercel dashboard." });
     }
@@ -122,7 +130,7 @@ export default async function handler(req, res) {
       return res.status(401).json({ reply: "My API key is invalid! Please check the GEMINI_API_KEY in the Vercel dashboard." });
     }
     
-    // Otherwise return the general error message
-    res.status(500).json({ reply: `Server Error: ${error.message}` });
+    // Otherwise return a generic error message so we don't leak internals
+    res.status(500).json({ reply: "An internal server error occurred while processing your request." });
   }
 }

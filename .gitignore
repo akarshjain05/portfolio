@@ -27,3 +27,9 @@ repomix-output.*
 *.njsproj
 *.sln
 *.sw?
+playwright-report/
+test-results/
+screenshot.png
+dom.html
+dump-dom.*
+
