@@ -18,7 +18,6 @@ export default function Sidebar({ open, onNavigate }) {
                   key={file.id}
                   href={file.downloadUrl}
                   download={file.label}
-                  onClick={onNavigate}
                   className="sidebar__item"
                 >
                   <span className="sidebar__icon">
