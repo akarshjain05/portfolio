@@ -71,12 +71,19 @@ export default function MenuBar() {
       }},
     ],
     Go: [
-      { label: "Go to Home", action: () => openTab("/") },
-      { label: "Go to About", action: () => openTab("/about") },
-      { label: "Go to Projects", action: () => openTab("/projects") },
-      { label: "Go to Skills", action: () => openTab("/skills") },
-      { label: "Go to Contact", action: () => openTab("/contact") },
-      { label: "Go to Readme", action: () => openTab("/readme") },
+      { label: "Go to File...", shortcut: "Ctrl+P", action: () => toggleCommandPalette() },
+      { divider: true },
+      { label: "FILES", isHeading: true },
+      ...files.map(file => ({
+        label: file.label,
+        action: () => {
+          if (file.isDownload) {
+            window.open(file.downloadUrl, '_blank');
+          } else {
+            openTab(file.path);
+          }
+        }
+      }))
     ],
     Run: [
       { label: "Start Terminal", action: () => toggleTerminal() },
