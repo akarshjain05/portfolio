@@ -14,7 +14,7 @@ export default function Readme() {
         </p>
 
         <div className="readme-card__badges">
-          {["Python", "C++", "JavaScript", "FastAPI", "LangGraph"].map((b) => (
+          {["Python", "C++", "JavaScript", "FastAPI", "AWS"].map((b) => (
             <span className="readme-badge" key={b}>
               {b}
             </span>
