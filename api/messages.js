@@ -39,6 +39,21 @@ export default async function handler(req, res) {
     };
     
     if (hasRedis) {
+      // Basic rate limiting: max 3 messages per hour per IP
+      const ip = req.headers['x-forwarded-for'] || 'unknown';
+      if (ip !== 'unknown') {
+        const rlKey = `rate_limit:${ip}`;
+        const requests = await redis.incr(rlKey);
+        
+        if (requests === 1) {
+          await redis.expire(rlKey, 3600); // expire after 1 hour
+        }
+        
+        if (requests > 3) {
+          return res.status(429).json({ error: 'Rate limit exceeded. Please try again later.' });
+        }
+      }
+      
       await redis.lpush('portfolio_messages', newMessage);
     } else {
       memoryMessages.unshift(newMessage);

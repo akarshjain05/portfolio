@@ -72,85 +72,85 @@ export default function Contact() {
 
         <div>
           <h2 className="skill-group__title">SEND A MESSAGE</h2>
-          {status?.type === "ok" ? (
-            <div style={{
-              background: "#233931",
-              color: "#4bd9a5",
-              padding: "16px 20px",
-              borderRadius: "6px",
-              fontFamily: "var(--font-mono)",
-              fontSize: "14px",
-              marginTop: "8px"
-            }}>
-              &rarr; Sent! :)
+          <form onSubmit={handleSubmit} noValidate={false}>
+            <div className="field">
+              <label className="field__label" htmlFor="name">
+                YOUR_NAME <span className="req">*</span>
+              </label>
+              <input
+                id="name"
+                className="field__input"
+                placeholder="string"
+                required
+                value={form.name}
+                onChange={update("name")}
+              />
             </div>
-          ) : (
-            <form onSubmit={handleSubmit} noValidate={false}>
-              <div className="field">
-                <label className="field__label" htmlFor="name">
-                  YOUR_NAME <span className="req">*</span>
-                </label>
-                <input
-                  id="name"
-                  className="field__input"
-                  placeholder="string"
-                  required
-                  value={form.name}
-                  onChange={update("name")}
-                />
-              </div>
-              <div className="field">
-                <label className="field__label" htmlFor="email">
-                  YOUR_EMAIL <span className="req">*</span>
-                </label>
-                <input
-                  id="email"
-                  type="email"
-                  className="field__input"
-                  placeholder="string"
-                  required
-                  value={form.email}
-                  onChange={update("email")}
-                />
-              </div>
-              <div className="field">
-                <label className="field__label" htmlFor="subject">
-                  SUBJECT
-                </label>
-                <input
-                  id="subject"
-                  className="field__input"
-                  placeholder="string"
-                  value={form.subject}
-                  onChange={update("subject")}
-                />
-              </div>
-              <div className="field">
-                <label className="field__label" htmlFor="message">
-                  MESSAGE <span className="req">*</span>
-                </label>
-                <textarea
-                  id="message"
-                  className="field__textarea"
-                  placeholder="'''your message'''"
-                  required
-                  value={form.message}
-                  onChange={update("message")}
-                />
-              </div>
+            <div className="field">
+              <label className="field__label" htmlFor="email">
+                YOUR_EMAIL <span className="req">*</span>
+              </label>
+              <input
+                id="email"
+                type="email"
+                className="field__input"
+                placeholder="string"
+                required
+                value={form.email}
+                onChange={update("email")}
+              />
+            </div>
+            <div className="field">
+              <label className="field__label" htmlFor="subject">
+                SUBJECT
+              </label>
+              <input
+                id="subject"
+                className="field__input"
+                placeholder="string"
+                value={form.subject}
+                onChange={update("subject")}
+              />
+            </div>
+            <div className="field">
+              <label className="field__label" htmlFor="message">
+                MESSAGE <span className="req">*</span>
+              </label>
+              <textarea
+                id="message"
+                className="field__textarea"
+                placeholder="'''your message'''"
+                required
+                value={form.message}
+                onChange={update("message")}
+              />
+            </div>
 
-              <button type="submit" className="send-btn" disabled={status?.type === "sending"}>
-                <Send size={15} />
-                {status?.type === "sending" ? "sending..." : "send_message()"}
-              </button>
+            <button type="submit" className="send-btn" disabled={status?.type === "sending" || status?.type === "ok"}>
+              <Send size={15} />
+              {status?.type === "sending" ? "sending..." : "send_message()"}
+            </button>
 
-              {status?.type === "error" && (
-                <div className="form-status" style={{ color: "var(--pink)", marginTop: "12px", fontSize: "13px" }}>
-                  {status.message}
-                </div>
-              )}
-            </form>
-          )}
+            {status?.type === "error" && (
+              <div className="form-status" style={{ color: "var(--pink)", marginTop: "12px", fontSize: "13px" }}>
+                {status.message}
+              </div>
+            )}
+            
+            {status?.type === "ok" && (
+              <div style={{
+                background: "#233931",
+                color: "#4bd9a5",
+                padding: "16px 20px",
+                borderRadius: "6px",
+                fontFamily: "var(--font-mono)",
+                fontSize: "14px",
+                marginTop: "12px"
+              }}>
+                &rarr; Sent! :)
+              </div>
+            )}
+          </form>
         </div>
       </div>
     </div>
