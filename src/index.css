@@ -1417,3 +1417,7 @@ img, svg { display: block; }
   border-radius: 4px;
   border: 1px solid var(--border);
 }
+
+@keyframes spin { 100% { transform: rotate(360deg); } }
+.spin { animation: spin 1s linear infinite; }
+

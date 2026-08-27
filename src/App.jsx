@@ -5,6 +5,7 @@ import About from "./pages/About";
 import Projects from "./pages/Projects";
 import Skills from "./pages/Skills";
 import Contact from "./pages/Contact";
+import Messages from "./pages/Messages";
 import Readme from "./pages/Readme";
 import NotFound from "./pages/NotFound";
 import EmptyState from "./pages/EmptyState";
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="/projects" element={<Projects />} />
         <Route path="/skills" element={<Skills />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/messages" element={<Messages />} />
         <Route path="/readme" element={<Readme />} />
         <Route path="/empty" element={<EmptyState />} />
         <Route path="*" element={<NotFound />} />

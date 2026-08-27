@@ -26,38 +26,29 @@ export default function Contact() {
     setStatus({ type: "sending" });
 
     try {
-      const res = await fetch(`https://formsubmit.co/ajax/${MAILTO_TARGET}`, {
+      const res = await fetch(`/api/messages`, {
         method: "POST",
         headers: { 
-          "Content-Type": "application/json",
-          "Accept": "application/json"
+          "Content-Type": "application/json"
         },
         body: JSON.stringify({
           name: form.name,
           email: form.email,
-          _subject: form.subject.trim() || `Portfolio message from ${form.name}`,
+          subject: form.subject.trim(),
           message: form.message
         })
       });
 
       const data = await res.json();
 
-      if (res.ok && data.success === "true") {
+      if (res.ok && data.success) {
         setStatus({ type: "ok" });
         setForm({ name: "", email: "", subject: "", message: "" });
       } else {
-        setStatus({ type: "error", message: data.message || "Something went wrong." });
+        setStatus({ type: "error", message: data.error || "Something went wrong." });
       }
     } catch (err) {
-      setStatus({ type: "error", message: "FormSubmit blocked by an extension (like uBlock). Falling back to your email client..." });
-      
-      const subject = form.subject.trim() || `Portfolio message from ${form.name}`;
-      const body = `${form.message}\n\n— ${form.name} (${form.email})`;
-      const mailto = `mailto:${MAILTO_TARGET}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-      setTimeout(() => {
-        window.location.href = mailto;
-      }, 1500);
+      setStatus({ type: "error", message: "Network error. Please try again." });
     }
   }
 
@@ -81,81 +72,85 @@ export default function Contact() {
 
         <div>
           <h2 className="skill-group__title">SEND A MESSAGE</h2>
-          <form onSubmit={handleSubmit} noValidate={false}>
-            <div className="field">
-              <label className="field__label" htmlFor="name">
-                YOUR_NAME <span className="req">*</span>
-              </label>
-              <input
-                id="name"
-                className="field__input"
-                placeholder="string"
-                required
-                value={form.name}
-                onChange={update("name")}
-              />
+          {status?.type === "ok" ? (
+            <div style={{
+              background: "#233931",
+              color: "#4bd9a5",
+              padding: "16px 20px",
+              borderRadius: "6px",
+              fontFamily: "var(--font-mono)",
+              fontSize: "14px",
+              marginTop: "8px"
+            }}>
+              &rarr; Sent! :)
             </div>
-            <div className="field">
-              <label className="field__label" htmlFor="email">
-                YOUR_EMAIL <span className="req">*</span>
-              </label>
-              <input
-                id="email"
-                type="email"
-                className="field__input"
-                placeholder="string"
-                required
-                value={form.email}
-                onChange={update("email")}
-              />
-            </div>
-            <div className="field">
-              <label className="field__label" htmlFor="subject">
-                SUBJECT
-              </label>
-              <input
-                id="subject"
-                className="field__input"
-                placeholder="string"
-                value={form.subject}
-                onChange={update("subject")}
-              />
-            </div>
-            <div className="field">
-              <label className="field__label" htmlFor="message">
-                MESSAGE <span className="req">*</span>
-              </label>
-              <textarea
-                id="message"
-                className="field__textarea"
-                placeholder="'''your message'''"
-                required
-                value={form.message}
-                onChange={update("message")}
-              />
-            </div>
-
-            <button type="submit" className="send-btn" disabled={status?.type === "sending"}>
-              <Send size={15} />
-              {status?.type === "sending" ? "sending..." : "send_message()"}
-            </button>
-
-            {status?.type === "ok" && (
-              <div className="form-status form-status--ok">
-                <CheckCircle2 size={13} style={{ display: "inline", marginRight: 6, verticalAlign: -2 }} />
-                Message successfully sent! I&rsquo;ll get back to you soon.
+          ) : (
+            <form onSubmit={handleSubmit} noValidate={false}>
+              <div className="field">
+                <label className="field__label" htmlFor="name">
+                  YOUR_NAME <span className="req">*</span>
+                </label>
+                <input
+                  id="name"
+                  className="field__input"
+                  placeholder="string"
+                  required
+                  value={form.name}
+                  onChange={update("name")}
+                />
               </div>
-            )}
-            {status?.type === "error" && (
-              <div className="form-status" style={{ color: "var(--pink)", marginTop: "12px", fontSize: "13px" }}>
-                {status.message}
+              <div className="field">
+                <label className="field__label" htmlFor="email">
+                  YOUR_EMAIL <span className="req">*</span>
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  className="field__input"
+                  placeholder="string"
+                  required
+                  value={form.email}
+                  onChange={update("email")}
+                />
               </div>
-            )}
+              <div className="field">
+                <label className="field__label" htmlFor="subject">
+                  SUBJECT
+                </label>
+                <input
+                  id="subject"
+                  className="field__input"
+                  placeholder="string"
+                  value={form.subject}
+                  onChange={update("subject")}
+                />
+              </div>
+              <div className="field">
+                <label className="field__label" htmlFor="message">
+                  MESSAGE <span className="req">*</span>
+                </label>
+                <textarea
+                  id="message"
+                  className="field__textarea"
+                  placeholder="'''your message'''"
+                  required
+                  value={form.message}
+                  onChange={update("message")}
+                />
+              </div>
 
-            <p className="form-note">
-              // powered by FormSubmit — your message goes straight to my inbox!
-            </p>
-          </form>
+              <button type="submit" className="send-btn" disabled={status?.type === "sending"}>
+                <Send size={15} />
+                {status?.type === "sending" ? "sending..." : "send_message()"}
+              </button>
+
+              {status?.type === "error" && (
+                <div className="form-status" style={{ color: "var(--pink)", marginTop: "12px", fontSize: "13px" }}>
+                  {status.message}
+                </div>
+              )}
+            </form>
+          )}
         </div>
       </div>
     </div>
