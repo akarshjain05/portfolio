@@ -185,7 +185,6 @@ export const files = [
   { id: "projects", label: "projects.js", path: "/projects", lang: "JavaScript", icon: "js" },
   { id: "skills", label: "skills.json", path: "/skills", lang: "JSON", icon: "json" },
   { id: "contact", label: "contact.css", path: "/contact", lang: "CSS", icon: "css" },
-  { id: "messages", label: "messages.json", path: "/messages", lang: "JSON", icon: "json" },
   { id: "readme", label: "README.md", path: "/readme", lang: "Markdown", icon: "markdown" },
   { id: "resume", label: "Resume.pdf", path: "/resume", lang: "PDF", icon: "pdf", isDownload: true, downloadUrl: "/Resume.pdf" },
 ];
