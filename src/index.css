@@ -423,6 +423,23 @@ img, svg { display: block; }
 .menu-option:hover .menu-shortcut { color: #ffffff; opacity: 0.8; }
 .menu-shortcut { color: var(--text-muted); font-size: 11px; }
 .menu-divider { height: 1px; background: var(--border-soft); margin: 6px 0; }
+.menu-heading { 
+  font-size: 10px; 
+  color: var(--text-muted); 
+  padding: 8px 16px 4px 16px; 
+  letter-spacing: 0.05em; 
+  text-transform: uppercase; 
+}
+.menu-badge {
+  background: var(--border-soft);
+  color: var(--text-secondary);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+  min-width: 32px;
+  text-align: center;
+  font-family: var(--font-mono);
+}
 
 @media (max-width: 560px) { .menubar { display: none; } }
 

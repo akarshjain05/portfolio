@@ -83,11 +83,22 @@ export default function MenuBar() {
       { label: "Run Build Task", shortcut: "Ctrl+Shift+B", action: () => toggleTerminal() },
     ],
     Terminal: [
-      { label: "New Terminal", shortcut: "Ctrl+Shift+`", action: () => toggleTerminal() },
+      { label: "New Terminal", shortcut: "Ctrl+`", action: () => toggleTerminal() },
+      { label: "Toggle Terminal", shortcut: "Ctrl+`", action: () => toggleTerminal() },
+      { divider: true },
+      { label: "Clear Terminal", action: () => window.dispatchEvent(new Event('clear-terminal')) },
     ],
     Help: [
-      { label: "Welcome", action: () => openTab("/") },
-      { label: "About Author", action: () => window.open(socials.find(s => s.name === "GitHub")?.url, "_blank") },
+      { label: "Command Palette", shortcut: "Ctrl+P", action: () => toggleCommandPalette() },
+      { label: "KEYBOARD SHORTCUTS", isHeading: true },
+      { label: "Go to file", leftBadge: "Ctrl+P", action: () => {} },
+      { label: "Toggle sidebar", leftBadge: "Ctrl+B", action: () => {} },
+      { label: "Toggle terminal", leftBadge: "Ctrl+`", action: () => {} },
+      { label: "Toggle Copilot ✨", leftBadge: "Ctrl+Shift+C", action: () => {} },
+      { label: "Close overlay", leftBadge: "Esc", action: () => {} },
+      { divider: true },
+      { label: "GitHub ↗", action: () => window.open(socials.find(s => s.name === "GitHub")?.url, "_blank") },
+      { label: "About", action: () => openTab("/about") },
     ],
   };
 
@@ -104,20 +115,29 @@ export default function MenuBar() {
           </span>
           {activeMenu === item && (
             <div className="menu-dropdown">
-              {MENUS[item].map((menuItem, idx) =>
-                menuItem.divider ? (
-                  <div key={`div-${idx}`} className="menu-divider" />
-                ) : (
+              {MENUS[item].map((menuItem, idx) => {
+                if (menuItem.divider) return <div key={`div-${idx}`} className="menu-divider" />;
+                if (menuItem.isHeading) return (
+                  <div key={menuItem.label} className="menu-heading">
+                    {menuItem.label}
+                  </div>
+                );
+                return (
                   <div
                     key={menuItem.label}
                     className="menu-option"
-                    onClick={() => executeAction(menuItem.action)}
+                    onClick={() => menuItem.action && executeAction(menuItem.action)}
                   >
-                    <span>{menuItem.label}</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      {menuItem.leftBadge && <span className="menu-badge">{menuItem.leftBadge}</span>}
+                      <span style={{ color: menuItem.leftBadge ? 'var(--text-muted)' : 'inherit' }}>
+                        {menuItem.label}
+                      </span>
+                    </div>
                     {menuItem.shortcut && <span className="menu-shortcut">{menuItem.shortcut}</span>}
                   </div>
-                )
-              )}
+                );
+              })}
             </div>
           )}
         </div>

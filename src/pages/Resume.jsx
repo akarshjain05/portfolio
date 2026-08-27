@@ -4,7 +4,7 @@ export default function Resume() {
   return (
     <div className="page" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <iframe 
-        src="/AkarshJain.pdf" 
+        src="/Resume.pdf" 
         title="Resume" 
         width="100%" 
         height="100%" 

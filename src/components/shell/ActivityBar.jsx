@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Files, Search, GitBranch, Sparkles, Settings, Palette, Command, TerminalSquare, Maximize } from "lucide-react";
+import { Files, Search, GitBranch, Sparkles, Settings, Palette, Command, TerminalSquare, Maximize, FileDown } from "lucide-react";
 import { useIDE } from "../../contexts/IDEContext";
 import ThemePicker from "../ThemePicker";
 
@@ -50,6 +50,16 @@ export default function ActivityBar({ sidebarOpen, onToggleSidebar }) {
       <button type="button" className="activitybar__btn" aria-label="Source control" tabIndex={-1}>
         <GitBranch size={19} />
       </button>
+      <a 
+        href="/Resume.pdf"
+        target="_blank"
+        rel="noreferrer"
+        className="activitybar__btn" 
+        aria-label="Download Resume"
+        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+      >
+        <FileDown size={19} />
+      </a>
       <button 
         type="button" 
         className={`activitybar__btn ${copilotOpen ? "activitybar__btn--active" : ""}`}

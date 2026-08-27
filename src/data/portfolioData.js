@@ -19,7 +19,7 @@ export const profile = {
     "I work at the intersection of backend engineering, applied AI, and competitive programming. I care about the things demos usually skip past — correctness, edge cases, and performance — not just something that works once on stage.",
   bio: "Hi, I'm Akarsh — a Computer Science undergraduate at SVNIT Surat who builds robust systems that actually hold up under pressure. My work sits at the intersection of backend engineering, applied AI, and competitive programming. I specialize in taking systems all the way to production—from designing secure REST APIs to containerizing background job pipelines on AWS EC2. I'd much rather spend an extra evening hardening a codebase with Pytest and Redis rate-limiting than ship a fragile demo that only survives the happy path.",
   location: "India",
-  resumeUrl: "https://akarshjain05.github.io/portfolio/Akarsh_Resume.pdf",
+  resumeUrl: "/Resume.pdf",
 };
 
 export const stats = [
@@ -186,7 +186,7 @@ export const files = [
   { id: "skills", label: "skills.json", path: "/skills", lang: "JSON", icon: "json" },
   { id: "contact", label: "contact.css", path: "/contact", lang: "CSS", icon: "css" },
   { id: "readme", label: "README.md", path: "/readme", lang: "Markdown", icon: "markdown" },
-  { id: "resume", label: "AkarshJain.pdf", path: "/resume", lang: "PDF", icon: "pdf" },
+  { id: "resume", label: "Resume.pdf", path: "/resume", lang: "PDF", icon: "pdf" },
 ];
 
 export const repoName = "akarsh jain";

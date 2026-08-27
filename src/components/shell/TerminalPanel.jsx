@@ -24,6 +24,12 @@ export default function TerminalPanel() {
     }
   }, [history]);
 
+  useEffect(() => {
+    const handleClear = () => setHistory([]);
+    window.addEventListener('clear-terminal', handleClear);
+    return () => window.removeEventListener('clear-terminal', handleClear);
+  }, []);
+
   const handleCommand = (cmd) => {
     const trimmed = cmd.trim();
     if (!trimmed) return;
