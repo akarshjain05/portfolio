@@ -12,14 +12,17 @@ let memoryMessages = [
 ];
 
 export default async function handler(req, res) {
-  // Check if user has connected Upstash Redis in Vercel
-  const hasRedis = !!process.env.UPSTASH_REDIS_REST_URL;
+  // Check if user has connected Upstash Redis in Vercel (or Vercel KV)
+  const redisUrl = process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL;
+  const redisToken = process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN;
+  
+  const hasRedis = !!redisUrl && !!redisToken;
   let redis;
   
   if (hasRedis) {
     redis = new Redis({
-      url: process.env.UPSTASH_REDIS_REST_URL,
-      token: process.env.UPSTASH_REDIS_REST_TOKEN,
+      url: redisUrl,
+      token: redisToken,
     });
   }
 
