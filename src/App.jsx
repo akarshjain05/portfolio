@@ -9,10 +9,12 @@ import Readme from "./pages/Readme";
 import NotFound from "./pages/NotFound";
 import EmptyState from "./pages/EmptyState";
 import { IDEProvider } from "./contexts/IDEContext";
+import { Analytics } from "@vercel/analytics/react";
 
 export default function App() {
   return (
     <IDEProvider>
+      <Analytics />
       <Routes>
         <Route element={<EditorShell />}>
         <Route path="/" element={<Home />} />
