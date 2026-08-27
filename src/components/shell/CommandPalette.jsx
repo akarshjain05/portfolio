@@ -24,8 +24,12 @@ export default function CommandPalette() {
       f.path.toLowerCase().includes(query.toLowerCase())
   );
 
-  const handleSelect = (path) => {
-    openTab(path);
+  const handleSelect = (file) => {
+    if (file.isDownload) {
+      window.open(file.downloadUrl, '_blank');
+    } else {
+      openTab(file.path);
+    }
     toggleCommandPalette();
   };
 
@@ -64,7 +68,7 @@ export default function CommandPalette() {
             <div
               key={file.id}
               className="palette-item"
-              onClick={() => handleSelect(file.path)}
+              onClick={() => handleSelect(file)}
             >
               <FileTypeIcon type={file.icon} />
               <span>{file.label}</span>

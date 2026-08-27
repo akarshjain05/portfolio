@@ -6,7 +6,6 @@ import Projects from "./pages/Projects";
 import Skills from "./pages/Skills";
 import Contact from "./pages/Contact";
 import Readme from "./pages/Readme";
-import Resume from "./pages/Resume";
 import NotFound from "./pages/NotFound";
 import EmptyState from "./pages/EmptyState";
 import { IDEProvider } from "./contexts/IDEContext";
@@ -22,7 +21,6 @@ export default function App() {
         <Route path="/skills" element={<Skills />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/readme" element={<Readme />} />
-        <Route path="/resume" element={<Resume />} />
         <Route path="/empty" element={<EmptyState />} />
         <Route path="*" element={<NotFound />} />
       </Route>

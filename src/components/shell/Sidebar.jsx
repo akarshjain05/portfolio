@@ -11,24 +11,41 @@ export default function Sidebar({ open, onNavigate }) {
       <aside className={`sidebar ${open ? "sidebar--open" : ""}`}>
         <div className="sidebar__header">{repoName.toUpperCase()}</div>
         <nav className="sidebar__list">
-          {files.map((file) => (
-            <NavLink
-              key={file.id}
-              to={file.path}
-              end={file.path === "/"}
-              onClick={onNavigate}
-              className={({ isActive }) =>
-                `sidebar__item ${isActive ? "sidebar__item--active" : ""}`
-              }
-            >
-              <span className="sidebar__icon">
-                <FileTypeIcon type={file.icon} />
-              </span>
-              <span className="sidebar__label">
-                {file.label}
-              </span>
-            </NavLink>
-          ))}
+          {files.map((file) => {
+            if (file.isDownload) {
+              return (
+                <a
+                  key={file.id}
+                  href={file.downloadUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={onNavigate}
+                  className="sidebar__item"
+                >
+                  <span className="sidebar__icon">
+                    <FileTypeIcon type={file.icon} />
+                  </span>
+                  <span className="sidebar__label">{file.label}</span>
+                </a>
+              );
+            }
+            return (
+              <NavLink
+                key={file.id}
+                to={file.path}
+                end={file.path === "/"}
+                onClick={onNavigate}
+                className={({ isActive }) =>
+                  `sidebar__item ${isActive ? "sidebar__item--active" : ""}`
+                }
+              >
+                <span className="sidebar__icon">
+                  <FileTypeIcon type={file.icon} />
+                </span>
+                <span className="sidebar__label">{file.label}</span>
+              </NavLink>
+            );
+          })}
         </nav>
         <div className="sidebar__copilot" onClick={toggleCopilot} style={{cursor: 'pointer'}}>
           <Sparkles size={14} color="#b794f6" />
