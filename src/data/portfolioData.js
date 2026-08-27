@@ -75,16 +75,6 @@ export const education = [
 
 export const projects = [
   {
-    id: "nostroq",
-    icon: "⚛️",
-    status: "shipped",
-    tags: ["QUANTUM", "FINTECH", "OPTIMIZATION"],
-    title: "NostroQ – Quantum-Ready Liquidity Intelligence",
-    description: "A decision-support prototype for cross-border payments. Models nostro pre-funding allocation as a QUBO problem, solving it with a from-scratch simulated annealing implementation. Features graph-aware QAOA decomposition, real forecasting from seeded transactions, and a deterministic agentic layer without LLMs.",
-    tech: ["Python", "FastAPI", "Qiskit Aer", "React", "SQLite", "Docker", "Pytest", "Tailwind CSS"],
-    github: "https://github.com/akarshjain05/Quantum-Annealing",
-  },
-  {
     id: "gym-progress",
     icon: "📈",
     status: "shipped",
@@ -107,15 +97,14 @@ export const projects = [
     live: "https://13-48-123-128.sslip.io/",
   },
   {
-    id: "mini-code-judge",
-    icon: "⚖️",
+    id: "nostroq",
+    icon: "⚛️",
     status: "shipped",
-    tags: ["FULL STACK", "SECURITY", "COMPETITIVE PROGRAMMING"],
-    title: "Mini Code Judge",
-    description: "A competitive-programming judge in the spirit of Codeforces/LeetCode that runs untrusted C/C++/Java/Python submissions in resource-capped, network-isolated Docker sandboxes with an automatic OS-level fallback, returning verdicts via Redis/RQ-queued, horizontally-scalable workers. Includes Gemini-powered AI code review.",
-    tech: ["FastAPI", "PostgreSQL", "Docker", "Redis/RQ", "JWT", "Gemini API", "OAuth"],
-    github: "https://github.com/akarshjain05/mini-code-judge",
-    live: "https://mini-code-judge-frontend.onrender.com",
+    tags: ["QUANTUM", "FINTECH", "OPTIMIZATION"],
+    title: "NostroQ – Quantum-Ready Liquidity Intelligence",
+    description: "A decision-support prototype for cross-border payments. Models nostro pre-funding allocation as a QUBO problem, solving it with a from-scratch simulated annealing implementation. Features graph-aware QAOA decomposition, real forecasting from seeded transactions, and a deterministic agentic layer without LLMs.",
+    tech: ["Python", "FastAPI", "Qiskit Aer", "React", "SQLite", "Docker", "Pytest", "Tailwind CSS"],
+    github: "https://github.com/akarshjain05/Quantum-Annealing",
   },
   {
     id: "sentinel-review",
@@ -127,8 +116,18 @@ export const projects = [
     tech: ["FastAPI", "React/Vite", "LangGraph", "LiteLLM", "Docker", "PostgreSQL/pgvector", "Redis/RQ", "GitHub Apps"],
     github: "https://github.com/akarshjain05/sentinelreview",
     live: null,
+  },
+  {
+    id: "mini-code-judge",
+    icon: "⚖️",
+    status: "shipped",
+    tags: ["FULL STACK", "SECURITY", "COMPETITIVE PROGRAMMING"],
+    title: "Mini Code Judge",
+    description: "A competitive-programming judge in the spirit of Codeforces/LeetCode that runs untrusted C/C++/Java/Python submissions in resource-capped, network-isolated Docker sandboxes with an automatic OS-level fallback, returning verdicts via Redis/RQ-queued, horizontally-scalable workers. Includes Gemini-powered AI code review.",
+    tech: ["FastAPI", "PostgreSQL", "Docker", "Redis/RQ", "JWT", "Gemini API", "OAuth"],
+    github: "https://github.com/akarshjain05/mini-code-judge",
+    live: "https://mini-code-judge-frontend.onrender.com",
   }
-
 ];
 
 export const skillGroups = [
