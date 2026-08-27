@@ -49,7 +49,15 @@ export default function Contact() {
         setStatus({ type: "error", message: data.message || "Something went wrong." });
       }
     } catch (err) {
-      setStatus({ type: "error", message: "Network error or blocked by an extension. Please try again." });
+      setStatus({ type: "error", message: "FormSubmit blocked by an extension (like uBlock). Falling back to your email client..." });
+      
+      const subject = form.subject.trim() || `Portfolio message from ${form.name}`;
+      const body = `${form.message}\n\n— ${form.name} (${form.email})`;
+      const mailto = `mailto:${MAILTO_TARGET}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+      setTimeout(() => {
+        window.location.href = mailto;
+      }, 1500);
     }
   }
 
