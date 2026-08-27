@@ -186,6 +186,7 @@ export const files = [
   { id: "skills", label: "skills.json", path: "/skills", lang: "JSON", icon: "json" },
   { id: "contact", label: "contact.css", path: "/contact", lang: "CSS", icon: "css" },
   { id: "readme", label: "README.md", path: "/readme", lang: "Markdown", icon: "markdown" },
+  { id: "resume", label: "AkarshJain.pdf", path: "/resume", lang: "PDF", icon: "pdf" },
 ];
 
 export const repoName = "akarsh jain";

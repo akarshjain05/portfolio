@@ -3,7 +3,7 @@ import {
   Phone,
   FileText
 } from "lucide-react";
-import { FaGithub, FaLinkedin, FaInstagram, FaReact, FaHtml5, FaCss3Alt, FaMarkdown } from "react-icons/fa6";
+import { FaGithub, FaLinkedin, FaInstagram, FaReact, FaHtml5, FaCss3Alt, FaMarkdown, FaFilePdf } from "react-icons/fa6";
 import { SiLeetcode, SiCodeforces, SiCodechef, SiJavascript, SiTypescript } from "react-icons/si";
 import { VscJson } from "react-icons/vsc";
 
@@ -15,6 +15,7 @@ const FILE_ICONS = {
   json: VscJson,
   css: FaCss3Alt,
   markdown: FaMarkdown,
+  pdf: FaFilePdf,
 };
 
 const FILE_COLORS = {
@@ -24,6 +25,7 @@ const FILE_COLORS = {
   json: "#b794f6",
   css: "#60a5fa",
   markdown: "#60a5fa", // Changed to match the blue markdown icon in image
+  pdf: "#ef4444",
 };
 
 export function FileTypeIcon({ type, size = 15 }) {
