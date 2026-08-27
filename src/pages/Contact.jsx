@@ -20,17 +20,35 @@ export default function Contact() {
     return (e) => setForm((f) => ({ ...f, [field]: e.target.value }));
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
+    if (!form.name || !form.email || !form.message) return;
+    setStatus("sending");
 
-    const subject = form.subject.trim() || `Portfolio message from ${form.name}`;
-    const body = `${form.message}\n\n— ${form.name} (${form.email})`;
-    const mailto = `mailto:${MAILTO_TARGET}?subject=${encodeURIComponent(
-      subject
-    )}&body=${encodeURIComponent(body)}`;
+    try {
+      const res = await fetch(`https://formsubmit.co/ajax/${MAILTO_TARGET}`, {
+        method: "POST",
+        headers: { 
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          _subject: form.subject.trim() || `Portfolio message from ${form.name}`,
+          message: form.message
+        })
+      });
 
-    window.location.href = mailto;
-    setStatus("ok");
+      if (res.ok) {
+        setStatus("ok");
+        setForm({ name: "", email: "", subject: "", message: "" });
+      } else {
+        setStatus("error");
+      }
+    } catch (err) {
+      setStatus("error");
+    }
   }
 
   return (
@@ -107,21 +125,25 @@ export default function Contact() {
               />
             </div>
 
-            <button type="submit" className="send-btn">
+            <button type="submit" className="send-btn" disabled={status === "sending"}>
               <Send size={15} />
-              send_message()
+              {status === "sending" ? "sending..." : "send_message()"}
             </button>
 
             {status === "ok" && (
               <div className="form-status form-status--ok">
                 <CheckCircle2 size={13} style={{ display: "inline", marginRight: 6, verticalAlign: -2 }} />
-                Opening your email client with this filled in — hit send there to reach me.
+                Message successfully sent! I&rsquo;ll get back to you soon.
+              </div>
+            )}
+            {status === "error" && (
+              <div className="form-status" style={{ color: "var(--pink)", marginTop: "12px", fontSize: "13px" }}>
+                Oops, there was an issue sending your message. Please try again.
               </div>
             )}
 
             <p className="form-note">
-              // opens your email client — swap in a service like Formspree or EmailJS
-              in Contact.jsx if you&rsquo;d rather receive these directly
+              // powered by FormSubmit — your message goes straight to my inbox!
             </p>
           </form>
         </div>

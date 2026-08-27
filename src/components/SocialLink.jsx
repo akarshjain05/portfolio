@@ -17,12 +17,12 @@ export default function SocialLink({ social, variant = "pill" }) {
         <span className="contact-link__icon">
           <SocialIcon name={social.icon} size={18} />
         </span>
-        <span>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
           <span className="contact-link__name">{social.name.toUpperCase()}</span>
           <span className="contact-link__value">
             {social.url.replace("mailto:", "").replace("https://", "")}
           </span>
-        </span>
+        </div>
       </a>
     );
   }
