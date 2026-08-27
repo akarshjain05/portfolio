@@ -6,7 +6,7 @@ import { profile, socials, files } from "../../data/portfolioData";
 export default function MenuBar() {
   const [activeMenu, setActiveMenu] = useState(null);
   const menuRef = useRef(null);
-  const { openTab, closeTab, closeAllTabs, toggleSidebar, toggleTerminal, recentFiles, toggleCommandPalette } = useIDE();
+  const { openTab, closeTab, closeAllTabs, toggleSidebar, toggleTerminal, recentFiles, toggleCommandPalette, toggleCopilot } = useIDE();
   const { pathname } = useLocation();
 
   // Close menu when clicking outside
@@ -153,6 +153,18 @@ export default function MenuBar() {
           )}
         </div>
       ))}
+      <div style={{ position: "relative" }}>
+        <span
+          className="menubar__item"
+          onClick={() => {
+            toggleCopilot();
+            setActiveMenu(null);
+          }}
+          style={{ display: "flex", alignItems: "center", gap: "6px", color: "#b794f6" }}
+        >
+          Copilot ✨
+        </span>
+      </div>
     </div>
   );
 }
