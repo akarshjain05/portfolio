@@ -26,7 +26,12 @@ export default function CommandPalette() {
 
   const handleSelect = (file) => {
     if (file.isDownload) {
-      window.open(file.downloadUrl, '_blank');
+      const link = document.createElement("a");
+      link.href = file.downloadUrl;
+      link.download = file.label;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     } else {
       openTab(file.path);
     }

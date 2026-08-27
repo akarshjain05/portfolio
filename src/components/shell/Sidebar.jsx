@@ -17,8 +17,7 @@ export default function Sidebar({ open, onNavigate }) {
                 <a
                   key={file.id}
                   href={file.downloadUrl}
-                  target="_blank"
-                  rel="noreferrer"
+                  download={file.label}
                   onClick={onNavigate}
                   className="sidebar__item"
                 >

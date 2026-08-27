@@ -117,8 +117,13 @@ export default function TerminalPanel() {
             let targetFile = files.find(f => f.label === args[1]) || files.find(f => f.label.toLowerCase() === args[1].toLowerCase());
             if (targetFile) {
               if (targetFile.isDownload) {
-                window.open(targetFile.downloadUrl, '_blank');
-                outputLines = [`Opening ${targetFile.label}...`];
+                const link = document.createElement("a");
+                link.href = targetFile.downloadUrl;
+                link.download = targetFile.label;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                outputLines = [`Downloading ${targetFile.label}...`];
               } else {
                 openTab(targetFile.path);
                 outputLines = [`Opening ${targetFile.label} in editor...`];

@@ -52,8 +52,7 @@ export default function ActivityBar({ sidebarOpen, onToggleSidebar }) {
       </button>
       <a 
         href="/Resume.pdf"
-        target="_blank"
-        rel="noreferrer"
+        download="Resume.pdf"
         className="activitybar__btn" 
         aria-label="Download Resume"
         style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
