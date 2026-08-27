@@ -165,9 +165,9 @@ export default function MenuBar() {
             toggleCopilot();
             setActiveMenu(null);
           }}
-          style={{ display: "flex", alignItems: "center", gap: "6px", color: "#b794f6" }}
+          style={{ display: "flex", alignItems: "center", gap: "6px" }}
         >
-          Copilot ✨
+          Copilot
         </span>
       </div>
     </div>
