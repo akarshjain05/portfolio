@@ -86,8 +86,8 @@ export default function MenuBar() {
       }))
     ],
     Run: [
-      { label: "Start Terminal", action: () => toggleTerminal() },
-      { label: "Run Build Task", shortcut: "Ctrl+Shift+B", action: () => toggleTerminal() },
+      { label: "Start Terminal", shortcut: "Ctrl+`", action: () => toggleTerminal() },
+      { label: "Run Last Command", disabled: true },
     ],
     Terminal: [
       { label: "New Terminal", shortcut: "Ctrl+`", action: () => toggleTerminal() },
@@ -132,8 +132,12 @@ export default function MenuBar() {
                 return (
                   <div
                     key={menuItem.label}
-                    className="menu-option"
-                    onClick={() => menuItem.action && executeAction(menuItem.action)}
+                    className={`menu-option ${menuItem.disabled ? 'menu-option--disabled' : ''}`}
+                    onClick={() => !menuItem.disabled && menuItem.action && executeAction(menuItem.action)}
+                    style={{
+                      opacity: menuItem.disabled ? 0.5 : 1,
+                      cursor: menuItem.disabled ? 'default' : 'pointer'
+                    }}
                   >
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                       {menuItem.leftBadge && <span className="menu-badge">{menuItem.leftBadge}</span>}

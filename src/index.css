@@ -419,8 +419,8 @@ img, svg { display: block; }
   color: var(--text-secondary);
   white-space: nowrap;
 }
-.menu-option:hover { background: var(--blue); color: #ffffff; }
-.menu-option:hover .menu-shortcut { color: #ffffff; opacity: 0.8; }
+.menu-option:not(.menu-option--disabled):hover { background: var(--blue); color: #ffffff; }
+.menu-option:not(.menu-option--disabled):hover .menu-shortcut { color: #ffffff; opacity: 0.8; }
 .menu-shortcut { color: var(--text-muted); font-size: 11px; }
 .menu-divider { height: 1px; background: var(--border-soft); margin: 6px 0; }
 .menu-heading { 
