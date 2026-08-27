@@ -23,7 +23,7 @@ export default function Contact() {
   async function handleSubmit(e) {
     e.preventDefault();
     if (!form.name || !form.email || !form.message) return;
-    setStatus("sending");
+    setStatus({ type: "sending" });
 
     try {
       const res = await fetch(`https://formsubmit.co/ajax/${MAILTO_TARGET}`, {
@@ -40,14 +40,16 @@ export default function Contact() {
         })
       });
 
-      if (res.ok) {
-        setStatus("ok");
+      const data = await res.json();
+
+      if (res.ok && data.success === "true") {
+        setStatus({ type: "ok" });
         setForm({ name: "", email: "", subject: "", message: "" });
       } else {
-        setStatus("error");
+        setStatus({ type: "error", message: data.message || "Something went wrong." });
       }
     } catch (err) {
-      setStatus("error");
+      setStatus({ type: "error", message: "Network error or blocked by an extension. Please try again." });
     }
   }
 
@@ -125,20 +127,20 @@ export default function Contact() {
               />
             </div>
 
-            <button type="submit" className="send-btn" disabled={status === "sending"}>
+            <button type="submit" className="send-btn" disabled={status?.type === "sending"}>
               <Send size={15} />
-              {status === "sending" ? "sending..." : "send_message()"}
+              {status?.type === "sending" ? "sending..." : "send_message()"}
             </button>
 
-            {status === "ok" && (
+            {status?.type === "ok" && (
               <div className="form-status form-status--ok">
                 <CheckCircle2 size={13} style={{ display: "inline", marginRight: 6, verticalAlign: -2 }} />
                 Message successfully sent! I&rsquo;ll get back to you soon.
               </div>
             )}
-            {status === "error" && (
+            {status?.type === "error" && (
               <div className="form-status" style={{ color: "var(--pink)", marginTop: "12px", fontSize: "13px" }}>
-                Oops, there was an issue sending your message. Please try again.
+                {status.message}
               </div>
             )}
 
