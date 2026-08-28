@@ -32,7 +32,11 @@ export default function Sidebar({ open, onNavigate }) {
                 key={file.id}
                 to={file.path}
                 end={file.path === "/"}
-                onClick={onNavigate}
+                onClick={() => {
+                  if (window.innerWidth < 768) {
+                    onNavigate();
+                  }
+                }}
                 className={({ isActive }) =>
                   `sidebar__item ${isActive ? "sidebar__item--active" : ""}`
                 }
