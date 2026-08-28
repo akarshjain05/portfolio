@@ -100,10 +100,10 @@ export const projects = [
     id: "nostroq",
     icon: "⚛️",
     status: "shipped",
-    tags: ["QUANTUM", "FINTECH", "SECURITY", "OPTIMIZATION"],
+    tags: ["QUANTUM", "FINTECH", "SECURITY"],
     title: "NostroQ – Quantum-Ready Liquidity Intelligence",
-    description: "A decision-support prototype for cross-border payments. Models nostro pre-funding allocation as a QUBO problem, solving it with a from-scratch simulated annealing implementation. Features graph-aware QAOA decomposition, real forecasting from seeded transactions, and a deterministic agentic layer without LLMs. Hardened with production-grade security including SlowAPI token-bucket rate limiting, strict JWT-based RBAC, and structured request logging.",
-    tech: ["Python", "FastAPI", "Qiskit Aer", "React", "SlowAPI", "JWT", "Docker", "Pytest"],
+    description: "A cross-border payments prototype modeling nostro pre-funding as a QUBO problem, solved via a from-scratch simulated annealing implementation and graph-aware QAOA decomposition. Paired with a deterministic agentic layer and hardened with strict RBAC, IP rate-limiting, and structured logging.",
+    tech: ["Python", "FastAPI", "Qiskit Aer", "React", "SQLite", "Docker", "Pytest"],
     github: "https://github.com/akarshjain05/Quantum-Annealing",
   },
   {
