@@ -6,9 +6,6 @@ export default function ProjectCard({ project }) {
   return (
     <article className="project-card">
       <div className="project-card__top">
-        <span className="project-card__icon" aria-hidden="true">
-          {project.icon}
-        </span>
         <div className="project-card__links">
           {project.github && (
             <a

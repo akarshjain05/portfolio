@@ -1233,7 +1233,7 @@ img, svg { display: block; }
   display: flex;
   flex-direction: column;
 }
-.project-card__top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; gap: 10px; }
+.project-card__top { display: flex; justify-content: flex-end; align-items: flex-start; margin-bottom: 14px; gap: 10px; }
 .project-card__icon { font-size: 26px; line-height: 1; }
 .project-card__links { display: flex; gap: 8px; flex-wrap: wrap; }
 .pill-link {
