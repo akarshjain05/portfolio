@@ -24,7 +24,7 @@ export const profile = {
 
 export const stats = [
   { value: "2+", label: "YEARS" },
-  { value: "4+", label: "PROJECTS" },
+  { value: "7+", label: "PROJECTS" },
   { value: "∞", label: "CURIOSITY" },
   { value: "↑", label: "ALWAYS LEARNING" },
 ];
@@ -74,6 +74,16 @@ export const education = [
 ];
 
 export const projects = [
+  {
+    id: "wayfarer",
+    icon: "✈️",
+    status: "shipped",
+    tags: ["AI", "FULL STACK", "AGENTS"],
+    title: "Wayfarer — Agentic AI Trip Planner",
+    description: "A genuine multi-agent LangGraph workflow that researches destinations, flights, hotels, and food in parallel to assemble a costed itinerary. Features a Critic node that conditionally rejects and re-runs specific agents for targeted rework.",
+    tech: ["Python", "FastAPI", "LangGraph", "React 19", "Docker"],
+    github: "https://github.com/akarshjain05/trip-planner",
+  },
   {
     id: "enterprise-rag",
     icon: "🧠",
