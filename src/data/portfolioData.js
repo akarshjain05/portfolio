@@ -89,7 +89,7 @@ export const projects = [
     icon: "🧠",
     status: "shipped",
     tags: ["AI", "BACKEND", "SYSTEMS"],
-    title: "Enterprise RAG Architecture",
+    title: "Vellumiq – Enterprise RAG Architecture",
     description: "A production-grade Retrieval-Augmented Generation pipeline built to solve temporal hallucinations and high token costs. Features Anthropic Contextual Retrieval, semantic caching, Corrective RAG (CRAG) fallback logic, and temporal hybrid search.",
     tech: ["FastAPI", "Qdrant", "Claude 3.5", "Docker", "Pytest", "Langfuse"],
     github: "https://github.com/akarshjain05/rag",
