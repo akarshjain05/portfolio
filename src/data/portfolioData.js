@@ -150,7 +150,6 @@ export const projects = [
   },
   {
     id: "evenly",
-    icon: "💰",
     status: "shipped",
     tags: ["FULL STACK", "PWA", "FINTECH"],
     title: "Evenly – Real-Time Expense Splitter",
