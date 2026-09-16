@@ -79,7 +79,7 @@ export const projects = [
     icon: "✈️",
     status: "shipped",
     tags: ["AI", "FULL STACK", "AGENTS"],
-    title: "Wayfarer — Agentic AI Trip Planner",
+    title: "Itinero — Agentic AI Trip Planner",
     description: "A genuine multi-agent LangGraph workflow that researches destinations, flights, hotels, and food in parallel to assemble a costed itinerary. Features a Critic node that conditionally rejects and re-runs specific agents for targeted rework.",
     tech: ["Python", "FastAPI", "LangGraph", "React 19", "Docker"],
     github: "https://github.com/akarshjain05/trip-planner",
