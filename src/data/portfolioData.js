@@ -24,7 +24,7 @@ export const profile = {
 
 export const stats = [
   { value: "2+", label: "YEARS" },
-  { value: "7+", label: "PROJECTS" },
+  { value: "8+", label: "PROJECTS" },
   { value: "∞", label: "CURIOSITY" },
   { value: "↑", label: "ALWAYS LEARNING" },
 ];
@@ -147,6 +147,16 @@ export const projects = [
     tech: ["FastAPI", "PostgreSQL", "Docker", "Redis/RQ", "JWT", "Gemini API", "OAuth"],
     github: "https://github.com/akarshjain05/mini-code-judge",
     live: "https://mini-code-judge-frontend.onrender.com",
+  },
+  {
+    id: "evenly",
+    icon: "💰",
+    status: "shipped",
+    tags: ["FULL STACK", "PWA", "FINTECH"],
+    title: "Evenly – Real-Time Expense Splitter",
+    description: "A private, real-time expense splitting PWA for small groups. Features a debt simplification engine that mathematically minimizes the number of settlements, flexible splitting modes, Web Push notifications, and CSV export. Deploys serverless on Vercel with Supabase Postgres.",
+    tech: ["FastAPI", "SQLAlchemy", "PostgreSQL", "Alembic", "JWT", "Vanilla JS PWA", "Vercel", "Supabase"],
+    github: "https://github.com/akarshjain05/evenly",
   }
 ];
 
