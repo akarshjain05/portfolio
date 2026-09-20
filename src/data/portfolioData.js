@@ -24,7 +24,7 @@ export const profile = {
 
 export const stats = [
   { value: "2+", label: "YEARS" },
-  { value: "8+", label: "PROJECTS" },
+  { value: "9+", label: "PROJECTS" },
   { value: "∞", label: "CURIOSITY" },
   { value: "↑", label: "ALWAYS LEARNING" },
 ];
@@ -157,6 +157,16 @@ export const projects = [
     tech: ["FastAPI", "SQLAlchemy", "PostgreSQL", "Alembic", "JWT", "Vanilla JS PWA", "Vercel", "Supabase"],
     github: "https://github.com/akarshjain05/evenly",
     live: "https://evenly-eight.vercel.app",
+  },
+  {
+    id: "cedar-merge-gatekeeper",
+    status: "shipped",
+    tags: ["SECURITY", "SERVERLESS", "AWS"],
+    title: "Cedar Merge Gatekeeper",
+    description: "A serverless merge gatekeeper that enforces complex PR approval policies via AWS Verified Permissions (Cedar). Handles self-approval bans, path-based ownership, line-count thresholds, time-based freezes, and senior break-glass overrides — all as hot-swappable Cedar policies, no redeploy needed.",
+    tech: ["AWS Lambda", "API Gateway", "DynamoDB", "Cedar/AVP", "AWS SAM", "Python", "AWS Amplify"],
+    github: "https://github.com/akarshjain05/Cedar-Merge-Gatekeeper",
+    live: "https://main.d3ofi8gfbpsdj6.amplifyapp.com/",
   }
 ];
 
